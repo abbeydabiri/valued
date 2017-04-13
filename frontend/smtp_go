@@ -1,0 +1,283 @@
+package frontend
+
+import (
+	"valued/data"
+	"valued/database"
+	"valued/functions"
+
+	"encoding/json"
+	"fmt"
+	"html"
+	"log"
+	"net/http"
+	"strconv"
+)
+
+type Smtp struct {
+	functions.Templates
+
+	json        string
+	sessionid   string
+	mapCache    map[string]interface{}
+	mapValues   map[string]interface{}
+	mapResponse map[string]interface{}
+}
+
+func (this *Smtp) getName() string {
+	return "smtp"
+}
+
+func (this *Smtp) Process(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if httpReq.Method != "POST" {
+		http.Redirect(httpRes, httpReq, "/", http.StatusMovedPermanently)
+	}
+
+	this.json = "json/polls"
+	this.mapResponse = make(map[string]interface{})
+	httpRes.Header().Set("content-type", "application/json")
+
+	GOSESSID, _ := httpReq.Cookie(_COOKIE_)
+	this.mapCache = curdb.GetSession(GOSESSID.Value, "mapCache")
+
+	switch httpReq.FormValue("action") {
+	default:
+		fallthrough
+	case "":
+		dashboardMenu := make(map[string]interface{})
+		jsonBytes, _ := data.Asset(this.json)
+		if jsonBytes != nil {
+			err := json.Unmarshal(jsonBytes, &dashboardMenu)
+			if err != nil {
+				log.Println("Smtp: Error: " + err.Error())
+			}
+		}
+
+		searchHtml := this.search(httpReq, curdb)
+		menuHtml := strconv.Quote(string(this.Generate(dashboardMenu, nil)))
+		httpRes.Write([]byte(`{"dashboardTitle":"Smtp","dashboardMenu":` + menuHtml + `,"dashboardContent":` + searchHtml + `}`))
+		return
+
+	case "search":
+		searchHtml := this.search(httpReq, curdb)
+		httpRes.Write([]byte(`{"dashboardContent":` + searchHtml + `}`))
+		return
+
+	case "new":
+		newHtml := this.new(httpReq, curdb)
+		httpRes.Write([]byte(`{"dashboardContent":` + newHtml + `}`))
+		return
+
+	case "save":
+		this.save(httpRes, httpReq, curdb)
+		return
+
+	case "view":
+		this.view(httpRes, httpReq, curdb)
+		return
+
+	case "edit":
+		this.edit(httpRes, httpReq, curdb)
+		return
+
+	case "delete":
+		this.delete(httpRes, httpReq, curdb)
+		return
+
+	case "test":
+		this.test(httpRes, httpReq, curdb)
+		return
+	}
+
+}
+
+func (this *Smtp) search(httpReq *http.Request, curdb database.Database) string {
+	// results := make(map[string]interface{})
+
+	formSearch := make(map[string]interface{})
+	formSearch["searchtext"] = html.EscapeString(httpReq.FormValue("searchtext"))
+	// form[]
+
+	tblSmtp := new(database.Smtp)
+	xDocrequest := make(map[string]interface{})
+	xDocrequest["searchtext"] = formSearch["searchtext"]
+	xDocresult := tblSmtp.Search(xDocrequest, curdb)
+
+	for cNumber, xDoc := range xDocresult {
+		xDoc := xDoc.(map[string]interface{})
+		xDoc["number"] = cNumber
+		formSearch[cNumber+"#smtp-search-result"] = xDoc
+	}
+
+	htmlComponent := make(map[string]interface{})
+	htmlComponent["smtp-search"] = formSearch
+	return strconv.Quote(string(this.Generate(htmlComponent, nil)))
+
+}
+
+func (this *Smtp) new(httpReq *http.Request, curdb database.Database) string {
+	// results := make(map[string]interface{})
+	formNew := make(map[string]interface{})
+	formNew["smtp-edit"] = make(map[string]interface{})
+	return strconv.Quote(string(this.Generate(formNew, nil)))
+}
+
+func (this *Smtp) save(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	sMessage := ""
+	if html.EscapeString(httpReq.FormValue("title")) == "" {
+		sMessage += "SMTP Group is missing <br>"
+	}
+
+	if len(sMessage) > 0 {
+		httpRes.Write([]byte(`{"error":"` + sMessage + `"}`))
+		return
+	}
+
+	tblSmtp := new(database.Smtp)
+	xDoc := make(map[string]interface{})
+	xDoc["title"] = html.EscapeString(httpReq.FormValue("title"))
+	xDoc["username"] = html.EscapeString(httpReq.FormValue("username"))
+	xDoc["password"] = html.EscapeString(httpReq.FormValue("password"))
+	xDoc["server"] = html.EscapeString(httpReq.FormValue("server"))
+	xDoc["port"] = html.EscapeString(httpReq.FormValue("port"))
+	xDoc["delay"] = html.EscapeString(httpReq.FormValue("delay"))
+	xDoc["rate"] = html.EscapeString(httpReq.FormValue("rate"))
+	xDoc["workflow"] = html.EscapeString(httpReq.FormValue("workflow"))
+	xDoc["description"] = html.EscapeString(httpReq.FormValue("description"))
+
+	if html.EscapeString(httpReq.FormValue("control")) != "" {
+		xDoc["control"] = html.EscapeString(httpReq.FormValue("control"))
+		tblSmtp.Update(this.mapCache["username"].(string), xDoc, curdb)
+	} else {
+		xDoc["control"] = tblSmtp.Create(this.mapCache["username"].(string), xDoc, curdb)
+	}
+
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = xDoc["control"]
+
+	xDoc = tblSmtp.Read(xDocRequest, curdb)["1"].(map[string]interface{})
+	formView := make(map[string]interface{})
+	formView["smtp-view"] = xDoc
+	viewHtml := strconv.Quote(string(this.Generate(formView, nil)))
+	httpRes.Write([]byte(`{"error":"Record Details Saved","dashboardContent":` + viewHtml + `}`))
+}
+
+func (this *Smtp) view(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{}`))
+		return
+	}
+
+	tblSmtp := new(database.Smtp)
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = html.EscapeString(httpReq.FormValue("control"))
+
+	ResMap := tblSmtp.Read(xDocRequest, curdb)
+	if ResMap["1"] == nil {
+		httpRes.Write([]byte(`{"error":"No Record Found"}`))
+		return
+	}
+	xDocRequest = ResMap["1"].(map[string]interface{})
+
+	formView := make(map[string]interface{})
+	formView["smtp-view"] = xDocRequest
+
+	viewHtml := strconv.Quote(string(this.Generate(formView, nil)))
+	httpRes.Write([]byte(`{"dashboardContent":` + viewHtml + `}`))
+}
+
+func (this *Smtp) edit(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{}`))
+		return
+	}
+
+	tblSmtp := new(database.Smtp)
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = html.EscapeString(httpReq.FormValue("control"))
+
+	ResMap := tblSmtp.Read(xDocRequest, curdb)
+	if ResMap["1"] == nil {
+		httpRes.Write([]byte(`{"error":"No Record Found"}`))
+		return
+	}
+	xDocRequest = ResMap["1"].(map[string]interface{})
+
+	formView := make(map[string]interface{})
+	formView["smtp-edit"] = xDocRequest
+
+	viewHtml := strconv.Quote(string(this.Generate(formView, nil)))
+	httpRes.Write([]byte(`{"dashboardContent":` + viewHtml + `}`))
+}
+
+func (this *Smtp) delete(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{}`))
+		return
+	}
+
+	curdb.Query(fmt.Sprintf(`delete from smtp where control = '%s'`,
+		html.EscapeString(httpReq.FormValue("control"))))
+
+	searchHtml := this.search(httpReq, curdb)
+	httpRes.Write([]byte(`{"dashboardContent":` + searchHtml + `}`))
+
+}
+
+func (this *Smtp) test(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{"error":"Missing SMTP Control"}`))
+		return
+	}
+
+	tblSmtp := new(database.Smtp)
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = html.EscapeString(httpReq.FormValue("control"))
+
+	ResMap := tblSmtp.Read(xDocRequest, curdb)
+	if ResMap["1"] == nil {
+		httpRes.Write([]byte(`{"error":"SMTP Not Found"}`))
+		return
+	}
+	xDocRequest = ResMap["1"].(map[string]interface{})
+
+	Port, _ := strconv.Atoi(xDocRequest["port"].(string))
+	mySMTP := functions.SMTP{
+		Port:     Port,
+		Server:   xDocRequest["server"].(string),
+		Username: xDocRequest["username"].(string),
+		Password: xDocRequest["password"].(string),
+	}
+
+	var myMsgList []functions.Message
+	myMsgList = append(myMsgList,
+		functions.Message{
+			To:   html.EscapeString(httpReq.FormValue("toemail")),
+			From: fmt.Sprintf("%s <%s>", html.EscapeString(httpReq.FormValue("fromname")), html.EscapeString(httpReq.FormValue("fromemail"))),
+			Cc:   "", Bcc: "",
+			Replyto: html.EscapeString(httpReq.FormValue("replyto")),
+			Subject: html.EscapeString(httpReq.FormValue("subject")),
+			Content: httpReq.FormValue("content"),
+		})
+	testMailer := functions.Mailer{mySMTP, myMsgList}
+
+	sMessage := testMailer.CheckMail()
+	if len(sMessage) > 0 {
+		httpRes.Write([]byte(`{"error":"` + sMessage + `"}`))
+		return
+	}
+
+	sMessage = testMailer.SendMail()
+	if len(sMessage) > 0 {
+		httpRes.Write([]byte(`{"error":"` + sMessage + `"}`))
+	} else {
+		sMessage = fmt.Sprintf("Test Email Sent To: %s", html.EscapeString(httpReq.FormValue("toemail")))
+		httpRes.Write([]byte(`{"error":"` + sMessage + `"}`))
+	}
+
+}

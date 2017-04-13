@@ -1,0 +1,224 @@
+package frontend
+
+import (
+	"valued/data"
+	"valued/database"
+	"valued/functions"
+
+	"encoding/json"
+	"fmt"
+	"html"
+	"log"
+	"net/http"
+	"strconv"
+	"strings"
+)
+
+type User struct {
+	functions.Templates
+
+	json        string
+	sessionid   string
+	mapCache    map[string]interface{}
+	mapValues   map[string]interface{}
+	mapResponse map[string]interface{}
+}
+
+func (this *User) getName() string {
+	return "users"
+}
+
+func (this *User) Process(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if httpReq.Method != "POST" {
+		http.Redirect(httpRes, httpReq, "/", http.StatusMovedPermanently)
+	}
+
+	this.json = "json/settings"
+	this.mapResponse = make(map[string]interface{})
+	httpRes.Header().Set("content-type", "application/json")
+
+	GOSESSID, _ := httpReq.Cookie(_COOKIE_)
+	this.mapCache = curdb.GetSession(GOSESSID.Value, "mapCache")
+
+	switch httpReq.FormValue("action") {
+	default:
+		fallthrough
+	case "":
+		dashboardMenu := make(map[string]interface{})
+		jsonBytes, _ := data.Asset(this.json)
+		if jsonBytes != nil {
+			err := json.Unmarshal(jsonBytes, &dashboardMenu)
+			if err != nil {
+				log.Println("User: Error: " + err.Error())
+			}
+		}
+
+		searchHtml := this.search(httpReq, curdb)
+		menuHtml := strconv.Quote(string(this.Generate(dashboardMenu, nil)))
+		httpRes.Write([]byte(`{"dashboardTitle":"User","dashboardMenu":` + menuHtml + `,"dashboardContent":` + searchHtml + `}`))
+		return
+
+	case "search":
+		searchHtml := this.search(httpReq, curdb)
+		httpRes.Write([]byte(`{"dashboardContent":` + searchHtml + `}`))
+		return
+
+	case "new":
+		newHtml := this.new(httpReq, curdb)
+		httpRes.Write([]byte(`{"dashboardContent":` + newHtml + `}`))
+		return
+
+	case "save":
+		this.save(httpRes, httpReq, curdb)
+		return
+
+	case "view":
+		this.view(httpRes, httpReq, curdb)
+		return
+
+	case "edit":
+		this.edit(httpRes, httpReq, curdb)
+		return
+
+	case "delete":
+		this.delete(httpRes, httpReq, curdb)
+		return
+	}
+
+}
+
+func (this *User) search(httpReq *http.Request, curdb database.Database) string {
+	// results := make(map[string]interface{})
+
+	formSearch := make(map[string]interface{})
+	formSearch["searchtext"] = html.EscapeString(httpReq.FormValue("searchtext"))
+	// form[]
+
+	tblLogin := new(database.Profile)
+	xDocrequest := make(map[string]interface{})
+	xDocrequest["searchtext"] = formSearch["searchtext"]
+	xDocresult := tblLogin.Search(xDocrequest, curdb)
+
+	for cNumber, xDoc := range xDocresult {
+		xDoc := xDoc.(map[string]interface{})
+		xDoc["number"] = cNumber
+		formSearch[cNumber+"#user-search-result"] = xDoc
+	}
+
+	htmlComponent := make(map[string]interface{})
+	htmlComponent["user-search"] = formSearch
+	return strconv.Quote(string(this.Generate(htmlComponent, nil)))
+
+}
+
+func (this *User) new(httpReq *http.Request, curdb database.Database) string {
+	// results := make(map[string]interface{})
+	formNew := make(map[string]interface{})
+	formNew["user-edit"] = make(map[string]interface{})
+	return strconv.Quote(string(this.Generate(formNew, nil)))
+}
+
+func (this *User) save(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("username")) == "" ||
+		html.EscapeString(httpReq.FormValue("email")) == "" {
+
+		httpRes.Write([]byte(`{"error":"Username and Email are required!"}`))
+		return
+	}
+
+	tblLogin := new(database.Profile)
+	xDoc := make(map[string]interface{})
+	xDoc["role"] = html.EscapeString(httpReq.FormValue("role"))
+	xDoc["email"] = html.EscapeString(httpReq.FormValue("email"))
+	xDoc["mobile"] = html.EscapeString(httpReq.FormValue("mobile"))
+	xDoc["workflow"] = html.EscapeString(httpReq.FormValue("workflow"))
+	xDoc["username"] = html.EscapeString(httpReq.FormValue("username"))
+	xDoc["description"] = html.EscapeString(httpReq.FormValue("description"))
+
+	if html.EscapeString(httpReq.FormValue("password")) != "" {
+		xDoc["password"] = html.EscapeString(httpReq.FormValue("password"))
+	}
+
+	if html.EscapeString(httpReq.FormValue("control")) != "" {
+		xDoc["control"] = html.EscapeString(httpReq.FormValue("control"))
+		tblLogin.Update(this.mapCache["username"].(string), xDoc, curdb)
+	} else {
+		xDoc["control"] = tblLogin.Create(this.mapCache["username"].(string), xDoc, curdb)
+	}
+
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = xDoc["control"]
+
+	xDoc = tblLogin.Read(xDocRequest, curdb)["1"].(map[string]interface{})
+	formView := make(map[string]interface{})
+	formView["user-view"] = xDoc
+	viewHtml := strconv.Quote(string(this.Generate(formView, nil)))
+	httpRes.Write([]byte(`{"error":"Record Details Saved","dashboardContent":` + viewHtml + `}`))
+}
+
+func (this *User) view(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{}`))
+		return
+	}
+
+	tblLogin := new(database.Profile)
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = html.EscapeString(httpReq.FormValue("control"))
+
+	ResMap := tblLogin.Read(xDocRequest, curdb)
+	if ResMap["1"] == nil {
+		httpRes.Write([]byte(`{"error":"No Record Found"}`))
+		return
+	}
+	xDocRequest = ResMap["1"].(map[string]interface{})
+
+	formView := make(map[string]interface{})
+	formView["user-view"] = xDocRequest
+
+	viewHtml := strconv.Quote(string(this.Generate(formView, nil)))
+	httpRes.Write([]byte(`{"dashboardContent":` + viewHtml + `}`))
+}
+
+func (this *User) edit(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{}`))
+		return
+	}
+
+	tblLogin := new(database.Profile)
+	xDocRequest := make(map[string]interface{})
+	xDocRequest["searchvalue"] = html.EscapeString(httpReq.FormValue("control"))
+
+	ResMap := tblLogin.Read(xDocRequest, curdb)
+	if ResMap["1"] == nil {
+		httpRes.Write([]byte(`{"error":"No Record Found"}`))
+		return
+	}
+	xDocRequest = ResMap["1"].(map[string]interface{})
+
+	formView := make(map[string]interface{})
+	formView["user-edit"] = xDocRequest
+
+	viewHtml := strconv.Quote(string(this.Generate(formView, nil)))
+	httpRes.Write([]byte(`{"dashboardContent":` + viewHtml + `}`))
+}
+
+func (this *User) delete(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
+
+	if html.EscapeString(httpReq.FormValue("control")) == "" {
+		httpRes.Write([]byte(`{}`))
+		return
+	}
+
+	curdb.Query(fmt.Sprintf(`delete from login where control = '%s'`,
+		html.EscapeString(httpReq.FormValue("control"))))
+
+	searchHtml := this.search(httpReq, curdb)
+	httpRes.Write([]byte(`{"dashboardContent":` + searchHtml + `}`))
+
+}

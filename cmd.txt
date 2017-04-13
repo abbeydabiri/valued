@@ -1,0 +1,33 @@
+
+
+Android Specific:
+=================
+gomobile bind -target=android/arm -o valued.aar -ldflags "-s -w"
+
+GOARCH=arm go build  -o Valued.arm -ldflags "-s -w" main.go
+
+
+Linux Specific:
+=================
+GOARCH=386 go build  -o Valued.elf -ldflags "-s -w" Valued.go && upx Valued.elf && mv Valued.elf app/.
+
+
+
+Windows Specific:
+=================
+wine /root/.wine/drive_c/Program\ Files/Resource\ Hacker/ResourceHacker.exe -addoverwrite "Valued.exe,Valued_Icon.exe,icon.ico,ICONGROUP,MAINICON,0"
+
+GOOS=windows GOARCH=386 go build  -o Valued.exe -ldflags "-s -w" main.go
+
+
+
+
+Database Query Analyzer:
+========================
+ql -db Valued.mdb -fld 'select 	control, title, code, description, workflow, createdate, createdby, updatedate, updatedby,role, username, password, email, mobile from login where username == "root@localhost.com" and password == "toor"'
+
+
+ql -db Valued.mdb -fld 'select 	code as code, control as control, title as title, description as description, workflow as workflow,createdate as createdate, createdby as createdby, updatedate as updatedate, updatedby as updatedby, industry as industry, expirydate as expirydate, firstname as firstname, lastname as lastname,  email as email, phone as phone, commercialized as commercialized from merchant where control == "1.00000000007" order by title'
+
+
+
