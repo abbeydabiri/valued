@@ -829,9 +829,13 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 	emailTemplate := "merchant-company-welcome"
 
 	//SEND AN EMAIL USING TEMPLATE
-	sqlMember := fmt.Sprintf(`select employer.email as email, employer.title as employertitle, profile.username as username, 
-		profile.password as password from profile left join profile as employer on employer.control = profile.employercontrol 
-		where profile.control in ('0'%s)`, controlList)
+
+	sqlMember := fmt.Sprintf(`select profile.email as email, profile.title as title, profile.username as username, 
+		profile.password as password from profile where profile.control in ('0'%s)`, controlList)
+
+	// sqlMember := fmt.Sprintf(`select employer.email as email, employer.title as employertitle, profile.username as username,
+	// 	profile.password as password from profile left join profile as employer on employer.control = profile.employercontrol
+	// 	where profile.control in ('0'%s)`, controlList)
 
 	emailTo := ""
 	emailFrom := "partnership@valued.com"
@@ -847,7 +851,7 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 			emailFields["email"] = xDocEmail["email"]
 
 			emailTo = emailFields["email"].(string)
-			emailFields["title"] = xDocEmail["employertitle"]
+			emailFields["title"] = xDocEmail["title"]
 			emailFields["userdata"] = fmt.Sprintf(sUserDetail, xDocEmail["username"], xDocEmail["password"])
 			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
 

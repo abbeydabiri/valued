@@ -887,9 +887,9 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 		return
 	}
 
-	emailTemplate := "member-welcome"
+	emailTemplate := "app-registration"
 	switch this.mapCache["role"].(string) {
-	case "merchant":
+	case "merchant", "admin":
 		emailTemplate = "merchant-welcome"
 	case "employer":
 		emailTemplate = "employer-welcome"
@@ -908,6 +908,15 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 	resMember, _ := curdb.Query(sqlMember)
 	for _, xDoc := range resMember {
 		emailFields := xDoc.(map[string]interface{})
+
+		emailFields["fullname"] = fmt.Sprintf(`%v %v`, functions.CamelCase(emailFields["firstname"].(string)),
+			functions.CamelCase(emailFields["lastname"].(string)))
+
+		if emailTemplate == "app-registration" {
+			emailFields["details"] = fmt.Sprintf(` Login Details: <br> ============== <br> Username: %s <br> Password: %s <br><br>`,
+				emailFields["username"], emailFields["password"])
+		}
+
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)
 			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)

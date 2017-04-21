@@ -37,7 +37,7 @@ func (this *AppSubscribe) Process(httpRes http.ResponseWriter, httpReq *http.Req
 		AppSubscribe := make(map[string]interface{})
 
 		//Search Scheme and List with Price
-		schemeMapResult, _ := curdb.Query(`select control, title, price from scheme order by price desc`)
+		schemeMapResult, _ := curdb.Query(`select control, title, price from scheme where code in ('lite','lifestyle')  order by price desc`)
 		for cNumber, schemeXdoc := range schemeMapResult {
 			xDoc := schemeXdoc.(map[string]interface{})
 
@@ -122,7 +122,7 @@ func (this *AppSubscribe) Subscribe(httpRes http.ResponseWriter, httpReq *http.R
 			AppSubscribeComplete["app-subscribe-complete-title"] = AppSubscribeCompleteTitle
 		}
 
-		if (formProfile["phonecode"] == nil || formProfile["phonecode"].(string) == "") || (formProfile["phone"] == nil || formProfile["phone"].(string) == "") {
+		if formProfile["phone"] == nil || formProfile["phone"].(string) == "" {
 			AppSubscribeComplete["app-subscribe-complete-mobile"] = make(map[string]interface{})
 		}
 
@@ -326,6 +326,18 @@ func (this *AppSubscribe) Paynow(httpRes http.ResponseWriter, httpReq *http.Requ
 	mapAppSubscribe["lastname"] = mapProfile["lastname"]
 	mapAppSubscribe["profileemail"] = mapProfile["email"]
 	mapAppSubscribe["countrycode"] = ""
+
+	//If Coupon Price == 0
+	if mapAppSubscribe["totalprice"].(float64) < 1.0 {
+		sMessage = this.subscribeMe(mapAppSubscribe, curdb)
+		if sMessage == "" {
+			sMessage = "Welcome Valued member, your payment was successful. Start saving today. <br>"
+		}
+		httpRes.Write([]byte(`{"sticky":"` + sMessage + `",` + new(AppProfile).View(httpRes, httpReq, curdb) + `}`))
+		return
+	}
+	//If Coupon Price == 0
+
 	curdb.SetSession(GOSESSID.Value, "mapAppSubscribe", mapAppSubscribe, false)
 
 	sUrl := new(PaymentGatewayTELR).CreateOrder("app-subscribe", httpReq, curdb)

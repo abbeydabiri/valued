@@ -230,7 +230,7 @@ func (this *Reward) importCoupon(httpRes http.ResponseWriter, httpReq *http.Requ
 func (this *Reward) importcouponcsvdownload(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
 	httpRes.Header().Set("Content-Type", "text/csv")
 	httpRes.Header().Set("Content-Disposition", "attachment;filename=Valued_ImportCouponTemplate.csv")
-	httpRes.Write([]byte(strings.Join([]string{"code"}, ",")))
+	httpRes.Write([]byte(strings.Join([]string{"uniquecode", "uniquecode", "uniquecode", "etc..."}, "\n")))
 }
 
 func (this *Reward) downloadActiveCoupon(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {

@@ -81,8 +81,8 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 	}
 	emailSender := fmt.Sprintf("%s <%s>", emailFromName, emailFrom)
 
-	emailBCC := "info@valued.com"
-	if emailTo == "info@valued.com" {
+	emailBCC := "general@valued.com"
+	if emailTo == "general@valued.com" {
 		emailBCC = ""
 	}
 

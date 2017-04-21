@@ -128,7 +128,7 @@ func (this *MerchantReport) downloadReport(httpRes http.ResponseWriter, httpReq 
 	sLine := `"%v","%v","%v","%v","%v","%v","%v","%v","%v","%v","%v","%v"`
 	redemptionReportGenerator := make([]string, len(mapRedemption)+1)
 	redemptionReportGenerator[0] = fmt.Sprintf(sLine, "Transaction Number", "Date", "Discount", "Reward", "Coupon",
-		"Revenue", "Nationality", "Gender", "Age", "Requested Improvement", "NPS Score", "Location")
+		"Revenue", "Nationality", "Gender", "Age", "Requested Improvement", "NPS Scoring", "Location")
 
 	for cNumber, xDoc := range mapRedemption {
 
@@ -229,6 +229,66 @@ func (this *MerchantReport) summary(httpRes http.ResponseWriter, httpReq *http.R
 			mapReport["redeemedyear"] = functions.ThousandSeperator(functions.Round(mapRedeemed["redeemedyear"].(float64)))
 		}
 	}
+
+	//--
+
+	//
+
+	//Get NPS Score Based on Feedback Rating
+	sqlFeedback := `select feedback.title as question, feedback.answer as answer, feedback.redemptioncontrol as redemptioncontrol
+						from redemption 
+							left join feedback on feedback.redemptioncontrol = redemption.control
+						where redemption.merchantcontrol = '%s' and substring(redemption.createdate from 1 for 20)::timestamp between '%s'::timestamp and '%s 23:59:59'::timestamp 
+					`
+	sqlFeedback = fmt.Sprintf(sqlFeedback, this.MerchantControl, startDate.Format(cFormat), oneYear.Format(cFormat))
+
+	curdb.Query("set datestyle = dmy")
+	mapFeedback, _ := curdb.Query(sqlFeedback)
+
+	iNPSTotal := float64(0)
+	iNPSPositive := float64(0)
+	iNPSNegative := float64(0)
+	//100/(iNPSPositive+iNPSNegative)*(iNPSPositive-iNPSNegative)
+	//100/5*(2-3)
+
+	ratingCategory := make([]int, 11)
+	improveCategory := make(map[string]int)
+
+	for _, xDoc := range mapFeedback {
+		xDoc := xDoc.(map[string]interface{})
+
+		switch {
+		case strings.Contains(xDoc["question"].(string), "IMPROVEMENT"):
+			improveCategory[xDoc["answer"].(string)]++
+
+		case strings.Contains(xDoc["question"].(string), "RECOMMEND"):
+			score, _ := strconv.Atoi(xDoc["answer"].(string))
+			switch {
+			case score <= 6:
+				iNPSNegative++
+				break
+			case score >= 9:
+				iNPSPositive++
+				break
+			}
+			iNPSTotal++
+			ratingCategory[score]++
+		}
+	}
+
+	//Get NPS Score Based on Feedback Rating
+
+	iNPSNegativePercentage := float64(0)
+	iNPSPositivePercentage := float64(0)
+	if iNPSTotal > 0 {
+		iNPSPositivePercentage = (iNPSPositive / iNPSTotal) * 100
+		iNPSNegativePercentage = (iNPSNegative / iNPSTotal) * 100
+	}
+
+	mapReport["npsscore"] = functions.RoundUp(iNPSPositivePercentage-iNPSNegativePercentage, 0)
+
+	//
+	//
 
 	//BarChart: 12 Months Revenue & Redemption
 	sLabel := "yyyy-Mon"
@@ -388,23 +448,32 @@ func (this *MerchantReport) demographics(httpRes http.ResponseWriter, httpReq *h
 		genderPieTotal += 1
 
 		sAge := ""
-		iAge := functions.GetDifferenceInYears("", xDocDemographic["age"].(string))
-		switch {
-		case iAge >= 18 && iAge <= 25:
-			sAge = "18-25"
-		case iAge >= 26 && iAge <= 30:
-			sAge = "26-30"
-		case iAge >= 31 && iAge <= 40:
-			sAge = "31-40"
-		case iAge >= 41 && iAge <= 60:
-			sAge = "41-60"
-		case iAge >= 61:
-			sAge = ">61"
+		if xDocDemographic["age"].(string) != "" {
+			iAge := functions.GetDifferenceInYears("", xDocDemographic["age"].(string))
+			switch {
+			case iAge >= 18 && iAge <= 25:
+				sAge = "18-25"
+			case iAge >= 26 && iAge <= 30:
+				sAge = "26-30"
+			case iAge >= 31 && iAge <= 40:
+				sAge = "31-40"
+			case iAge >= 41 && iAge <= 60:
+				sAge = "41-60"
+			case iAge >= 61:
+				sAge = ">61"
+			}
+		} else {
+			sAge = "UnKnown"
 		}
 		mapAge[sAge] += 1
 		agePieTotal += 1
 
-		mapNationality[xDocDemographic["nationality"].(string)] += 1
+		sNationality := xDocDemographic["nationality"].(string)
+		if sNationality == "" {
+			sNationality = "UnKnown"
+		}
+
+		mapNationality[sNationality] += 1
 		nationalityPieTotal += 1
 
 	}
@@ -421,7 +490,7 @@ func (this *MerchantReport) demographics(httpRes http.ResponseWriter, httpReq *h
 
 	}
 
-	mapLegendAge := []string{"18-25", "26-30", "31-40", "41-60", ">61"}
+	mapLegendAge := []string{"UnKnown", "18-25", "26-30", "31-40", "41-60", ">61"}
 	for _, iSeries := range mapAge {
 		iSeriesPercentage := functions.Round(float64(iSeries) / float64(agePieTotal) * 100)
 
@@ -615,16 +684,16 @@ func (this *MerchantReport) feedback(httpRes http.ResponseWriter, httpReq *http.
 	iNPSNegativePercentage := float64(0)
 	iNPSPositivePercentage := float64(0)
 	if iNPSTotal > 0 {
-		iNPSPositivePercentage = functions.Round((iNPSPositive / iNPSTotal) * 100)
-		iNPSNegativePercentage = functions.Round((iNPSNegative / iNPSTotal) * 100)
+		iNPSPositivePercentage = (iNPSPositive / iNPSTotal) * 100
+		iNPSNegativePercentage = (iNPSNegative / iNPSTotal) * 100
 	}
 
-	mapReport["npsscore"] = iNPSPositivePercentage - iNPSNegativePercentage
+	mapReport["npsscore"] = functions.RoundUp(iNPSPositivePercentage-iNPSNegativePercentage, 0)
 
 	//Get BarChart of Slider Rating
 	ratingReportGenerator := make(map[string]interface{})
 	ratingReportGenerator["id"] = "rating"
-	ratingReportGenerator["title"] = "NPS SCORE"
+	ratingReportGenerator["title"] = "NPS SCORING"
 	ratingHigh := float64(10)
 
 	for iKey, iValue := range ratingCategory {

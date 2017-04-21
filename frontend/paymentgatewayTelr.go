@@ -22,6 +22,7 @@
 package frontend
 
 import (
+	"time"
 	"valued/database"
 	"valued/functions"
 
@@ -86,6 +87,10 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 
 		//Create an Inactive Subscription for User before redirecting
 		xDocSub := make(map[string]interface{})
+		todayDate := time.Now()
+		oneYear := todayDate.Add(time.Hour * 24 * 365)
+		xDocSub["startdate"] = todayDate.Format("02/01/2006")
+		xDocSub["expirydate"] = oneYear.Format("02/01/2006")
 		xDocSub["workflow"] = "inactive"
 		xDocSub["price"] = mapAppTelr["totalprice"]
 		xDocSub["schemecontrol"] = mapAppTelr["schemecontrol"]

@@ -37,7 +37,7 @@ func (this *AppGift) Process(httpRes http.ResponseWriter, httpReq *http.Request,
 		AppGift := make(map[string]interface{})
 
 		//Search Scheme and List with Price
-		schemeMapResult, _ := curdb.Query(`select control, title, price from scheme order by price desc`)
+		schemeMapResult, _ := curdb.Query(`select control, title, price from scheme  where code in ('lite','lifestyle') order by price desc`)
 		for cNumber, schemeXdoc := range schemeMapResult {
 			xDoc := schemeXdoc.(map[string]interface{})
 
@@ -273,6 +273,17 @@ func (this *AppGift) paynow(httpRes http.ResponseWriter, httpReq *http.Request, 
 		httpRes.Write([]byte(`{"error":"` + sMessage + `", "getform":"/app-gift?action=gift"}`))
 		return
 	}
+
+	//If Coupon Price == 0
+	if mapAppGift["totalprice"].(float64) < 1.0 {
+		sMessage = this.subscribeFriend(mapAppGift, httpReq, curdb)
+		if sMessage == "" {
+			sMessage = "Hello Valued member, Your payment was successful. Start saving today. <br>"
+		}
+		httpRes.Write([]byte(`{"sticky":"` + sMessage + `",` + new(AppProfile).View(httpRes, httpReq, curdb) + `}`))
+		return
+	}
+	//If Coupon Price == 0
 
 	sUrl := new(PaymentGatewayTELR).CreateOrder("app-gift", httpReq, curdb)
 	if sUrl != "" {
