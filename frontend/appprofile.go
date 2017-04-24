@@ -219,6 +219,10 @@ func (this *AppProfile) View(httpRes http.ResponseWriter, httpReq *http.Request,
 
 		sPageTemplate := "app-profile-edit"
 
+		if this.mapAppCache["company"].(string) == "Yes" {
+			formProfilexDoc["titleclass"] = "hide"
+		}
+
 		this.pageMap[sPageTemplate] = formProfilexDoc
 		contentHTML := strconv.Quote(string(this.Generate(this.pageMap, nil)))
 		contentHTML = `"pageTitle":"Edit My Profile","pageContent":` + contentHTML
@@ -374,6 +378,10 @@ func (this *AppProfile) edit(httpRes http.ResponseWriter, httpReq *http.Request,
 	appFooter := make(map[string]interface{})
 	formProfile["app-footer"] = appFooter
 	appFooter["profile"] = "white"
+
+	if this.mapAppCache["company"].(string) == "Yes" {
+		formProfile["titleclass"] = "hide"
+	}
 
 	this.pageMap["app-profile-edit"] = formProfile
 

@@ -368,6 +368,10 @@ func (this *Member) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 		sMessage += "Status is missing <br>"
 	}
 
+	if functions.TrimEscape(httpReq.FormValue("workflow")) == "" {
+		sMessage += "Workflow is missing <br>"
+	}
+
 	if len(httpReq.Form["profilerole"]) == 0 {
 		sMessage += "Select Profile Role <br>"
 	}
@@ -503,7 +507,9 @@ func (this *Member) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 	}
 
 	if functions.TrimEscape(httpReq.FormValue("control")) != "" {
+
 		xDoc["control"] = functions.TrimEscape(httpReq.FormValue("control"))
+		xDoc["workflow"] = functions.TrimEscape(httpReq.FormValue("workflow"))
 		tblMember.Update(this.mapCache["username"].(string), xDoc, curdb)
 	} else {
 		xDoc["workflow"] = "registered"
