@@ -102,7 +102,7 @@ func (this *Profile) VerifyLogin(sRole, cUsername, cPassword string, curdb Datab
 						where lower(role.code) = lower('%s')
 					)`, sRole)
 
-	sql := `select distinct profile.code as code, profile.control as control, profile.title as title, 
+	sql := `select  profile.code as code, profile.control as control, profile.title as title, 
 					profile.description as description, profile.workflow as workflow, profile.status as status, 
 					profile.createdate as createdate, profile.createdby as createdby, 
 					profile.updatedate as updatedate, profile.updatedby as updatedby,
@@ -165,7 +165,7 @@ func (this *Profile) Read(xDocrequest map[string]interface{}, curdb Database) (m
 	}
 	searchvalue := xDocrequest["searchvalue"].(string)
 
-	sql := `select distinct profile.code as code, profile.control as control, profile.title as title, 
+	sql := `select  profile.code as code, profile.control as control, profile.title as title, 
 					profile.description as description, profile.workflow as workflow, profile.status as status, 
 					profile.createdate as createdate, profile.createdby as createdby, 
 					profile.updatedate as updatedate, profile.updatedby as updatedby,
@@ -327,7 +327,6 @@ func (this *Profile) Search(xDocrequest map[string]interface{}, curdb Database) 
 	}
 
 	sqlFields := `
-					distinct 
 
 					profile.code as code, profile.control as control, profile.title as title, 
 					profile.description as description, profile.workflow as workflow, profile.status as status, 
@@ -359,7 +358,7 @@ func (this *Profile) Search(xDocrequest map[string]interface{}, curdb Database) 
 		limit = ``
 		offset = ``
 		sqlOrderByLimit = `%s%s`
-		sqlFields = `count(distinct profile.control) as paginationtotal	`
+		sqlFields = `count(profile.control) as paginationtotal	`
 	}
 
 	sql := `select %s
@@ -466,7 +465,7 @@ func (this *Profile) SearchEmployee(xDocrequest map[string]interface{}, curdb Da
 		limit = ``
 		offset = ``
 		sqlOrderByLimit = `%s%s`
-		sqlFields = `count(distinct profile.control) as paginationtotal	`
+		sqlFields = `count(profile.control) as paginationtotal	`
 	}
 
 	sql := `select %s

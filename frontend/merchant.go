@@ -864,6 +864,8 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 		if xDocEmail["email"] != nil && xDocEmail["email"].(string) != "" {
 			emailFields["email"] = xDocEmail["email"]
 
+			//
+			//
 			sCoupon := ""
 			//Add Temporary Free Merchant Subscription for Merchants
 			//--//Search for tellafriend Reward if Active generate a CouponCode
@@ -879,7 +881,7 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 					xDocCoupon["code"] = sCoupon
 					xDocCoupon["workflow"] = "active"
 					xDocCoupon["rewardcontrol"] = xDocFindRewardRes["rewardcontrol"]
-					new(database.Coupon).Create(this.mapAppCache["username"].(string), xDocCoupon, curdb)
+					new(database.Coupon).Create(this.mapCache["username"].(string), xDocCoupon, curdb)
 
 				case "Client Code":
 					sqlFindCoupon := `select coupon.code as code from coupon where rewardcontrol = '%s' AND workflow = 'active' order by control limit 1`
@@ -897,6 +899,8 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 			emailFields["coupon"] = sCoupon
 			//--//Search for tellafriend Reward if Active generate a CouponCode
 			//Add Temporary Free Merchant Subscription for Merchants
+			//
+			//
 
 			emailTo = emailFields["email"].(string)
 			emailFields["title"] = xDocEmail["title"]

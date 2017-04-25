@@ -219,6 +219,7 @@ func (this *AppGift) paynow(httpRes http.ResponseWriter, httpReq *http.Request, 
 	mapAppGift := curdb.GetSession(GOSESSID.Value, "mapAppGift")
 
 	//if coupon code info is provided = validate coupon code and add to mapAppGift
+	couponXdoc := make(map[string]interface{})
 	if functions.TrimEscape(httpReq.FormValue("coupon")) != "" {
 
 		sqlCoupon := `select coupon.control as couponcontrol, reward.control as rewardcontrol, coupon.workflow as couponworkflow, 
@@ -233,7 +234,7 @@ func (this *AppGift) paynow(httpRes http.ResponseWriter, httpReq *http.Request, 
 		if couponMapResult["1"] == nil {
 			sMessage += fmt.Sprintf("Coupon <b>%s</b> is Invalid<br>", functions.TrimEscape(httpReq.FormValue("coupon")))
 		} else {
-			couponXdoc := couponMapResult["1"].(map[string]interface{})
+			couponXdoc = couponMapResult["1"].(map[string]interface{})
 			if couponXdoc["merchantcode"].(string) == "none" {
 				switch couponXdoc["rewardworkflow"].(string) {
 				case "active":
@@ -273,6 +274,17 @@ func (this *AppGift) paynow(httpRes http.ResponseWriter, httpReq *http.Request, 
 		httpRes.Write([]byte(`{"error":"` + sMessage + `", "getform":"/app-gift?action=gift"}`))
 		return
 	}
+
+	//
+	//Mark Coupon as Used Here ->
+	if mapAppGift["couponcontrol"] != nil {
+		xDocCoupon := make(map[string]interface{})
+		xDocCoupon["workflow"] = "approved"
+		xDocCoupon["control"] = mapAppGift["couponcontrol"]
+		new(database.Coupon).Update(this.mapAppCache["username"].(string), xDocCoupon, curdb)
+	}
+	//Mark Coupon as Used Here ->
+	//
 
 	//If Coupon Price == 0
 	if mapAppGift["totalprice"].(float64) < 1.0 {

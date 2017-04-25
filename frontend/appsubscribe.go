@@ -327,19 +327,31 @@ func (this *AppSubscribe) Paynow(httpRes http.ResponseWriter, httpReq *http.Requ
 	mapAppSubscribe["profileemail"] = mapProfile["email"]
 	mapAppSubscribe["countrycode"] = ""
 
+	//
+	//Mark Coupon as Used Here ->
+	if mapAppSubscribe["couponcontrol"] != nil {
+		xDocCoupon := make(map[string]interface{})
+		xDocCoupon["workflow"] = "approved"
+		xDocCoupon["control"] = mapAppSubscribe["couponcontrol"]
+		new(database.Coupon).Update(this.mapAppCache["username"].(string), xDocCoupon, curdb)
+	}
+	//Mark Coupon as Used Here ->
+	//
+
 	//If Coupon Price == 0
 	if mapAppSubscribe["totalprice"].(float64) < 1.0 {
 		sMessage = this.subscribeMe(mapAppSubscribe, curdb)
 		if sMessage == "" {
 			sMessage = "Welcome Valued member, your payment was successful. Start saving today. <br>"
 		}
+
+		curdb.SetSession(GOSESSID.Value, "mapAppSubscribe", make(map[string]interface{}), false)
 		httpRes.Write([]byte(`{"sticky":"` + sMessage + `",` + new(AppProfile).View(httpRes, httpReq, curdb) + `}`))
 		return
 	}
 	//If Coupon Price == 0
 
 	curdb.SetSession(GOSESSID.Value, "mapAppSubscribe", mapAppSubscribe, false)
-
 	sUrl := new(PaymentGatewayTELR).CreateOrder("app-subscribe", httpReq, curdb)
 	if sUrl != "" {
 		sMessage = "Please wait while we prepare your order!"
@@ -354,11 +366,12 @@ func (this *AppSubscribe) Paynow(httpRes http.ResponseWriter, httpReq *http.Requ
 }
 
 func (this *AppSubscribe) Verify(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
-
+	GOSESSID, _ := httpReq.Cookie(_COOKIE_)
 	sMessage := ""
 	xDocTelrOrder := new(PaymentGatewayTELR).VerifyPayment(httpReq.FormValue("telr"), httpReq, curdb)
 
 	if xDocTelrOrder["error"] != nil {
+		curdb.SetSession(GOSESSID.Value, "mapAppSubscribe", make(map[string]interface{}), false)
 		sMessage = xDocTelrOrder["error"].(string)
 		httpRes.Write([]byte(`{"sticky":"` + sMessage + `",` + new(AppProfile).View(httpRes, httpReq, curdb) + `}`))
 		return
@@ -377,7 +390,7 @@ func (this *AppSubscribe) Verify(httpRes http.ResponseWriter, httpReq *http.Requ
 	} else {
 		sMessage = "Your Subscription <b>Failed</b>"
 	}
-
+	curdb.SetSession(GOSESSID.Value, "mapAppSubscribe", make(map[string]interface{}), false)
 	httpRes.Write([]byte(`{"sticky":"` + sMessage + `",` + new(AppProfile).View(httpRes, httpReq, curdb) + `}`))
 }
 
