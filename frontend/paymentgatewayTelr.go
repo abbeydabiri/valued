@@ -48,7 +48,7 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 	jsonStr := `{
 		"method":"create", "store":17555, "authkey":"Dkwt3@RDJk^kn5jV",
 		"order":{
-			"cartid":"%s", "test":1, "amount":%.2f, "currency":"AED",
+			"cartid":"%s", "test":0, "amount":%.2f, "currency":"AED",
 			"description":"Valued Member Subscription for Scheme %s cost: %.2f %s"
 		},
 		"customer":{
