@@ -81,9 +81,9 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 	}
 	emailSender := fmt.Sprintf("%s <%s>", emailFromName, emailFrom)
 
-	emailBCC := "general@valued.com"
-	if emailTo == "general@valued.com" {
-		emailBCC = ""
+	emailBCC := "info@valued.com, general@valued.com, suport@valued.com"
+	if strings.Contains(emailBCC, "info@valued.com") {
+		emailBCC = "general@valued.com, suport@valued.com"
 	}
 
 	var myMsgList []Message
@@ -92,7 +92,7 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 			Attachment: "",
 			To:         emailTo,
 			From:       emailSender,
-			Cc:         emailCC, Bcc: emailBCC, Replyto: "",
+			Cc:         emailCC, Bcc: emailBCC, Replyto: "info@valued.com",
 			Subject: emailSubject,
 			Content: emailMessage,
 		})
