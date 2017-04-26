@@ -22,7 +22,7 @@ func (this *TelrOrder) GetFields() map[string]interface{} {
 	fields["logincontrol"] = ""
 	fields["profilecontrol"] = ""
 	fields["schemecontrol"] = ""
-	fields["subscription"] = ""
+	fields["subscriptioncontrol"] = ""
 	fields["couponcontrol"] = ""
 
 	fields["telrtext"] = ""

@@ -102,6 +102,7 @@ func (this *AppProfile) View(httpRes http.ResponseWriter, httpReq *http.Request,
 	}
 
 	todayDate := time.Now()
+	curdb.Query("set datestyle = dmy")
 	sqlSubscriptionPaid := `select sub.control as control
 						from subscription as sub join scheme as sch on sub.schemecontrol = sch.control
 						AND sub.workflow = 'paid' AND sch.workflow = 'active' AND sch.code in ('lite','lifestyle')  

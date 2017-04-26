@@ -893,14 +893,6 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 		return
 	}
 
-	emailTemplate := "app-registration"
-	switch this.mapCache["role"].(string) {
-	case "merchant", "admin":
-		emailTemplate = "merchant-welcome"
-	case "employer":
-		emailTemplate = "employer-welcome"
-	}
-
 	//SEND AN EMAIL USING TEMPLATE
 	sqlMember := fmt.Sprintf(`select profile.firstname as firstname, profile.lastname as lastname, employer.title as employertitle, 
 		profile.username as username, profile.password as password, profile.email as email from profile left join 
@@ -909,19 +901,15 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 	emailTo := ""
 	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN"
+	emailTemplate := "member-welcome"
 	emailSubject := fmt.Sprintf("Welcome to VALUED - Portal Registration")
 
 	resMember, _ := curdb.Query(sqlMember)
 	for _, xDoc := range resMember {
 		emailFields := xDoc.(map[string]interface{})
 
-		emailFields["fullname"] = fmt.Sprintf(`%v %v`, functions.CamelCase(emailFields["firstname"].(string)),
-			functions.CamelCase(emailFields["lastname"].(string)))
-
-		if emailTemplate == "app-registration" {
-			emailFields["details"] = fmt.Sprintf(` Login Details: <br> ============== <br> Username: %s <br> Password: %s <br><br>`,
-				emailFields["username"], emailFields["password"])
-		}
+		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, functions.CamelCase(emailFields["title"].(string)),
+			functions.CamelCase(emailFields["firstname"].(string)), functions.CamelCase(emailFields["lastname"].(string)))
 
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)

@@ -22,6 +22,7 @@
 package frontend
 
 import (
+	"log"
 	"time"
 	"valued/database"
 	"valued/functions"
@@ -49,7 +50,7 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 		"method":"create", "store":17555, "authkey":"Dkwt3@RDJk^kn5jV",
 		"order":{
 			"cartid":"%s", "test":0, "amount":%.2f, "currency":"AED",
-			"description":"Valued Member Subscription for Scheme %s cost: %.2f %s"
+			"description":"Valued Member Subscription for Scheme %s %s"
 		},
 		"customer":{
 			"email":"%s",
@@ -60,9 +61,9 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 			"ref":"%s"
 		},
 		"return": {
-			"authorised": "http://%s/?a=%s&action=telr&telr=%s&status=authorised",
-			"declined": "http://%s/?a=%s&action=telr&telr=%s&status=declined",
-			"cancelled": "http://%s/?a=%s&action=telr&telr=%s&status=cancelled"
+			"authorised": "https://%s/?a=%s&action=telr&telr=%s&status=authorised",
+			"declined": "https://%s/?a=%s&action=telr&telr=%s&status=declined",
+			"cancelled": "https://%s/?a=%s&action=telr&telr=%s&status=cancelled"
 		}
 	}`
 
@@ -135,7 +136,7 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 	jsonStrRequest := ""
 	switch redirectToPage {
 	case "app-subscribe":
-		jsonStrRequest = fmt.Sprintf(jsonStr, sTelrControlEncrypted, mapAppTelr["totalprice"], mapAppTelr["schemetitle"], mapAppTelr["schemeprice"], sCouponDetails,
+		jsonStrRequest = fmt.Sprintf(jsonStr, sTelrControlEncrypted, mapAppTelr["totalprice"], mapAppTelr["schemetitle"], sCouponDetails,
 			mapAppTelr["profileemail"], mapAppTelr["title"], mapAppTelr["firstname"], mapAppTelr["lastname"],
 			"AE", mapAppTelr["profileemail"],
 			httpReq.Host, redirectToPage, sTelrControlEncrypted,
@@ -143,7 +144,7 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 			httpReq.Host, redirectToPage, sTelrControlEncrypted)
 
 	case "app-gift":
-		jsonStrRequest = fmt.Sprintf(jsonStr, sTelrControlEncrypted, mapAppTelr["totalprice"], mapAppTelr["schemetitle"], mapAppTelr["schemeprice"], sCouponDetails,
+		jsonStrRequest = fmt.Sprintf(jsonStr, sTelrControlEncrypted, mapAppTelr["totalprice"], mapAppTelr["schemetitle"], sCouponDetails,
 			mapAppTelr["sendersemail"], "", mapAppTelr["sendersname"], "",
 			"AE", mapAppTelr["profileemail"],
 			httpReq.Host, redirectToPage, sTelrControlEncrypted,
@@ -172,10 +173,17 @@ func (this *PaymentGatewayTELR) CreateOrder(redirectToPage string, httpReq *http
 	if mapJsonResult["trace"] != nil {
 		xDocTelrOrder["workflow"] = "pending"
 
-		mapOrderInterface := mapJsonResult["order"]
-		mapOrder := mapOrderInterface.(map[string]interface{})
-		xDocTelrOrder["telrurl"] = mapOrder["url"]
-		xDocTelrOrder["telrref"] = mapOrder["ref"]
+		if mapJsonResult["order"] == nil {
+			log.Println("jsonStrRequest: " + string(jsonStrRequest))
+			log.Println("jsonByteResult: " + string(jsonByteResult))
+			xDocTelrOrder["workflow"] = "failed"
+		} else {
+			mapOrderInterface := mapJsonResult["order"]
+			mapOrder := mapOrderInterface.(map[string]interface{})
+			xDocTelrOrder["telrurl"] = mapOrder["url"]
+			xDocTelrOrder["telrref"] = mapOrder["ref"]
+		}
+
 	} else {
 		xDocTelrOrder["workflow"] = "failed"
 	}
