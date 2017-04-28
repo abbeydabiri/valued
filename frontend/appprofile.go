@@ -102,6 +102,7 @@ func (this *AppProfile) View(httpRes http.ResponseWriter, httpReq *http.Request,
 	}
 
 	todayDate := time.Now()
+	curdb.Query("set datestyle = dmy")
 	sqlSubscriptionPaid := `select sub.control as control
 						from subscription as sub join scheme as sch on sub.schemecontrol = sch.control
 						AND sub.workflow = 'paid' AND sch.workflow = 'active' AND sch.code in ('lite','lifestyle')  
@@ -156,9 +157,13 @@ func (this *AppProfile) View(httpRes http.ResponseWriter, httpReq *http.Request,
 	//Check if subscription exists and Pin code == "" or nil "" force Pin Code Creation
 	if this.mapAppCache["subscription"] != nil {
 		formProfile["0#app-profile-btn-savings"] = make(map[string]interface{})
-		formProfile["0#app-profile-btn-changepin"] = make(map[string]interface{})
 
-		if this.mapAppCache["pincode"] == nil || this.mapAppCache["pincode"].(string) == "" {
+		if this.mapAppCache["company"] == nil || this.mapAppCache["company"].(string) != "Yes" {
+			formProfile["0#app-profile-btn-changepin"] = make(map[string]interface{})
+		}
+
+		if (this.mapAppCache["pincode"] == nil || this.mapAppCache["pincode"].(string) == "") &&
+			(this.mapAppCache["company"] == nil || this.mapAppCache["company"].(string) != "Yes") {
 
 			formProfile := make(map[string]interface{})
 
@@ -218,6 +223,10 @@ func (this *AppProfile) View(httpRes http.ResponseWriter, httpReq *http.Request,
 		appFooter["profile"] = "white"
 
 		sPageTemplate := "app-profile-edit"
+
+		if this.mapAppCache["company"].(string) == "Yes" {
+			formProfilexDoc["titleclass"] = "hide"
+		}
 
 		this.pageMap[sPageTemplate] = formProfilexDoc
 		contentHTML := strconv.Quote(string(this.Generate(this.pageMap, nil)))
@@ -374,6 +383,10 @@ func (this *AppProfile) edit(httpRes http.ResponseWriter, httpReq *http.Request,
 	appFooter := make(map[string]interface{})
 	formProfile["app-footer"] = appFooter
 	appFooter["profile"] = "white"
+
+	if this.mapAppCache["company"].(string) == "Yes" {
+		formProfile["titleclass"] = "hide"
+	}
 
 	this.pageMap["app-profile-edit"] = formProfile
 

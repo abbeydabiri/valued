@@ -8,6 +8,7 @@ import (
 	"html"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type AppReward struct {
@@ -195,9 +196,12 @@ func (this *AppReward) search(httpReq *http.Request, curdb database.Database) ma
 		}
 	}
 
+	//Search Rewards
+
+	sGroup := "33"
+	formSearch := make(map[string]interface{})
 	sqlSearch = fmt.Sprintf(sqlSearch, sqlSchemeTable, sqlExtraFilterTable, sqlSearchtext,
 		sqlScheme, sqlMerchant, sqlType, sqlCategory, sqlSubCategory, sqlExtraFilter, sLimit, sOffset)
-	xDocresult, _ := curdb.Query(sqlSearch)
 
 	favoriteItem := ""
 	categoryList := new(Category).ListAll(curdb)
@@ -206,35 +210,53 @@ func (this *AppReward) search(httpReq *http.Request, curdb database.Database) ma
 	myAppRedeem := new(AppRedeem)
 	myAppRedeem.SetAppCache(this.mapAppCache)
 
-	//Logic to Manage Grouping
-	//Fetch all Groupings and
-	sqlGrouping := `select rewardgroup.rewardcontrol as rewardcontrol, membergroup.membercontrol as membercontrol , 
-							groups.control as groupcontrol, groups.title as grouptitle 
-					from groups 
-							left join rewardgroup on rewardgroup.groupcontrol = groups.control 
-							left join membergroup on membergroup.groupcontrol = groups.control
-					`
+	if this.mapAppCache["control"] != nil {
+		sqlSearchGroup := strings.Replace(sqlSearch, "AND r.control not in ( select distinct(", "AND r.control in ( select distinct(", 1)
+		sqlSearchGroup = strings.Replace(sqlSearchGroup, "and groups.control not in ( select groupcontrol", "and groups.control in ( select groupcontrol", 1)
+		sqlSearchGroup = strings.Replace(sqlSearchGroup, "AND r.control in (select rewardcontrol from rewardscheme", "AND r.control not in (select rewardcontrol from rewardscheme", 1)
 
-	xDocGrouping, _ := curdb.Query(sqlGrouping)
-	mapRewardGroup := make(map[string]interface{})
-	mapMemberGroup := make(map[string]interface{})
+		xDocresultGroup, _ := curdb.Query(sqlSearchGroup)
+		for cNumber, xDoc := range xDocresultGroup {
+			xDoc := xDoc.(map[string]interface{})
+			xDoc["number"] = cNumber
 
-	for _, xDocGroup := range xDocGrouping {
-		xDocGroup := xDocGroup.(map[string]interface{})
+			if xDoc["merchantcode"] != nil && xDoc["merchantcode"].(string) == "none" {
+				continue
+			}
 
-		//Create Map with RewardControl as Index
-		//Create Map with RewardControl and MemberControl as Index
-		mapRewardGroup[xDocGroup["rewardcontrol"].(string)] = xDocGroup
+			if this.mapAppCache["control"] != nil {
+				xDoc["signedIn"] = "yes"
+				_, xDoc["state"] = myAppRedeem.ValidateEligibility(xDoc["control"].(string), curdb)
+			}
 
-		sMemberIndex := fmt.Sprintf("%s-%s", xDocGroup["rewardcontrol"], xDocGroup["membercontrol"])
-		mapMemberGroup[sMemberIndex] = xDocGroup
+			favoriteItem = fmt.Sprintf("reward-%s", xDoc["control"])
+			if favoriteList[favoriteItem] == nil {
+				xDoc["heart"] = "heart.png"
+			} else {
+				xDoc["heart"] = "heart_filled.png"
+			}
+
+			if xDoc["categorycontrol"] != nil {
+				if categoryList[xDoc["categorycontrol"].(string)] != nil {
+					xDocCategory := categoryList[xDoc["categorycontrol"].(string)].(map[string]interface{})
+					xDoc["categorytitle"] = xDocCategory["title"]
+				}
+			}
+
+			if xDoc["subcategorycontrol"] != nil {
+				if categoryList[xDoc["subcategorycontrol"].(string)] != nil {
+					xDocCategory := categoryList[xDoc["subcategorycontrol"].(string)].(map[string]interface{})
+					xDoc["subcategorytitle"] = xDocCategory["title"]
+				}
+			}
+
+			formSearch[cNumber+"#app-reward-list"] = xDoc
+		}
 
 	}
 
 	//Logic to Manage Grouping
-
-	sGroup := ""
-	formSearch := make(map[string]interface{})
+	xDocresult, _ := curdb.Query(sqlSearch)
 	for cNumber, xDoc := range xDocresult {
 		xDoc := xDoc.(map[string]interface{})
 		xDoc["number"] = cNumber
@@ -243,9 +265,7 @@ func (this *AppReward) search(httpReq *http.Request, curdb database.Database) ma
 			continue
 		}
 
-		sProfilecontrol := ""
 		if this.mapAppCache["control"] != nil {
-			sProfilecontrol = this.mapAppCache["control"].(string)
 			xDoc["signedIn"] = "yes"
 			_, xDoc["state"] = myAppRedeem.ValidateEligibility(xDoc["control"].(string), curdb)
 		}
@@ -271,20 +291,7 @@ func (this *AppReward) search(httpReq *http.Request, curdb database.Database) ma
 			}
 		}
 
-		sGroup = "00000000"
-		if mapRewardGroup[xDoc["control"].(string)] != nil {
-			sGroup = ""
-			sMemberIndex := fmt.Sprintf("%s-%s", xDoc["control"], sProfilecontrol)
-			if mapMemberGroup[sMemberIndex] != nil {
-				sGroup = "0"
-				xDocGroup := mapMemberGroup[sMemberIndex].(map[string]interface{})
-				xDoc["grouptitle"] = fmt.Sprintf(" Group: %s", xDocGroup["grouptitle"])
-			}
-		}
-
-		if sGroup != "" {
-			formSearch[cNumber+sGroup+"#app-reward-list"] = xDoc
-		}
+		formSearch[sGroup+cNumber+"#app-reward-list"] = xDoc
 	}
 
 	return formSearch

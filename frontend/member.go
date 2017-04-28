@@ -368,6 +368,10 @@ func (this *Member) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 		sMessage += "Status is missing <br>"
 	}
 
+	if functions.TrimEscape(httpReq.FormValue("workflow")) == "" {
+		sMessage += "Workflow is missing <br>"
+	}
+
 	if len(httpReq.Form["profilerole"]) == 0 {
 		sMessage += "Select Profile Role <br>"
 	}
@@ -503,7 +507,9 @@ func (this *Member) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 	}
 
 	if functions.TrimEscape(httpReq.FormValue("control")) != "" {
+
 		xDoc["control"] = functions.TrimEscape(httpReq.FormValue("control"))
+		xDoc["workflow"] = functions.TrimEscape(httpReq.FormValue("workflow"))
 		tblMember.Update(this.mapCache["username"].(string), xDoc, curdb)
 	} else {
 		xDoc["workflow"] = "registered"
@@ -887,14 +893,6 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 		return
 	}
 
-	emailTemplate := "member-welcome"
-	switch this.mapCache["role"].(string) {
-	case "merchant":
-		emailTemplate = "merchant-welcome"
-	case "employer":
-		emailTemplate = "employer-welcome"
-	}
-
 	//SEND AN EMAIL USING TEMPLATE
 	sqlMember := fmt.Sprintf(`select profile.firstname as firstname, profile.lastname as lastname, employer.title as employertitle, 
 		profile.username as username, profile.password as password, profile.email as email from profile left join 
@@ -903,11 +901,16 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 	emailTo := ""
 	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN"
+	emailTemplate := "member-welcome"
 	emailSubject := fmt.Sprintf("Welcome to VALUED - Portal Registration")
 
 	resMember, _ := curdb.Query(sqlMember)
 	for _, xDoc := range resMember {
 		emailFields := xDoc.(map[string]interface{})
+
+		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, functions.CamelCase(emailFields["title"].(string)),
+			functions.CamelCase(emailFields["firstname"].(string)), functions.CamelCase(emailFields["lastname"].(string)))
+
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)
 			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)

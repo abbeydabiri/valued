@@ -30,6 +30,10 @@ func (this *Html) Process(httpRes http.ResponseWriter, httpReq *http.Request, cu
 	case "role":
 		new(database.Role).Initialize(curdb)
 		new(database.ProfileRole).Initialize(curdb)
+
+	case "telr":
+		new(database.TelrOrder).Initialize(curdb)
+
 	}
 
 	//

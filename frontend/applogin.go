@@ -91,8 +91,13 @@ func (this *AppLogin) Process(httpRes http.ResponseWriter, httpReq *http.Request
 			if mapRes["1"] != nil {
 				GOSESSID, _ := httpReq.Cookie(_COOKIE_)
 				xDoc := mapRes["1"].(map[string]interface{})
-				curdb.SetSession(GOSESSID.Value, "mapAppCache", xDoc, false)
 
+				if xDoc["employercode"] != nil && xDoc["employercode"].(string) == "britishmums" {
+					httpRes.Write([]byte(`{"error":"Invalid Login Details"}`))
+					return
+				}
+
+				curdb.SetSession(GOSESSID.Value, "mapAppCache", xDoc, false)
 				new(AppProfile).Process(httpRes, httpReq, curdb)
 				return
 			}

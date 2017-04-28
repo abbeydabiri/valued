@@ -175,8 +175,7 @@ func (this *AppTell) tell(httpRes http.ResponseWriter, httpReq *http.Request, cu
 	emailFrom := "tellafriend@valued.com"
 	emailFromName := "VALUED.COM Rewards"
 	emailTo := functions.TrimEscape(httpReq.FormValue("friendemail"))
-	emailSubject := fmt.Sprintf(" Save Money & Get Free Perks - %s %s (%s)", functions.CamelCase(functions.TrimEscape(httpReq.FormValue("friendfirstname"))),
-		functions.CamelCase(functions.TrimEscape(httpReq.FormValue("friendlastname"))), functions.CamelCase(yourname))
+	emailSubject := fmt.Sprintf("%s thinks you will appreciate this", functions.CamelCase(yourname))
 	emailTemplate := "app-tell"
 
 	emailFields := make(map[string]interface{})

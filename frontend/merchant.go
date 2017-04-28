@@ -829,16 +829,34 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 	emailTemplate := "merchant-company-welcome"
 
 	//SEND AN EMAIL USING TEMPLATE
-	sqlMember := fmt.Sprintf(`select employer.email as email, employer.title as employertitle, profile.username as username, 
-		profile.password as password from profile left join profile as employer on employer.control = profile.employercontrol 
-		where profile.control in ('0'%s)`, controlList)
+
+	sqlMember := fmt.Sprintf(`select profile.email as email, profile.title as title, profile.username as username, 
+		profile.password as password from profile where profile.control in ('0'%s)`, controlList)
+
+	// sqlMember := fmt.Sprintf(`select employer.email as email, employer.title as employertitle, profile.username as username,
+	// 	profile.password as password from profile left join profile as employer on employer.control = profile.employercontrol
+	// 	where profile.control in ('0'%s)`, controlList)
 
 	emailTo := ""
 	emailFrom := "partnership@valued.com"
 	emailFromName := "VALUED PARTNERSHIP"
-	emailSubject := fmt.Sprintf("WELCOME TO VALUED - PARTNERSHIP")
+	emailSubject := fmt.Sprintf("VALUED GOES LIVE")
+	// emailSubject := fmt.Sprintf("WELCOME TO VALUED - PARTNERSHIP")
 
-	sUserDetail := `USER: <br> Username: %v <br> Password: %v < br><br>`
+	//
+	//
+	//Add Temporary Free Merchant Subscription for Merchants
+	//--//Search for tellafriend Reward if Active generate a CouponCode
+	sqlFindReward := `select reward.method as rewardmethod, reward.control as rewardcontrol from reward 
+						left join profile as merchant on merchant.control = reward.merchantcontrol
+						where lower(reward.code) = 'free.merchant' AND lower(merchant.code) = 'main' AND reward.workflow = 'active'`
+	sqlFindRewardRes, _ := curdb.Query(sqlFindReward)
+	//--//Search for tellafriend Reward if Active generate a CouponCode
+	//Add Temporary Free Merchant Subscription for Merchants
+	//
+	//
+
+	sUserDetail := `USER: <br> Username: %v <br> Password: %v <br><br>`
 	resMember, _ := curdb.Query(sqlMember)
 	for _, xDoc := range resMember {
 		xDocEmail := xDoc.(map[string]interface{})
@@ -846,8 +864,46 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 		if xDocEmail["email"] != nil && xDocEmail["email"].(string) != "" {
 			emailFields["email"] = xDocEmail["email"]
 
+			//
+			//
+			sCoupon := ""
+			//Add Temporary Free Merchant Subscription for Merchants
+			//--//Search for tellafriend Reward if Active generate a CouponCode
+			if sqlFindRewardRes["1"] != nil {
+				xDocFindRewardRes := sqlFindRewardRes["1"].(map[string]interface{})
+
+				switch xDocFindRewardRes["rewardmethod"].(string) {
+				case "Pin", "Valued Code":
+
+					xDocCoupon := make(map[string]interface{})
+					sCoupon = functions.RandomString(6)
+
+					xDocCoupon["code"] = sCoupon
+					xDocCoupon["workflow"] = "active"
+					xDocCoupon["rewardcontrol"] = xDocFindRewardRes["rewardcontrol"]
+					new(database.Coupon).Create(this.mapCache["username"].(string), xDocCoupon, curdb)
+
+				case "Client Code":
+					sqlFindCoupon := `select coupon.code as code from coupon where rewardcontrol = '%s' AND workflow = 'active' order by control limit 1`
+					sqlFindCoupon = fmt.Sprintf(sqlFindCoupon, xDocFindRewardRes["rewardcontrol"])
+
+					sqlFindCouponRes, _ := curdb.Query(sqlFindCoupon)
+					if sqlFindCouponRes["1"] != nil {
+						xDocFindCoupon := sqlFindCouponRes["1"].(map[string]interface{})
+						if xDocFindCoupon["code"] != nil {
+							sCoupon = xDocFindCoupon["code"].(string)
+						}
+					}
+				}
+			}
+			emailFields["coupon"] = sCoupon
+			//--//Search for tellafriend Reward if Active generate a CouponCode
+			//Add Temporary Free Merchant Subscription for Merchants
+			//
+			//
+
 			emailTo = emailFields["email"].(string)
-			emailFields["title"] = xDocEmail["employertitle"]
+			emailFields["title"] = xDocEmail["title"]
 			emailFields["userdata"] = fmt.Sprintf(sUserDetail, xDocEmail["username"], xDocEmail["password"])
 			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
 
