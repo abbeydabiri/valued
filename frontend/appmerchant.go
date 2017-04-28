@@ -67,7 +67,7 @@ func (this *AppMerchant) Process(httpRes http.ResponseWriter, httpReq *http.Requ
 
 func (this *AppMerchant) search(httpReq *http.Request, curdb database.Database) map[string]interface{} {
 
-	sLimit := "10"
+	sLimit := "30"
 	if html.EscapeString(httpReq.FormValue("limit")) != "" {
 		sLimit = html.EscapeString(httpReq.FormValue("limit"))
 	}

@@ -171,7 +171,7 @@ func (this *AppFavorite) remove(httpRes http.ResponseWriter, httpReq *http.Reque
 
 func (this *AppFavorite) search(httpReq *http.Request, curdb database.Database) map[string]interface{} {
 
-	sLimit := "200"
+	sLimit := "300"
 	if html.EscapeString(httpReq.FormValue("limit")) != "" {
 		sLimit = html.EscapeString(httpReq.FormValue("limit"))
 	}

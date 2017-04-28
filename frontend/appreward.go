@@ -109,7 +109,7 @@ func (this *AppReward) search(httpReq *http.Request, curdb database.Database) ma
 	curdb.SetSession(GOSESSID.Value, "mapSearchCache", this.mapSearchCache, false)
 	//Update SearchTags
 
-	sLimit := "10"
+	sLimit := "30"
 	if html.EscapeString(httpReq.FormValue("limit")) != "" {
 		sLimit = html.EscapeString(httpReq.FormValue("limit"))
 	}
