@@ -225,6 +225,10 @@ func (this *MerchantReward) importcouponcsvsave(httpRes http.ResponseWriter, htt
 
 				sliceCols := strings.Split(stringCols, ",")
 
+				if strings.TrimSpace(sliceCols[0]) == "" {
+					continue
+				}
+
 				xDoc := make(map[string]interface{})
 				xDoc["code"] = strings.TrimSpace(sliceCols[0])
 				xDoc["title"] = strings.TrimSpace(sliceCols[0])

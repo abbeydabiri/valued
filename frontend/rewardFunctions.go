@@ -202,8 +202,11 @@ func (this *Reward) importCoupon(httpRes http.ResponseWriter, httpReq *http.Requ
 				if index == 0 || len(stringCols) == 0 {
 					continue
 				}
-
 				sliceCols := strings.Split(stringCols, ",")
+
+				if strings.TrimSpace(sliceCols[0]) == "" {
+					continue
+				}
 
 				xDoc := make(map[string]interface{})
 				xDoc["code"] = strings.TrimSpace(sliceCols[0])

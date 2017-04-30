@@ -803,6 +803,19 @@ func (this *AppRedeem) saveFeedback(httpRes http.ResponseWriter, httpReq *http.R
 	//Query to Find Merchant, Reward and Coupon Details
 	resRedemption, _ := curdb.Query(sqlRedemption)
 	xDocEmail := resRedemption["1"].(map[string]interface{})
+
+	//
+	//Mark Coupon as Used Here ->
+	if mapAppReward["couponcontrol"] != nil && mapAppReward["couponcontrol"].(string) != "" &&
+		mapAppReward["method"].(string) != "Client Code Single" {
+		xDocCoupon := make(map[string]interface{})
+		xDocCoupon["workflow"] = "approved"
+		xDocCoupon["control"] = mapAppReward["couponcontrol"]
+		new(database.Coupon).Update(this.mapAppCache["username"].(string), xDocCoupon, curdb)
+	}
+	//Mark Coupon as Used Here ->
+	//
+
 	if xDocEmail["merchantemail"] != nil && xDocEmail["merchantemail"].(string) != "" {
 		emailTo = xDocEmail["merchantemail"].(string)
 		emailFields["merchanttitle"] = xDocEmail["merchanttitle"]
