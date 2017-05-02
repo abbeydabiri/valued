@@ -270,7 +270,7 @@ func (this *AppSubscribe) Paynow(httpRes http.ResponseWriter, httpReq *http.Requ
 	if functions.TrimEscape(httpReq.FormValue("coupon")) != "" {
 
 		sqlCoupon := `select coupon.control as couponcontrol, reward.control as rewardcontrol, coupon.workflow as couponworkflow, 
-						reward.workflow as rewardworkflow, merchant.code as merchantcode, reward.discount as coupondiscount, 
+						reward.workflow as rewardworkflow, reward.method as rewardmethod, merchant.code as merchantcode, reward.discount as coupondiscount, 
 						reward.discountvalue as coupondiscountvalue, reward.discounttype as coupondiscounttype
 						from coupon, reward, profile as merchant 
 						where coupon.rewardcontrol = reward.control AND reward.merchantcontrol  = merchant.control AND coupon.code = '%s'
@@ -329,7 +329,8 @@ func (this *AppSubscribe) Paynow(httpRes http.ResponseWriter, httpReq *http.Requ
 
 	//
 	//Mark Coupon as Used Here ->
-	if mapAppSubscribe["couponcontrol"] != nil {
+	if mapAppSubscribe["couponcontrol"] != nil && mapAppSubscribe["couponcontrol"].(string) != "" &&
+		mapAppSubscribe["rewardmethod"].(string) != "Client Code Single" {
 		xDocCoupon := make(map[string]interface{})
 		xDocCoupon["workflow"] = "approved"
 		xDocCoupon["control"] = mapAppSubscribe["couponcontrol"]
