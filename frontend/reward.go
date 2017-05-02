@@ -807,7 +807,7 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 				xDocCoupon["code"] = strings.TrimSpace(sliceCols[0])
 				xDocCoupon["title"] = strings.TrimSpace(sliceCols[0])
 				xDocCoupon["rewardcontrol"] = xDoc["control"]
-				xDocCoupon["workflow"] = functions.TrimEscape(httpReq.FormValue("workflow"))
+				xDocCoupon["workflow"] = "active"
 
 				tblCoupon.Create(this.mapCache["username"].(string), xDocCoupon, curdb)
 				<-time.Tick(time.Millisecond * 15)
