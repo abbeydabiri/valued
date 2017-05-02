@@ -1017,12 +1017,36 @@ func (this *Reward) activate(httpRes http.ResponseWriter, httpReq *http.Request,
 	}
 
 	//Send a Reward Activation Email to Merchant
+	//SEND AN EMAIL USING TEMPLATE
+	emailFields := make(map[string]interface{})
+	sqlReward := fmt.Sprintf(`select  reward.title as reward, reward.method as method, reward.startdate as startdate, reward.enddate as enddate, 
+								profile.title as merchant, profile.email as email
+								from reward left join profile on profile.control = reward.merchantcontrol
+								where reward.control =  '%s'`, httpReq.FormValue("control"))
+	resReward, _ := curdb.Query(sqlReward)
+	xDoc := make(map[string]interface{})
+	if resReward["1"] != nil {
+		emailFields = resReward["1"].(map[string]interface{})
+	}
+	emailFields["username"] = this.mapCache["username"]
+	if emailFields["email"] == nil || emailFields["email"].(string) == "" {
+		httpRes.Write([]byte(`{"error":"Selected reward not found"}`))
+		return
+	}
+
+	emailTo := emailFields["email"].(string)
+	emailFrom := "notifications@valued.com"
+	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
+	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
+	emailTemplate := "reward-activate"
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	//SEND AN EMAIL USING TEMPLATE
 	//Send a Reward Activation Email to Merchant
 
 	curdb.Query(fmt.Sprintf(`update reward set workflow = 'active', updatedby = '%s', updatedate = '%s' where control = '%s'`,
 		this.mapCache["username"], functions.GetSystemTime(), functions.TrimEscape(httpReq.FormValue("control"))))
 
-	httpRes.Write([]byte(`{"triggerSearch":true}`))
+	httpRes.Write([]byte(`{"triggerSearch":true,"error":"Email Notification Sent"}`))
 }
 
 func (this *Reward) activateView(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
@@ -1032,11 +1056,38 @@ func (this *Reward) activateView(httpRes http.ResponseWriter, httpReq *http.Requ
 		return
 	}
 
+	//Send a Reward Activation Email to Merchant
+	//SEND AN EMAIL USING TEMPLATE
+	emailFields := make(map[string]interface{})
+	sqlReward := fmt.Sprintf(`select  reward.title as reward, reward.method as method, reward.startdate as startdate, reward.enddate as enddate, 
+								profile.title as merchant, profile.email as email
+								from reward left join profile on profile.control = reward.merchantcontrol
+								where reward.control =  '%s'`, httpReq.FormValue("control"))
+	resReward, _ := curdb.Query(sqlReward)
+	xDoc := make(map[string]interface{})
+	if resReward["1"] != nil {
+		emailFields = resReward["1"].(map[string]interface{})
+	}
+	emailFields["username"] = this.mapCache["username"]
+	if emailFields["email"] == nil || emailFields["email"].(string) == "" {
+		httpRes.Write([]byte(`{"error":"Selected reward not found"}`))
+		return
+	}
+
+	emailTo := emailFields["email"].(string)
+	emailFrom := "notifications@valued.com"
+	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
+	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
+	emailTemplate := "reward-activate"
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	//SEND AN EMAIL USING TEMPLATE
+	//Send a Reward Activation Email to Merchant
+
 	curdb.Query(fmt.Sprintf(`update reward set workflow = 'active', updatedby = '%s', updatedate = '%s' where control = '%s'`,
 		this.mapCache["username"], functions.GetSystemTime(), functions.TrimEscape(httpReq.FormValue("control"))))
 
 	viewHTML := this.view(functions.TrimEscape(httpReq.FormValue("control")), curdb)
-	httpRes.Write([]byte(`{"error":"Reward Activated","mainpanelContent":` + viewHTML + `}`))
+	httpRes.Write([]byte(`{"error":"Reward Activated <br> Email Notification Sent","mainpanelContent":` + viewHTML + `}`))
 }
 
 func (this *Reward) deactivate(httpRes http.ResponseWriter, httpReq *http.Request, curdb database.Database) {
