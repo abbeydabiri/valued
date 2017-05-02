@@ -1024,7 +1024,6 @@ func (this *Reward) activate(httpRes http.ResponseWriter, httpReq *http.Request,
 								from reward left join profile on profile.control = reward.merchantcontrol
 								where reward.control =  '%s'`, httpReq.FormValue("control"))
 	resReward, _ := curdb.Query(sqlReward)
-	xDoc := make(map[string]interface{})
 	if resReward["1"] != nil {
 		emailFields = resReward["1"].(map[string]interface{})
 	}
@@ -1064,7 +1063,6 @@ func (this *Reward) activateView(httpRes http.ResponseWriter, httpReq *http.Requ
 								from reward left join profile on profile.control = reward.merchantcontrol
 								where reward.control =  '%s'`, httpReq.FormValue("control"))
 	resReward, _ := curdb.Query(sqlReward)
-	xDoc := make(map[string]interface{})
 	if resReward["1"] != nil {
 		emailFields = resReward["1"].(map[string]interface{})
 	}
