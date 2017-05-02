@@ -657,8 +657,9 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 			functions.TrimEscape(httpReq.FormValue("control")), functions.TrimEscape(httpReq.FormValue("method")))
 		resMethod, _ := curdb.Query(sqlMethod)
 		if resMethod["1"] == nil {
-			sqlDisable := fmt.Sprintf(`update coupon set workflow = 'inactive' where workflow = 'active' and rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
-			curdb.Query(sqlDisable)
+			// sqlDisable := fmt.Sprintf(`update coupon set workflow = 'inactive' where workflow = 'active' and rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
+			sqlDelete := fmt.Sprintf(`delete from coupon where rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
+			curdb.Query(sqlDelete)
 		}
 	}
 	// If Reward Method changes Disable All Coupons
@@ -1014,6 +1015,9 @@ func (this *Reward) activate(httpRes http.ResponseWriter, httpReq *http.Request,
 		httpRes.Write([]byte(`{"error":"Please select a reward"}`))
 		return
 	}
+
+	//Send a Reward Activation Email to Merchant
+	//Send a Reward Activation Email to Merchant
 
 	curdb.Query(fmt.Sprintf(`update reward set workflow = 'active', updatedby = '%s', updatedate = '%s' where control = '%s'`,
 		this.mapCache["username"], functions.GetSystemTime(), functions.TrimEscape(httpReq.FormValue("control"))))
