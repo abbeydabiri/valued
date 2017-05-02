@@ -98,6 +98,8 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 		})
 	mailer := Mailer{mySMTP, myMsgList}
 
+	log.Printf(" - - -- - - - -- - -- - --- - \n Mail:  %v ", myMsgList)
+
 	sMessage := mailer.CheckMail()
 	if len(sMessage) > 0 {
 		println("error" + sMessage)
@@ -163,16 +165,6 @@ func (this *Mailer) SendMail() (sMessage string) {
 		if Msg.Attachment != "" {
 			goMsg.Attach(Msg.Attachment)
 		}
-
-		log.Printf(`
-					SendEmail
-					emailFrom: %s 
-					emailTo: %s 
-					emailCC: %s, emailBCC: %s
-					emailSubject: %s
-					Msg.Content: 
-					%s
-					`, Msg.From, Msg.To, Msg.Cc, Msg.Bcc, Msg.Subject, Msg.Content)
 
 		if err := gomail.Send(goSender, goMsg); err != nil {
 			sMessage = strings.Replace(err.Error(), "\n", "", -1)
