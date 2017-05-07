@@ -908,8 +908,23 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 	for _, xDoc := range resMember {
 		emailFields := xDoc.(map[string]interface{})
 
-		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, functions.CamelCase(emailFields["title"].(string)),
-			functions.CamelCase(emailFields["firstname"].(string)), functions.CamelCase(emailFields["lastname"].(string)))
+		title := ""
+		firstname := ""
+		lastname := ""
+
+		if emailFields["title"] != nil {
+			title = fmt.Sprintf(`%v`, emailFields["title"])
+		}
+
+		if emailFields["title"] != nil {
+			firstname = fmt.Sprintf(`%v`, emailFields["firstname"])
+		}
+
+		if emailFields["title"] != nil {
+			lastname = fmt.Sprintf(`%v`, emailFields["lastname"])
+		}
+
+		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, functions.CamelCase(title, firstname, lastname))
 
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)

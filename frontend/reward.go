@@ -656,6 +656,7 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 		sqlMethod := fmt.Sprintf(`select control from reward where control = '%s' and method = '%s'`,
 			functions.TrimEscape(httpReq.FormValue("control")), functions.TrimEscape(httpReq.FormValue("method")))
 		resMethod, _ := curdb.Query(sqlMethod)
+		println(sqlMethod)
 		if resMethod["1"] == nil {
 			// sqlDisable := fmt.Sprintf(`update coupon set workflow = 'inactive' where workflow = 'active' and rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
 			sqlDelete := fmt.Sprintf(`delete from coupon where rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
