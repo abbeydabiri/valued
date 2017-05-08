@@ -81,9 +81,10 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 	}
 	emailSender := fmt.Sprintf("%s <%s>", emailFromName, emailFrom)
 
-	emailBCC := "info@valued.com, general@valued.com, suport@valued.com"
+	emailBCC := "info@valued.com"
+	// emailBCC := "info@valued.com, general@valued.com, suport@valued.com"
 	if strings.Contains(emailBCC, "info@valued.com") {
-		emailBCC = "general@valued.com, suport@valued.com"
+		// emailBCC = "general@valued.com, suport@valued.com"
 	}
 
 	var myMsgList []Message

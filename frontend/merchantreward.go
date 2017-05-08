@@ -800,6 +800,10 @@ func (this *MerchantReward) save(httpRes http.ResponseWriter, httpReq *http.Requ
 				stringCols = strings.TrimSpace(stringCols)
 				sliceCols := strings.Split(stringCols, ",")
 
+				if sliceCols[0] == "" {
+					continue
+				}
+
 				xDocCoupon := make(map[string]interface{})
 				xDocCoupon["code"] = strings.TrimSpace(sliceCols[0])
 				xDocCoupon["title"] = strings.TrimSpace(sliceCols[0])
@@ -811,7 +815,7 @@ func (this *MerchantReward) save(httpRes http.ResponseWriter, httpReq *http.Requ
 			}
 		}()
 
-		sMessage += fmt.Sprintf(" <b>%d</b> Coupon Codes Imported", len(sliceRow)-1)
+		sMessage += fmt.Sprintf("Coupon Codes Imported")
 	}
 	//Handle Coupon Code Import
 

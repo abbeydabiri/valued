@@ -659,7 +659,7 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 		println(sqlMethod)
 		if resMethod["1"] == nil {
 			// sqlDisable := fmt.Sprintf(`update coupon set workflow = 'inactive' where workflow = 'active' and rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
-			sqlDelete := fmt.Sprintf(`delete from coupon where rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
+			sqlDelete := fmt.Sprintf(`delete from coupon where rewardcontrol = '%s'`, functions.TrimEscape(httpReq.FormValue("control")))
 			curdb.Query(sqlDelete)
 		}
 	}
@@ -804,6 +804,10 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 				stringCols = strings.TrimSpace(stringCols)
 				sliceCols := strings.Split(stringCols, ",")
 
+				if sliceCols[0] == "" {
+					continue
+				}
+
 				xDocCoupon := make(map[string]interface{})
 				xDocCoupon["code"] = strings.TrimSpace(sliceCols[0])
 				xDocCoupon["title"] = strings.TrimSpace(sliceCols[0])
@@ -815,7 +819,7 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 			}
 		}()
 
-		sMessage += fmt.Sprintf(" <b>%d</b> Coupon Codes Imported", len(sliceRow))
+		sMessage += fmt.Sprintf("Coupon Codes Imported")
 	}
 	//Handle Coupon Code Import
 

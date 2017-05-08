@@ -913,18 +913,18 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 		lastname := ""
 
 		if emailFields["title"] != nil {
-			title = fmt.Sprintf(`%v`, emailFields["title"])
+			title = functions.CamelCase(fmt.Sprintf(`%v`, emailFields["title"]))
 		}
 
-		if emailFields["title"] != nil {
-			firstname = fmt.Sprintf(`%v`, emailFields["firstname"])
+		if emailFields["firstname"] != nil {
+			firstname = functions.CamelCase(fmt.Sprintf(`%v`, emailFields["firstname"]))
 		}
 
-		if emailFields["title"] != nil {
-			lastname = fmt.Sprintf(`%v`, emailFields["lastname"])
+		if emailFields["lastname"] != nil {
+			lastname = functions.CamelCase(fmt.Sprintf(`%v`, emailFields["lastname"]))
 		}
 
-		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, functions.CamelCase(title, firstname, lastname))
+		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, title, firstname, lastname)
 
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)
