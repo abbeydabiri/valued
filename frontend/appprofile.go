@@ -512,7 +512,7 @@ func (this *AppProfile) save(httpRes http.ResponseWriter, httpReq *http.Request,
 			emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, this.mapAppCache["title"], this.mapAppCache["firstname"], this.mapAppCache["lastname"])
 			emailFields["link"] = activationLink
 
-			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 			//generateUsernameChangeEmail
 
 		}
@@ -555,7 +555,7 @@ func (this *AppProfile) save(httpRes http.ResponseWriter, httpReq *http.Request,
 		emailFields["fullname"] = fmt.Sprintf(`%v %v %v`, this.mapAppCache["title"], this.mapAppCache["firstname"], this.mapAppCache["lastname"])
 		emailFields["link"] = activationLink
 
-		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 		//generateEmailChangeEmail
 
 	}
@@ -851,7 +851,7 @@ func (this *AppProfile) forgotPin(httpRes http.ResponseWriter, httpReq *http.Req
 	emailFields["email"] = this.mapAppCache["email"]
 	emailFields["link"] = activationLink
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//generateActivationEmailLink and sendActivationMail
 
 	sMessage = "The first stage of your Pin Reset has been successful. <br><br>"

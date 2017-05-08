@@ -1042,7 +1042,7 @@ func (this *Reward) activate(httpRes http.ResponseWriter, httpReq *http.Request,
 	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
 	emailTemplate := "reward-activate"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 	//Send a Reward Activation Email to Merchant
 
@@ -1081,7 +1081,7 @@ func (this *Reward) activateView(httpRes http.ResponseWriter, httpReq *http.Requ
 	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
 	emailTemplate := "reward-activate"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 	//Send a Reward Activation Email to Merchant
 

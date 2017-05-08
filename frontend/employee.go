@@ -791,7 +791,7 @@ func (this *Employee) requestInvoice(httpRes http.ResponseWriter, httpReq *http.
 
 	if this.mapCache["company"].(string) != "Yes" {
 		emailFields["employer"] = this.mapCache["employertitle"]
-		emailCC = append(emailCC, this.mapCache["employeremail"])
+		emailCC = append(emailCC, this.mapCache["employeremail"].(string))
 	}
 
 	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, emailCC, emailFields)

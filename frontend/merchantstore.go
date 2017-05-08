@@ -423,7 +423,7 @@ func (this *MerchantStore) save(httpRes http.ResponseWriter, httpReq *http.Reque
 		emailSubject = fmt.Sprintf("Merchant %s Added New Store", sMerchant)
 	}
 	emailTemplate := "merchantstore-save"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 
 	viewHTML := this.view(xDoc["control"].(string), curdb)

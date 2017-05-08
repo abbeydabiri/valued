@@ -905,7 +905,7 @@ func (this *Merchant) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 			emailTo = emailFields["email"].(string)
 			emailFields["title"] = xDocEmail["title"]
 			emailFields["userdata"] = fmt.Sprintf(sUserDetail, xDocEmail["username"], xDocEmail["password"])
-			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 
 		}
 	}

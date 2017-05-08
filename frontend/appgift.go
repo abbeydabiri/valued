@@ -491,7 +491,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 		emailFields["details"] = fmt.Sprintf(` Login Details: <br> ============== <br> Username: %v <br> Password: %v <br><br>`,
 			xDocProfile["username"], xDocProfile["password"])
 
-		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 		//generateRegistrationMail
 		//Send User Registration Here
 
@@ -530,7 +530,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 	emailFields["expirydate"] = xDocSubscribe["expirydate"]
 	emailFields["username"] = sReceiverUsername
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//generateSubscriptionMail
 
 	//generateReceiverMail
@@ -547,7 +547,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 	emailFields["friendfirstname"] = mapAppGift["friendfirstname"]
 	emailFields["message"] = mapAppGift["message"]
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//generateReceiverMail
 
 	//generateGifterMail
@@ -565,7 +565,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 	emailFields["lastname"] = mapAppGift["friendlastname"]
 	emailFields["message"] = mapAppGift["message"]
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 	//generateGifterMail
 
 	sMessage += "Gift Membership has been completed"

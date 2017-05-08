@@ -18,7 +18,7 @@ import (
 	"log"
 )
 
-func GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, emailCC []string, emailFields map[string]interface{}) bool {
+func GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate string, emailCC []string, emailFields map[string]interface{}) bool {
 
 	emailBytes, _ := data.Asset("email/" + emailTemplate)
 
@@ -48,7 +48,7 @@ func GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplat
 	return false
 }
 
-func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, emailCC []string) bool {
+func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage string, emailCC []string) bool {
 
 	if emailTo == "" || emailSubject == "" || emailMessage == "" {
 		return false
@@ -151,11 +151,11 @@ func (this *Mailer) SendMail() (sMessage string) {
 		goMsg.SetHeader("To", Msg.To)
 		goMsg.SetHeader("From", Msg.From)
 
-		for cc := range Msg.Cc {
+		for _, cc := range Msg.Cc {
 			goMsg.SetHeader("Cc", cc)
 		}
 
-		for bcc := range Msg.Bcc {
+		for _, bcc := range Msg.Bcc {
 			goMsg.SetHeader("Bcc", bcc)
 		}
 
