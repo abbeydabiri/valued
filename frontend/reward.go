@@ -803,7 +803,7 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 				stringCols = strings.TrimSpace(stringCols)
 				sliceCols := strings.Split(stringCols, ",")
 
-				if sliceCols[0] == "" {
+				if strings.TrimSpace(sliceCols[0]) == "" {
 					continue
 				}
 
@@ -1038,7 +1038,7 @@ func (this *Reward) activate(httpRes http.ResponseWriter, httpReq *http.Request,
 	}
 
 	emailTo := emailFields["email"].(string)
-	emailFrom := "notifications@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
 	emailTemplate := "reward-activate"
@@ -1077,7 +1077,7 @@ func (this *Reward) activateView(httpRes http.ResponseWriter, httpReq *http.Requ
 	}
 
 	emailTo := emailFields["email"].(string)
-	emailFrom := "notifications@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
 	emailTemplate := "reward-activate"

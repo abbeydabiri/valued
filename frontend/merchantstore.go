@@ -415,8 +415,8 @@ func (this *MerchantStore) save(httpRes http.ResponseWriter, httpReq *http.Reque
 	emailFields["gpslongNEW"] = xDoc["gpslong"]
 	emailFields["openingNEW"] = xDoc["opening"]
 
-	emailTo := "rewards@valued.com"
-	emailFrom := "notifications@valued.com"
+	emailTo := "info@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Store Change Request", sMerchant)
 	if sAction != "" {
@@ -600,9 +600,9 @@ func (this *MerchantStore) deactivateAll(httpRes http.ResponseWriter, httpReq *h
 	emailFields["rows"] = sTableRows
 	emailFields["username"] = this.mapCache["username"]
 
-	emailTo := "rewards@valued.com"
+	emailTo := "info@valued.com"
 	emailCC := []string{this.mapCache["email"].(string)}
-	emailFrom := "notifications@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := "Merchant " + sMerchant + "Store Deactivate Request"
 	emailTemplate := "merchantstore-deactivate"

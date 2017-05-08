@@ -475,7 +475,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 
 		//Send User Registration Here
 		//generateRegistrationMail
-		emailFrom := "membership@valued.com"
+		emailFrom := "rewards@valued.com"
 		emailFromName := "VALUED membership"
 		emailTo := xDocProfile["username"].(string)
 		emailSubject := "Welcome to VALUED - Member Registration"
@@ -516,7 +516,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 	new(database.Subscription).Create(sUsername, xDocSubscribe, curdb)
 
 	//generateSubscriptionMail
-	emailFrom := "membership@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED Membership"
 	emailTo := mapAppGift["friendemail"].(string)
 	emailSubject := "WELCOME TO VALUED"
@@ -534,7 +534,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 	//generateSubscriptionMail
 
 	//generateReceiverMail
-	emailFrom = "membership@valued.com"
+	emailFrom = "rewards@valued.com"
 	emailFromName = "VALUED Membership"
 	emailTo = functions.TrimEscape(httpReq.FormValue("friendemail"))
 	emailSubject = "YOUR GIFT - A VALUED MEMBERSHIP FROM " + mapAppGift["sendersname"].(string)
@@ -551,7 +551,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 	//generateReceiverMail
 
 	//generateGifterMail
-	emailFrom = "membership@valued.com"
+	emailFrom = "rewards@valued.com"
 	emailFromName = "VALUED Membership"
 	emailTo = functions.TrimEscape(httpReq.FormValue("friendemail"))
 	emailSubject = `A Gift For You – VALUED Membership`

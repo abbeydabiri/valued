@@ -233,7 +233,7 @@ func (this *AppLogin) forgotpassword(httpRes http.ResponseWriter, httpReq *http.
 	//generateActivationLink
 
 	//generateActivationEmailLink and sendActivationMail
-	emailFrom := "password@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED"
 	emailTo := xDocProfile["username"].(string)
 	emailSubject := "VALUED - Password reset"
@@ -360,7 +360,7 @@ func (this *AppLogin) signup(httpRes http.ResponseWriter, httpReq *http.Request,
 	//generateActivationLink
 
 	//generateRegistrationMail
-	emailFrom := "membership@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED membership"
 	emailTo := xDocProfile["username"].(string)
 	emailSubject := "Welcome to VALUED - Member Registration"

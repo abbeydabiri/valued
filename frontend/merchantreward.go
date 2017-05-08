@@ -872,8 +872,8 @@ func (this *MerchantReward) save(httpRes http.ResponseWriter, httpReq *http.Requ
 	emailFields["action"] = sAction
 	emailFields["username"] = this.mapCache["username"]
 
-	emailTo := "rewards@valued.com"
-	emailFrom := "notifications@valued.com"
+	emailTo := "info@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Change Request", emailFields["merchant"])
 	if sAction != "" {
@@ -1152,9 +1152,9 @@ func (this *MerchantReward) deactivateAll(httpRes http.ResponseWriter, httpReq *
 	emailFields["username"] = this.mapCache["username"]
 	emailFields["message"] = functions.TrimEscape(httpReq.FormValue("message"))
 
-	emailTo := "rewards@valued.com"
+	emailTo := "info@valued.com"
 	emailCC := []string{this.mapCache["email"].(string)}
-	emailFrom := "notifications@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := "Merchant " + sMerchant + " Reward Deactivate Request"
 	emailTemplate := "merchantreward-deactivate"
@@ -1195,9 +1195,9 @@ func (this *MerchantReward) requestChanges(httpRes http.ResponseWriter, httpReq 
 	emailFields["username"] = this.mapCache["username"]
 	emailFields["message"] = functions.TrimEscape(httpReq.FormValue("message"))
 
-	emailTo := "rewards@valued.com"
+	emailTo := "info@valued.com"
 	emailCC := []string{this.mapCache["email"].(string)}
-	emailFrom := "notifications@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := "Merchant " + emailFields["merchant"].(string) + " Reward Change Request"
 	emailTemplate := "merchantreward-change"

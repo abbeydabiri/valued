@@ -772,7 +772,7 @@ func (this *Employee) requestInvoice(httpRes http.ResponseWriter, httpReq *http.
 	emailCC = append(emailCC, "employers@valued.com")
 	emailTo := this.mapCache["email"].(string)
 
-	emailFrom := "employers@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED EMPLOYERS"
 	emailTemplate := "employer-invoice"
 	emailSubject := fmt.Sprintf("VALUED INVOICE - EMPLOYEE ADDITIONS")

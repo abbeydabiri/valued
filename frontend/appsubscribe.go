@@ -464,7 +464,7 @@ func (this *AppSubscribe) subscribeMe(xDocTelrOrder map[string]interface{}, curd
 		new(database.Profile).Update(this.mapAppCache["username"].(string), xDocProfile, curdb)
 
 		//generateSubscriptionMail
-		emailFrom := "membership@valued.com"
+		emailFrom := "rewards@valued.com"
 		emailFromName := "VALUED Membership"
 		emailTo := this.mapAppCache["email"].(string)
 		emailSubject := "WELCOME TO VALUED"

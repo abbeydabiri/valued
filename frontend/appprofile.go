@@ -502,7 +502,7 @@ func (this *AppProfile) save(httpRes http.ResponseWriter, httpReq *http.Request,
 			//generateActivationLink
 
 			//generateUsernameChangeEmail
-			emailFrom := "username@valued.com"
+			emailFrom := "rewards@valued.com"
 			emailFromName := "VALUED"
 			emailTo := sProfileEmail
 			emailSubject := "VALUED - Please confirm your username"
@@ -545,7 +545,7 @@ func (this *AppProfile) save(httpRes http.ResponseWriter, httpReq *http.Request,
 		//generateActivationLink
 
 		//generateEmailChangeEmail
-		emailFrom := "email@valued.com"
+		emailFrom := "rewards@valued.com"
 		emailFromName := "VALUED"
 		emailTo := sProfileEmail
 		emailSubject := "VALUED - Please confirm your email"
@@ -840,7 +840,7 @@ func (this *AppProfile) forgotPin(httpRes http.ResponseWriter, httpReq *http.Req
 	//generateActivationLink
 
 	//generateActivationEmailLink and sendActivationMail
-	emailFrom := "pin@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED"
 	emailTo := this.mapAppCache["username"].(string)
 	emailSubject := "VALUED - Pin reset"

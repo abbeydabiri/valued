@@ -307,7 +307,7 @@ func (this *AppRedeem) saveMemberPin(httpRes http.ResponseWriter, httpReq *http.
 		//Send an Email to Merchant
 		//SEND AN EMAIL USING TEMPLATE
 		emailTo := ""
-		emailFrom := "redemptions@valued.com"
+		emailFrom := "rewards@valued.com"
 		emailFromName := "VALUED PROMO CODES"
 		emailTemplate := "app-merchant-request-promocode"
 		emailSubject := fmt.Sprintf("RELEASE OF NEW PROMO CODES")
@@ -788,7 +788,7 @@ func (this *AppRedeem) saveFeedback(httpRes http.ResponseWriter, httpReq *http.R
 	//Send an Email to Merchant
 	//SEND AN EMAIL USING TEMPLATE
 	emailTo := ""
-	emailFrom := "redemptions@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED REDEMPTION"
 	emailFields := make(map[string]interface{})
 

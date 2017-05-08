@@ -802,7 +802,7 @@ func (this *Employer) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 		where profile.control in ('0'%s)`, controlList)
 
 	emailTo := ""
-	emailFrom := "partnership@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED EMPLOYERS"
 	emailTemplate := "employer-company-welcome"
 	emailSubject := fmt.Sprintf("WELCOME TO VALUED - EMPLOYER")

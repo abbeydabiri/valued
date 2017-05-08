@@ -172,7 +172,7 @@ func (this *AppTell) tell(httpRes http.ResponseWriter, httpReq *http.Request, cu
 	yourname := fmt.Sprintf("%s %s %s", this.mapAppCache["title"], this.mapAppCache["firstname"], this.mapAppCache["lastname"])
 
 	//generateTellAFriendEmail
-	emailFrom := "tellafriend@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED.COM Rewards"
 	emailTo := functions.TrimEscape(httpReq.FormValue("friendemail"))
 	emailSubject := fmt.Sprintf("%s thinks you will appreciate this", functions.CamelCase(yourname))

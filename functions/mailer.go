@@ -81,10 +81,10 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage str
 	}
 	emailSender := fmt.Sprintf("%s <%s>", emailFromName, emailFrom)
 
-	emailBCC := []string{"info@valued.com, general@valued.com, suport@valued.com"}
-	if emailTo == "info@valued.com" {
-		emailBCC = []string{"general@valued.com", "suport@valued.com"}
-	}
+	emailBCC := []string{"info@valued.com", "general@valued.com"}
+	// if emailTo == "info@valued.com" {
+	// 	emailBCC = []string{"general@valued.com"}
+	// }
 
 	var myMsgList []Message
 	myMsgList = append(myMsgList,

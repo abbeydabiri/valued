@@ -955,7 +955,7 @@ func (this *Member) sendSubscriptionMail(httpRes http.ResponseWriter, httpReq *h
 	sqlMember := fmt.Sprintf(`select profile.email as email, profile.title as title, profile.firstname as firstname, profile.lastname as lastname, profile.username as username, scheme.title as scheme, subscription.expirydate as expirydate from subscription  left join profile on profile.control = subscription.membercontrol left join scheme on scheme.control = subscription.schemecontrol where subscription.control in ('0'%s)`, controlList)
 
 	emailTo := ""
-	emailFrom := "membership@valued.com"
+	emailFrom := "rewards@valued.com"
 	emailFromName := "VALUED Membership"
 	emailSubject := "WELCOME TO VALUED"
 	emailTemplate := "app-subscribe"
