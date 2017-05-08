@@ -478,7 +478,7 @@ func (this *AppSubscribe) subscribeMe(xDocTelrOrder map[string]interface{}, curd
 		emailFields["expirydate"] = xDoc["expirydate"]
 		emailFields["username"] = this.mapAppCache["username"]
 
-		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 		//generateSubscriptionMail
 
 	} else {

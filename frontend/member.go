@@ -928,7 +928,7 @@ func (this *Member) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http.R
 
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)
-			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 		}
 	}
 	//SEND AN EMAIL USING TEMPLATE
@@ -965,7 +965,7 @@ func (this *Member) sendSubscriptionMail(httpRes http.ResponseWriter, httpReq *h
 		emailFields := xDoc.(map[string]interface{})
 		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			emailTo = emailFields["email"].(string)
-			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 		}
 	}
 	//generateSubscriptionMail

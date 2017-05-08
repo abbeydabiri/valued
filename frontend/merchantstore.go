@@ -423,7 +423,7 @@ func (this *MerchantStore) save(httpRes http.ResponseWriter, httpReq *http.Reque
 		emailSubject = fmt.Sprintf("Merchant %s Added New Store", sMerchant)
 	}
 	emailTemplate := "merchantstore-save"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 
 	viewHTML := this.view(xDoc["control"].(string), curdb)
@@ -601,7 +601,7 @@ func (this *MerchantStore) deactivateAll(httpRes http.ResponseWriter, httpReq *h
 	emailFields["username"] = this.mapCache["username"]
 
 	emailTo := "rewards@valued.com"
-	emailCC := this.mapCache["email"].(string)
+	emailCC := []string{this.mapCache["email"].(string)}
 	emailFrom := "notifications@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := "Merchant " + sMerchant + "Store Deactivate Request"

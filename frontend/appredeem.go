@@ -324,7 +324,7 @@ func (this *AppRedeem) saveMemberPin(httpRes http.ResponseWriter, httpReq *http.
 			emailTo = xDocEmail["email"].(string)
 			emailFields["title"] = xDocEmail["employertitle"]
 
-			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 		}
 		//SEND AN EMAIL USING TEMPLATE
 		//Send an Email to Merchant
@@ -832,7 +832,7 @@ func (this *AppRedeem) saveFeedback(httpRes http.ResponseWriter, httpReq *http.R
 			emailTemplate = "app-merchant-redemption-pincode"
 		}
 
-		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+		go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	}
 	//SEND AN EMAIL USING TEMPLATE
 	//Send an Email to Merchant

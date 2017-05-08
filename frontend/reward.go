@@ -656,7 +656,6 @@ func (this *Reward) save(httpRes http.ResponseWriter, httpReq *http.Request, cur
 		sqlMethod := fmt.Sprintf(`select control from reward where control = '%s' and method = '%s'`,
 			functions.TrimEscape(httpReq.FormValue("control")), functions.TrimEscape(httpReq.FormValue("method")))
 		resMethod, _ := curdb.Query(sqlMethod)
-		println(sqlMethod)
 		if resMethod["1"] == nil {
 			// sqlDisable := fmt.Sprintf(`update coupon set workflow = 'inactive' where workflow = 'active' and rewardcontrol = %s'`, functions.TrimEscape(httpReq.FormValue("control")))
 			sqlDelete := fmt.Sprintf(`delete from coupon where rewardcontrol = '%s'`, functions.TrimEscape(httpReq.FormValue("control")))
@@ -1043,7 +1042,7 @@ func (this *Reward) activate(httpRes http.ResponseWriter, httpReq *http.Request,
 	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
 	emailTemplate := "reward-activate"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 	//Send a Reward Activation Email to Merchant
 
@@ -1082,7 +1081,7 @@ func (this *Reward) activateView(httpRes http.ResponseWriter, httpReq *http.Requ
 	emailFromName := "VALUED MERCHANT NOTIFICATIONS"
 	emailSubject := fmt.Sprintf("Merchant %s Reward Activated", emailFields["merchant"])
 	emailTemplate := "reward-activate"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 	//Send a Reward Activation Email to Merchant
 

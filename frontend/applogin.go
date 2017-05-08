@@ -244,7 +244,7 @@ func (this *AppLogin) forgotpassword(httpRes http.ResponseWriter, httpReq *http.
 	emailFields["email"] = xDocProfile["email"]
 	emailFields["link"] = activationLink
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//generateActivationEmailLink and sendActivationMail
 
 	sMessage = "The first stage of your Password Reset has been successful. <br><br>"
@@ -372,7 +372,7 @@ func (this *AppLogin) signup(httpRes http.ResponseWriter, httpReq *http.Request,
 	emailFields["username"] = xDocProfile["username"]
 	emailFields["link"] = activationLink
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//generateRegistrationMail
 
 	sMessage = "The first stage of your sign up has been successful. <br><br>"

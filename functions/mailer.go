@@ -18,7 +18,7 @@ import (
 	"log"
 )
 
-func GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, emailCC string, emailFields map[string]interface{}) bool {
+func GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, emailCC []string, emailFields map[string]interface{}) bool {
 
 	emailBytes, _ := data.Asset("email/" + emailTemplate)
 
@@ -48,7 +48,7 @@ func GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplat
 	return false
 }
 
-func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, emailCC string) bool {
+func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, emailCC []string) bool {
 
 	if emailTo == "" || emailSubject == "" || emailMessage == "" {
 		return false
@@ -81,10 +81,9 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 	}
 	emailSender := fmt.Sprintf("%s <%s>", emailFromName, emailFrom)
 
-	emailBCC := "info@valued.com"
-	// emailBCC := "info@valued.com, general@valued.com, suport@valued.com"
-	if strings.Contains(emailBCC, "info@valued.com") {
-		// emailBCC = "general@valued.com, suport@valued.com"
+	emailBCC := []string{"info@valued.com, general@valued.com, suport@valued.com"}
+	if emailTo == "info@valued.com" {
+		emailBCC = []string{"general@valued.com", "suport@valued.com"}
 	}
 
 	var myMsgList []Message
@@ -103,13 +102,13 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage, em
 
 	sMessage := mailer.CheckMail()
 	if len(sMessage) > 0 {
-		println("error" + sMessage)
+		log.Printf(sMessage)
 		return false
 	}
 
 	sMessage = mailer.SendMail()
 	if len(sMessage) > 0 {
-		println("error" + sMessage)
+		log.Printf(sMessage)
 		return false
 	}
 
@@ -122,7 +121,9 @@ type SMTP struct {
 }
 
 type Message struct {
-	To, From, Cc, Replyto, Bcc, Subject, Content, Attachment string
+	To, From, Replyto, Subject,
+	Content, Attachment string
+	Cc, Bcc []string
 }
 
 type Mailer struct {
@@ -134,6 +135,7 @@ func (this *Mailer) SendMail() (sMessage string) {
 
 	sMessage = ""
 	goMsg := gomail.NewMessage()
+
 	goDialer := gomail.NewDialer(this.SMTP.Server, this.SMTP.Port, this.SMTP.Username, this.SMTP.Password)
 	goDialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
@@ -149,12 +151,12 @@ func (this *Mailer) SendMail() (sMessage string) {
 		goMsg.SetHeader("To", Msg.To)
 		goMsg.SetHeader("From", Msg.From)
 
-		if Msg.Cc != "" {
-			goMsg.SetHeader("Cc", Msg.Cc)
+		for cc := range Msg.Cc {
+			goMsg.SetHeader("Cc", cc)
 		}
 
-		if Msg.Bcc != "" {
-			goMsg.SetHeader("Bcc", Msg.Bcc)
+		for bcc := range Msg.Bcc {
+			goMsg.SetHeader("Bcc", bcc)
 		}
 
 		if Msg.Replyto != "" {

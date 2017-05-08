@@ -185,7 +185,7 @@ func (this *AppTell) tell(httpRes http.ResponseWriter, httpReq *http.Request, cu
 	emailFields["message"] = sFriendMessage
 	emailFields["couponmessage"] = sCouponMessage
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//generateTellAFriendEmail
 
 	//saveReferral

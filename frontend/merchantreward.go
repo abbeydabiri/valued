@@ -880,7 +880,7 @@ func (this *MerchantReward) save(httpRes http.ResponseWriter, httpReq *http.Requ
 		emailSubject = fmt.Sprintf("Merchant %s Added New Reward", emailFields["merchant"])
 	}
 	emailTemplate := "merchantstore-save"
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 
 	viewHTML := this.view(xDoc["control"].(string), curdb)
@@ -1153,7 +1153,7 @@ func (this *MerchantReward) deactivateAll(httpRes http.ResponseWriter, httpReq *
 	emailFields["message"] = functions.TrimEscape(httpReq.FormValue("message"))
 
 	emailTo := "rewards@valued.com"
-	emailCC := this.mapCache["email"].(string)
+	emailCC := []string{this.mapCache["email"].(string)}
 	emailFrom := "notifications@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := "Merchant " + sMerchant + " Reward Deactivate Request"
@@ -1196,7 +1196,7 @@ func (this *MerchantReward) requestChanges(httpRes http.ResponseWriter, httpReq 
 	emailFields["message"] = functions.TrimEscape(httpReq.FormValue("message"))
 
 	emailTo := "rewards@valued.com"
-	emailCC := this.mapCache["email"].(string)
+	emailCC := []string{this.mapCache["email"].(string)}
 	emailFrom := "notifications@valued.com"
 	emailFromName := "VALUED ADMIN NOTIFICATIONS"
 	emailSubject := "Merchant " + emailFields["merchant"].(string) + " Reward Change Request"

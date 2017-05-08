@@ -768,7 +768,8 @@ func (this *Employee) requestInvoice(httpRes http.ResponseWriter, httpReq *http.
 		return
 	}
 
-	emailCc := "employers@valued.com"
+	var emailCC []string
+	emailCC = append(emailCC, "employers@valued.com")
 	emailTo := this.mapCache["email"].(string)
 
 	emailFrom := "employers@valued.com"
@@ -790,10 +791,10 @@ func (this *Employee) requestInvoice(httpRes http.ResponseWriter, httpReq *http.
 
 	if this.mapCache["company"].(string) != "Yes" {
 		emailFields["employer"] = this.mapCache["employertitle"]
-		emailCc = fmt.Sprintf(`%s,%s`, this.mapCache["employeremail"], emailCc)
+		emailCC = append(emailCC, this.mapCache["employeremail"])
 	}
 
-	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, emailCc, emailFields)
+	go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, emailCC, emailFields)
 	//SEND AN EMAIL USING TEMPLATE
 
 	sMessage = fmt.Sprintf(`{"error":"Invoice Request Email Has Been Sent"}`, len(resMember))

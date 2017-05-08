@@ -818,7 +818,7 @@ func (this *Employer) sendWelcomeMail(httpRes http.ResponseWriter, httpReq *http
 			emailTo = emailFields["email"].(string)
 			emailFields["title"] = xDocEmail["employertitle"]
 			emailFields["userdata"] = fmt.Sprintf(sUserDetail, xDocEmail["username"], xDocEmail["password"])
-			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, "", emailFields)
+			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, []string, emailFields)
 
 		}
 	}
