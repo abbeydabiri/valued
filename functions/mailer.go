@@ -56,14 +56,14 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage str
 
 	jsonEmail, _ := ioutil.ReadFile("email.json")
 	if len(jsonEmail) == 0 {
-		println(`email.json file is missing`)
+		log.Printf(`email.json file is missing`)
 		return false
 	}
 
 	mapEmail := make(map[string]string)
 	json.Unmarshal(jsonEmail, &mapEmail)
 	if len(mapEmail) == 0 {
-		println(`email.json file is corrupt`)
+		log.Printf(`email.json file is corrupt`)
 		return false
 	}
 
@@ -72,16 +72,17 @@ func SendEmail(emailFrom, emailFromName, emailTo, emailSubject, emailMessage str
 		Port: Port, Server: mapEmail["server"], Username: mapEmail["username"], Password: mapEmail["password"],
 	}
 
-	if emailFrom == "" {
-		emailFrom = mySMTP.Username
-	}
+	// if emailFrom == "" {
+	emailFrom = mySMTP.Username
+	// }
 
 	if emailFromName == "" {
 		emailFromName = "VALUED MEMBERSHIP"
 	}
 	emailSender := fmt.Sprintf("%s <%s>", emailFromName, emailFrom)
 
-	emailBCC := []string{"info@valued.com", "general@valued.com"}
+	emailBCC := []string{"general@valued.com"}
+	// emailBCC := []string{"info@valued.com", "general@valued.com"}
 	// if emailTo == "info@valued.com" {
 	// 	emailBCC = []string{"general@valued.com"}
 	// }
