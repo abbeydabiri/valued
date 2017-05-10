@@ -306,24 +306,21 @@ func (this *AppRedeem) saveMemberPin(httpRes http.ResponseWriter, httpReq *http.
 
 		//Send an Email to Merchant
 		//SEND AN EMAIL USING TEMPLATE
-		emailTo := ""
+		emailTo := "tschilbach@valued.com"
 		emailFrom := "rewards@valued.com"
 		emailFromName := "VALUED PROMO CODES"
 		emailTemplate := "app-merchant-request-promocode"
 		emailSubject := fmt.Sprintf("RELEASE OF NEW PROMO CODES")
 		emailFields := make(map[string]interface{})
 
-		sqlMerchant := fmt.Sprintf(`select employer.email as email, employer.title as employertitle from profile as employer
-			left join reward on reward.merchantcontrol = employer.control where reward.control = '%s' `,
+		sqlMerchant := fmt.Sprintf(`select reward.title as rewardtitle, merchant.email as email, merchant.title as merchanttitle from profile as merchant
+			left join reward on reward.merchantcontrol = merchant.control where reward.control = '%s' `,
 			functions.TrimEscape(httpReq.FormValue("reward")))
 
 		resMember, _ := curdb.Query(sqlMerchant)
-		xDocEmail := resMember["1"].(map[string]interface{})
+		emailFields = resMember["1"].(map[string]interface{})
 
 		if xDocEmail["email"] != nil && xDocEmail["email"].(string) != "" {
-			emailTo = xDocEmail["email"].(string)
-			emailFields["title"] = xDocEmail["employertitle"]
-
 			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 		}
 		//SEND AN EMAIL USING TEMPLATE
