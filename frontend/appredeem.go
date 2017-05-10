@@ -823,6 +823,7 @@ func (this *AppRedeem) saveFeedback(httpRes http.ResponseWriter, httpReq *http.R
 		emailFields["transactionnumber"] = xDocEmail["transactionnumber"]
 		emailFields["transactionvalue"] = fmt.Sprintf(`%v`, xDocEmail["transactionvalue"])
 		emailFields["rewardtitle"] = xDocEmail["rewardtitle"]
+		emailFields["couponcode"] = xDocEmail["couponcode"]
 
 		emailSubject := fmt.Sprintf("VALUED REDEMPTION - %s", xDocEmail["couponcode"])
 		emailTemplate := "app-merchant-redemption-promocode"
