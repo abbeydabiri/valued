@@ -320,7 +320,7 @@ func (this *AppRedeem) saveMemberPin(httpRes http.ResponseWriter, httpReq *http.
 		resMember, _ := curdb.Query(sqlMerchant)
 		emailFields = resMember["1"].(map[string]interface{})
 
-		if xDocEmail["email"] != nil && xDocEmail["email"].(string) != "" {
+		if emailFields["email"] != nil && emailFields["email"].(string) != "" {
 			go functions.GenerateEmail(emailFrom, emailFromName, emailTo, emailSubject, emailTemplate, nil, emailFields)
 		}
 		//SEND AN EMAIL USING TEMPLATE
