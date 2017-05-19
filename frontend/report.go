@@ -268,7 +268,7 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 
 	//Employer
 
-	sqlEmployerSubscriptionDue := fmt.Sprintf(`select count(control) as employersubscriptiondue from subscription where employercontrol not in (select control from profile where code in ('main','britishmums')) where expirydate::timestamp between '%s'::timestamp and '%s'::timestamp `, startDate.Format(cFormat), oneMonth.Format(cFormat))
+	sqlEmployerSubscriptionDue := fmt.Sprintf(`select count(control) as employersubscriptiondue from subscription where employercontrol not in (select control from profile where code in ('main','britishmums')) and expirydate::timestamp between '%s'::timestamp and '%s'::timestamp `, startDate.Format(cFormat), oneMonth.Format(cFormat))
 	mapEmployerSubscriptionDue, _ := curdb.Query(sqlEmployerSubscriptionDue)
 	mapReport["employersubscriptiondue"] = float64(0)
 	if mapEmployerSubscriptionDue["1"] != nil {
