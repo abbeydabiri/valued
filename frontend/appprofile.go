@@ -498,7 +498,7 @@ func (this *AppProfile) save(httpRes http.ResponseWriter, httpReq *http.Request,
 			xDocLink["logincontrol"] = this.mapAppCache["control"]
 			tblActivationLink.Create("reset", xDocLink, curdb)
 
-			activationLink := fmt.Sprintf("%sapp-activate/?action=username&code=%s", httpReq.Referer(), xDocLink["code"])
+			activationLink := fmt.Sprintf("https://app.valued.com/app-activate?action=username&code=%v", xDocLink["code"])
 			//generateActivationLink
 
 			//generateUsernameChangeEmail
@@ -541,7 +541,7 @@ func (this *AppProfile) save(httpRes http.ResponseWriter, httpReq *http.Request,
 		xDocLink["logincontrol"] = this.mapAppCache["control"]
 		tblActivationLink.Create("reset", xDocLink, curdb)
 
-		activationLink := fmt.Sprintf("%sapp-activate/?action=email&code=%s", httpReq.Referer(), xDocLink["code"])
+		activationLink := fmt.Sprintf("https://app.valued.com/app-activate?action=email&code=%v", xDocLink["code"])
 		//generateActivationLink
 
 		//generateEmailChangeEmail
@@ -836,7 +836,7 @@ func (this *AppProfile) forgotPin(httpRes http.ResponseWriter, httpReq *http.Req
 	xDocLink["description"] = this.mapAppCache["email"]
 	tblActivationLink.Create("reset", xDocLink, curdb)
 
-	activationLink := fmt.Sprintf("%sapp-activate/?action=resetpin&code=%v", httpReq.Referer(), xDocLink["code"])
+	activationLink := fmt.Sprintf("https://app.valued.com/app-activate?action=resetpin&code=%v", xDocLink["code"])
 	//generateActivationLink
 
 	//generateActivationEmailLink and sendActivationMail

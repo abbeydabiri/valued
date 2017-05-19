@@ -470,7 +470,7 @@ func (this *AppGift) subscribeFriend(xDocTelrOrder map[string]interface{}, httpR
 		xDocLink["logincontrol"] = profilecontrol
 		tblActivationLink.Create(sUsername, xDocLink, curdb)
 
-		activationLink := fmt.Sprintf("%sapp-activate/?code=%s", httpReq.Referer(), xDocLink["code"])
+		activationLink := fmt.Sprintf("https://app.valued.com/app-activate?code=%v", xDocLink["code"])
 		//generateActivationLink
 
 		//Send User Registration Here

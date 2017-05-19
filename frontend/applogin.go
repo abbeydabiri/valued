@@ -229,7 +229,7 @@ func (this *AppLogin) forgotpassword(httpRes http.ResponseWriter, httpReq *http.
 	xDocLink["description"] = xDocProfile["email"]
 	tblActivationLink.Create("reset", xDocLink, curdb)
 
-	activationLink := fmt.Sprintf("%sapp-activate/?action=reset&code=%s", httpReq.Referer(), xDocLink["code"])
+	activationLink := fmt.Sprintf("https://app.valued.com/app-activate?action=reset&code=%v", xDocLink["code"])
 	//generateActivationLink
 
 	//generateActivationEmailLink and sendActivationMail
@@ -356,7 +356,7 @@ func (this *AppLogin) signup(httpRes http.ResponseWriter, httpReq *http.Request,
 	xDocLink["logincontrol"] = xDocProfile["control"]
 	tblActivationLink.Create("signup", xDocLink, curdb)
 
-	activationLink := fmt.Sprintf("%sapp-activate/?code=%v", httpReq.Referer(), xDocLink["code"])
+	activationLink := fmt.Sprintf("https://app.valued.com/app-activate?code=%v", xDocLink["code"])
 	//generateActivationLink
 
 	//generateRegistrationMail
