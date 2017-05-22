@@ -1,6 +1,7 @@
 package frontend
 
 import (
+	"strings"
 	"valued/database"
 	"valued/functions"
 
@@ -235,10 +236,169 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 
 	//
 
-	mapReport["totalredeemed"] = 0
-	mapReport["employerredeemed"] = 0
-	mapReport["britishmumsredeemed"] = 0
-	mapReport["otherredeemed"] = 0
+	//Demographics of Report
+	//
+
+	curdb.Query("set datestyle = dmy")
+	sqlDemographic := `select dob as age, title as gender, nationality from profile where control in (select distinct membercontrol from subscription)`
+	mapDemographic, _ := curdb.Query(sqlDemographic)
+
+	mapAge := make(map[string]int)
+	mapGender := make(map[string]int)
+	mapNationality := make(map[string]int)
+	var agePieTotal, genderPieTotal, nationalityPieTotal int
+
+	for _, xDocDemographic := range mapDemographic {
+		xDocDemographic := xDocDemographic.(map[string]interface{})
+
+		sGender := "UnKnown"
+		switch xDocDemographic["gender"].(string) {
+		case "Mrs", "Miss":
+			sGender = "Female"
+		case "Mr":
+			sGender = "Male"
+		}
+		mapGender[sGender] += 1
+		genderPieTotal += 1
+
+		sAge := ""
+		if xDocDemographic["age"].(string) != "" {
+			iAge := functions.GetDifferenceInYears("", xDocDemographic["age"].(string))
+			switch {
+			case iAge >= 18 && iAge <= 25:
+				sAge = "18-25"
+			case iAge >= 26 && iAge <= 30:
+				sAge = "26-30"
+			case iAge >= 31 && iAge <= 40:
+				sAge = "31-40"
+			case iAge >= 41 && iAge <= 60:
+				sAge = "41-60"
+			case iAge >= 61:
+				sAge = ">61"
+			}
+		} else {
+			sAge = "UnKnown"
+		}
+		mapAge[sAge] += 1
+		agePieTotal += 1
+
+		sNationality := xDocDemographic["nationality"].(string)
+		if sNationality == "" {
+			sNationality = "UnKnown"
+		}
+
+		mapNationality[sNationality] += 1
+		nationalityPieTotal += 1
+
+	}
+
+	mapPieChartAge := make(map[string]interface{})
+	mapPieChartAge["title"] = "Age"
+
+	mapLegendAge := []string{"UnKnown", "18-25", "26-30", "31-40", "41-60", ">61"}
+	for _, iSeries := range mapAge {
+		iSeriesPercentage := functions.Round(float64(iSeries) / float64(agePieTotal) * 100)
+
+		mapPieChartAge["label"] = fmt.Sprintf(`%v'%v%%',`, mapPieChartAge["label"], iSeriesPercentage)
+		mapPieChartAge["series"] = fmt.Sprintf(`%v%v,`, mapPieChartAge["series"], iSeriesPercentage)
+	}
+	for iNumber, sLabel := range mapLegendAge {
+
+		iSeries := mapAge[sLabel]
+		iSeriesPercentage := functions.Round(float64(iSeries) / float64(agePieTotal) * 100)
+
+		pieChartRow := make(map[string]interface{})
+		pieChartRow["label"] = sLabel
+		pieChartRow["value"] = iSeries
+		if iSeries == 0 {
+			iSeriesPercentage = float64(0)
+		}
+		pieChartRow["percentage"] = fmt.Sprintf(`%v%%`, iSeriesPercentage)
+
+		sTag := fmt.Sprintf(`%v#report-summary-demographics-row`, iNumber)
+		mapPieChartAge[sTag] = pieChartRow
+
+	}
+	mapReport["1#report-summary-demographics"] = mapPieChartAge
+
+	//
+
+	mapPieChartGender := make(map[string]interface{})
+	mapPieChartGender["title"] = "Gender"
+
+	mapLegendGender := []string{"UnKnown", "Female", "Male"}
+	for iNumber, sLabel := range mapLegendGender {
+
+		iSeries := mapGender[sLabel]
+		iSeriesPercentage := functions.Round(float64(iSeries) / float64(genderPieTotal) * 100)
+
+		pieChartRow := make(map[string]interface{})
+		pieChartRow["label"] = sLabel
+		pieChartRow["value"] = iSeries
+		if iSeries == 0 {
+			iSeriesPercentage = float64(0)
+		}
+		pieChartRow["percentage"] = fmt.Sprintf(`%v%%`, iSeriesPercentage)
+
+		sTag := fmt.Sprintf(`%v#report-summary-demographics-row`, iNumber)
+		mapPieChartGender[sTag] = pieChartRow
+
+	}
+
+	mapReport["2#report-summary-demographics"] = mapPieChartGender
+
+	//
+
+	mapPieChartNationality := make(map[string]interface{})
+	mapPieChartNationality["title"] = "Nationality"
+
+	var mapNationalityTop5 []string
+	for sLabel, iSeries := range mapNationality {
+		sTag := fmt.Sprintf(`%v#%v`, iSeries, sLabel)
+		mapNationalityTop5 = append(mapNationalityTop5, sTag)
+	}
+	functions.SortDesc(mapNationalityTop5)
+
+	posCounter := 1
+	var mapLegendNationality []string
+
+	for _, iSeriesLabel := range mapNationalityTop5 {
+
+		sLabel := strings.Split(iSeriesLabel, "#")[1]
+		iSeries := mapNationality[sLabel]
+		delete(mapNationality, sLabel)
+
+		if posCounter > 4 {
+			sLabel = "Others"
+		}
+
+		mapNationality[sLabel] += iSeries
+		mapLegendNationality = append(mapLegendNationality, sLabel)
+		posCounter++
+	}
+
+	for iNumber, sLabel := range mapLegendNationality {
+
+		iSeries := mapNationality[sLabel]
+		iSeriesPercentage := functions.Round(float64(iSeries) / float64(nationalityPieTotal) * 100)
+
+		pieChartRow := make(map[string]interface{})
+		pieChartRow["label"] = sLabel
+		pieChartRow["value"] = iSeries
+		if iSeries == 0 {
+			iSeriesPercentage = float64(0)
+		}
+		pieChartRow["percentage"] = fmt.Sprintf(`%v%%`, iSeriesPercentage)
+
+		sTag := fmt.Sprintf(`%v#report-summary-demographics-row`, iNumber)
+		mapPieChartNationality[sTag] = pieChartRow
+
+	}
+
+	mapReport["3#report-summary-demographics"] = mapPieChartNationality
+
+	//
+	//Demographics of Report
 
 	// sqlRevenueTotal := `select sum(transactionvalue) as revenue
 	// 					from redemption where merchantcontrol = '%s'
