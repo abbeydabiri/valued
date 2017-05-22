@@ -240,7 +240,8 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	//
 
 	curdb.Query("set datestyle = dmy")
-	sqlDemographic := `select dob as age, title as gender, nationality from profile where control in (select distinct membercontrol from subscription)`
+
+	sqlDemographic := `select  subscription.code, profile.control, profile.dob as age, profile.title as gender, profile.nationality as nationality from subscription join profile on profile.control = subscription.membercontrol`
 	mapDemographic, _ := curdb.Query(sqlDemographic)
 
 	mapAge := make(map[string]int)
@@ -373,7 +374,9 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 		}
 
 		mapNationality[sLabel] += iSeries
-		mapLegendNationality = append(mapLegendNationality, sLabel)
+		if posCounter <= 5 {
+			mapLegendNationality = append(mapLegendNationality, sLabel)
+		}
 		posCounter++
 	}
 
