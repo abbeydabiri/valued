@@ -400,228 +400,165 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 
 	mapReport["3#report-summary-demographics"] = mapPieChartNationality
 
+	//Engagement Funnel
+
+	//Total Registrations
+	sqlTotalRegistration := `select count(control) as totalregistered from profile where company != 'Yes' and workflow = 'registered'`
+	mapTotalRegistration, _ := curdb.Query(sqlTotalRegistration)
+	mapReport["totalregistered"] = float64(0)
+	if mapTotalRegistration["1"] != nil {
+		mapTotalRegistrationxDoc := mapTotalRegistration["1"].(map[string]interface{})
+		switch mapTotalRegistrationxDoc["totalregistered"].(type) {
+		case string:
+			mapReport["totalregistered"] = float64(0)
+		case int64:
+			mapReport["totalregistered"] = functions.ThousandSeperator(functions.Round(float64(mapTotalRegistrationxDoc["totalregistered"].(int64))))
+		case float64:
+			mapReport["totalregistered"] = functions.ThousandSeperator(functions.Round(mapTotalRegistrationxDoc["totalregistered"].(float64)))
+		}
+	}
+
+	//Total Subscriptions
+	sqlTotalSubscribed := `select count(control) as totalsubscribed from profile where company != 'Yes' and workflow = 'subscribed'`
+	mapTotalSubscribed, _ := curdb.Query(sqlTotalSubscribed)
+	mapReport["totalsubscribed"] = float64(0)
+	if mapTotalSubscribed["1"] != nil {
+		mapTotalSubscribedxDoc := mapTotalSubscribed["1"].(map[string]interface{})
+		switch mapTotalSubscribedxDoc["totalsubscribed"].(type) {
+		case string:
+			mapReport["totalsubscribed"] = float64(0)
+		case int64:
+			mapReport["totalsubscribed"] = functions.ThousandSeperator(functions.Round(float64(mapTotalSubscribedxDoc["totalsubscribed"].(int64))))
+		case float64:
+			mapReport["totalsubscribed"] = functions.ThousandSeperator(functions.Round(mapTotalSubscribedxDoc["totalsubscribed"].(float64)))
+		}
+	}
+
+	//Total Active Members
+	sqlTotalActiveMember := `select count(control) as totalactivemember from profile where company != 'Yes' and status = 'active'`
+	mapTotalActiveMember, _ := curdb.Query(sqlTotalActiveMember)
+	mapReport["totalactivemember"] = float64(0)
+	if mapTotalActiveMember["1"] != nil {
+		mapTotalActiveMemberxDoc := mapTotalActiveMember["1"].(map[string]interface{})
+		switch mapTotalActiveMemberxDoc["totalactivemember"].(type) {
+		case string:
+			mapReport["totalactivemember"] = float64(0)
+		case int64:
+			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberxDoc["totalactivemember"].(int64))))
+		case float64:
+			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberxDoc["totalactivemember"].(float64)))
+		}
+	}
+
+	//Engagement Funnel
+
 	//
-	//Demographics of Report
 
-	// sqlRevenueTotal := `select sum(transactionvalue) as revenue
-	// 					from redemption where merchantcontrol = '%s'
-	// 					and substring(createdate from 1 for 20)::timestamp between
-	// 					'%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp
-	// 				`
-	// cFormat := "02/01/2006"
-	// startDate, _ := time.Parse(cFormat, this.AdminCreatedate)
-	// diffYears := int64(functions.GetDifferenceInSeconds(functions.GetSystemDate(), this.AdminCreatedate)) / int64(time.Hour*24*365)
-	// if diffYears > 0 {
-	// 	startDate = startDate.Add(time.Hour * 24 * 365 * time.Duration(diffYears))
-	// }
-	// oneYear := startDate.Add(time.Hour * 24 * 365)
+	//Savings
 
-	// curdb.Query("set datestyle = dmy")
+	//Total Savings
+	sqlTotalSavings := `select sum(savingsvalue) from redemption`
+	mapTotalSavings, _ := curdb.Query(sqlTotalSavings)
+	mapReport["totalsavings"] = float64(0)
+	if mapTotalSavings["1"] != nil {
+		mapTotalSavingsxDoc := mapTotalSavings["1"].(map[string]interface{})
+		switch mapTotalSavingsxDoc["totalsavings"].(type) {
+		case string:
+			mapReport["totalsavings"] = float64(0)
+		case int64:
+			mapReport["totalsavings"] = functions.ThousandSeperator(functions.Round(float64(mapTotalSavingsxDoc["totalsavings"].(int64))))
+		case float64:
+			mapReport["totalsavings"] = functions.ThousandSeperator(functions.Round(mapTotalSavingsxDoc["totalsavings"].(float64)))
+		}
+	}
 
-	// sqlRevenueYear := fmt.Sprintf(sqlRevenueTotal, this.AdminControl, startDate.Format(cFormat), oneYear.Format(cFormat))
-	// mapRevenueYear, _ := curdb.Query(sqlRevenueYear)
+	//Total Reward Savings
+	sqlTotalRewardSavings := `select (sum(savingsvalue) / count(distinct rewardcontrol)) as totalrewardsavings from redemption`
+	mapTotalRewardSavings, _ := curdb.Query(sqlTotalRewardSavings)
+	mapReport["totalrewardsavings"] = float64(0)
+	if mapTotalRewardSavings["1"] != nil {
+		mapTotalRewardSavingsxDoc := mapTotalRewardSavings["1"].(map[string]interface{})
+		switch mapTotalRewardSavingsxDoc["totalrewardsavings"].(type) {
+		case string:
+			mapReport["totalrewardsavings"] = float64(0)
+		case int64:
+			mapReport["totalrewardsavings"] = functions.ThousandSeperator(functions.Round(float64(mapTotalRewardSavingsxDoc["totalrewardsavings"].(int64))))
+		case float64:
+			mapReport["totalrewardsavings"] = functions.ThousandSeperator(functions.Round(mapTotalRewardSavingsxDoc["totalrewardsavings"].(float64)))
+		}
+	}
 
-	// mapReport["revenueyear"] = float64(0)
-	// if mapRevenueYear["1"] != nil {
-	// 	mapRevenue := mapRevenueYear["1"].(map[string]interface{})
-	// 	switch mapRevenue["revenue"].(type) {
-	// 	case string:
-	// 		mapReport["revenueyear"] = float64(0)
-	// 	case int64:
-	// 		mapReport["revenueyear"] = functions.ThousandSeperator(functions.Round(float64(mapRevenue["revenue"].(int64))))
-	// 	case float64:
-	// 		mapReport["revenueyear"] = functions.ThousandSeperator(functions.Round(mapRevenue["revenue"].(float64)))
-	// 	}
-	// }
+	//Total Active Members Savings
+	sqlTotalActiveMemberSavings := `select (sum(savingsvalue) / count(distinct membercontrol)) as totalactivemember from redemption`
+	mapTotalActiveMemberSavings, _ := curdb.Query(sqlTotalActiveMemberSavings)
+	mapReport["totalactivemember"] = float64(0)
+	if mapTotalActiveMemberSavings["1"] != nil {
+		mapTotalActiveMemberSavingsxDoc := mapTotalActiveMemberSavings["1"].(map[string]interface{})
+		switch mapTotalActiveMemberSavingsxDoc["totalactivemember"].(type) {
+		case string:
+			mapReport["totalactivemember"] = float64(0)
+		case int64:
+			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberSavingsxDoc["totalactivemember"].(int64))))
+		case float64:
+			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberSavingsxDoc["totalactivemember"].(float64)))
+		}
+	}
 
-	// //
+	//Savings
 
-	// sqlRedeemedTotal := `select count(control) as redeemedyear
-	// 					from redemption where merchantcontrol = '%s'
-	// 					and substring(createdate from 1 for 20)::timestamp between
-	// 					'%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp
-	// 				`
+	//Revenue
 
-	// sqlRedeemedYear := fmt.Sprintf(sqlRedeemedTotal, this.AdminControl, startDate.Format(cFormat), oneYear.Format(cFormat))
-	// mapRedeemedYear, _ := curdb.Query(sqlRedeemedYear)
+	//Total Revenue
+	sqlTotalRevenue := `select sum(transactionvalue) from redemption`
+	mapTotalRevenue, _ := curdb.Query(sqlTotalRevenue)
+	mapReport["totalrevenue"] = float64(0)
+	if mapTotalRevenue["1"] != nil {
+		mapTotalRevenuexDoc := mapTotalRevenue["1"].(map[string]interface{})
+		switch mapTotalRevenuexDoc["totalrevenue"].(type) {
+		case string:
+			mapReport["totalrevenue"] = float64(0)
+		case int64:
+			mapReport["totalrevenue"] = functions.ThousandSeperator(functions.Round(float64(mapTotalRevenuexDoc["totalrevenue"].(int64))))
+		case float64:
+			mapReport["totalrevenue"] = functions.ThousandSeperator(functions.Round(mapTotalRevenuexDoc["totalrevenue"].(float64)))
+		}
+	}
 
-	// mapReport["redeemedyear"] = float64(0)
-	// if mapRedeemedYear["1"] != nil {
-	// 	mapRedeemed := mapRedeemedYear["1"].(map[string]interface{})
-	// 	switch mapRedeemed["redeemedyear"].(type) {
-	// 	case string:
-	// 		mapReport["redeemedyear"] = float64(0)
-	// 	case int64:
-	// 		mapReport["redeemedyear"] = functions.ThousandSeperator(functions.Round(float64(mapRedeemed["redeemedyear"].(int64))))
-	// 	case float64:
-	// 		mapReport["redeemedyear"] = functions.ThousandSeperator(functions.Round(mapRedeemed["redeemedyear"].(float64)))
-	// 	}
-	// }
+	//Total Reward Revenue
+	sqlTotalRewardRevenue := `select (sum(transactionvalue) / count(distinct rewardcontrol)) as totalrewardrevenue from redemption`
+	mapTotalRewardRevenue, _ := curdb.Query(sqlTotalRewardRevenue)
+	mapReport["totalrewardrevenue"] = float64(0)
+	if mapTotalRewardRevenue["1"] != nil {
+		mapTotalRewardRevenuexDoc := mapTotalRewardRevenue["1"].(map[string]interface{})
+		switch mapTotalRewardRevenuexDoc["totalrewardrevenue"].(type) {
+		case string:
+			mapReport["totalrewardrevenue"] = float64(0)
+		case int64:
+			mapReport["totalrewardrevenue"] = functions.ThousandSeperator(functions.Round(float64(mapTotalRewardRevenuexDoc["totalrewardrevenue"].(int64))))
+		case float64:
+			mapReport["totalrewardrevenue"] = functions.ThousandSeperator(functions.Round(mapTotalRewardRevenuexDoc["totalrewardrevenue"].(float64)))
+		}
+	}
 
-	// //--
+	//Total Active Members Revenue
+	sqlTotalActiveMemberRevenue := `select (sum(transactionvalue) / count(distinct membercontrol)) as totalactivemember from redemption`
+	mapTotalActiveMemberRevenue, _ := curdb.Query(sqlTotalActiveMemberRevenue)
+	mapReport["totalactivemember"] = float64(0)
+	if mapTotalActiveMemberRevenue["1"] != nil {
+		mapTotalActiveMemberRevenuexDoc := mapTotalActiveMemberRevenue["1"].(map[string]interface{})
+		switch mapTotalActiveMemberRevenuexDoc["totalactivemember"].(type) {
+		case string:
+			mapReport["totalactivemember"] = float64(0)
+		case int64:
+			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberRevenuexDoc["totalactivemember"].(int64))))
+		case float64:
+			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberRevenuexDoc["totalactivemember"].(float64)))
+		}
+	}
 
-	// //
+	//Revenue
 
-	// //Get NPS Score Based on Feedback Rating
-	// sqlFeedback := `select merchant.title as question, merchant.answer as answer, merchant.redemptioncontrol as redemptioncontrol
-	// 					from redemption
-	// 						left join merchant on merchant.redemptioncontrol = redemption.control
-	// 					where redemption.merchantcontrol = '%s' and substring(redemption.createdate from 1 for 20)::timestamp between '%s'::timestamp and '%s 23:59:59'::timestamp
-	// 				`
-	// sqlFeedback = fmt.Sprintf(sqlFeedback, this.AdminControl, startDate.Format(cFormat), oneYear.Format(cFormat))
-
-	// curdb.Query("set datestyle = dmy")
-	// mapFeedback, _ := curdb.Query(sqlFeedback)
-
-	// iNPSTotal := float64(0)
-	// iNPSPositive := float64(0)
-	// iNPSNegative := float64(0)
-	// //100/(iNPSPositive+iNPSNegative)*(iNPSPositive-iNPSNegative)
-	// //100/5*(2-3)
-
-	// ratingCategory := make([]int, 11)
-	// improveCategory := make(map[string]int)
-
-	// for _, xDoc := range mapFeedback {
-	// 	xDoc := xDoc.(map[string]interface{})
-
-	// 	switch {
-	// 	case strings.Contains(xDoc["question"].(string), "IMPROVEMENT"):
-	// 		improveCategory[xDoc["answer"].(string)]++
-
-	// 	case strings.Contains(xDoc["question"].(string), "RECOMMEND"):
-	// 		score, _ := strconv.Atoi(xDoc["answer"].(string))
-	// 		switch {
-	// 		case score <= 6:
-	// 			iNPSNegative++
-	// 			break
-	// 		case score >= 9:
-	// 			iNPSPositive++
-	// 			break
-	// 		}
-	// 		iNPSTotal++
-	// 		ratingCategory[score]++
-	// 	}
-	// }
-
-	// //Get NPS Score Based on Feedback Rating
-
-	// iNPSNegativePercentage := float64(0)
-	// iNPSPositivePercentage := float64(0)
-	// if iNPSTotal > 0 {
-	// 	iNPSPositivePercentage = (iNPSPositive / iNPSTotal) * 100
-	// 	iNPSNegativePercentage = (iNPSNegative / iNPSTotal) * 100
-	// }
-
-	// mapReport["npsscore"] = functions.RoundUp(iNPSPositivePercentage-iNPSNegativePercentage, 0)
-
-	// //
-	// //
-
-	// //BarChart: 12 Months Revenue & Redemption
-	// sLabel := "yyyy-Mon"
-	// sOrderBy := "yyyymm"
-
-	// sStartdate := startDate.Format(cFormat)
-	// sStopdate := oneYear.Format(cFormat)
-	// mapReport["startdate"] = sStartdate
-	// mapReport["stopdate"] = sStopdate
-
-	// revenueReportGenerator := make(map[string]interface{})
-	// redemptionReportGenerator := make(map[string]interface{})
-
-	// counter := 1
-	// curMonth := startDate
-	// monthLabelSeries := make(map[string]interface{})
-	// for oneYear.After(curMonth) {
-	// 	monthLabelSeries[curMonth.Format("200601")] = curMonth.Format("2006-Jan")
-	// 	curMonth = curMonth.Add(time.Hour * 24 * 30)
-	// 	counter++
-	// }
-
-	// for sOrderby, sLabel := range monthLabelSeries {
-	// 	sLabelIndex := fmt.Sprintf("%s#label", sOrderby)
-	// 	sSeriesIndex := fmt.Sprintf("%s#series", sOrderby)
-
-	// 	revenueReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
-	// 	revenueReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
-
-	// 	redemptionReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
-	// 	redemptionReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
-	// }
-
-	// sqlRevenue := `select to_char(substring(createdate from 1 for 20)::timestamp,'%s') as orderby, to_char(substring(createdate from 1 for 20)::timestamp,'%s') as label, sum(transactionvalue) as revenue
-	// 				from redemption where merchantcontrol = '%s' and substring(createdate from 1 for 20)::timestamp between '%s'::timestamp and '%s 23:59:59'::timestamp
-	// 				group by 1,2 order by 1
-	// 				`
-	// sqlRevenue = fmt.Sprintf(sqlRevenue, sOrderBy, sLabel, this.AdminControl, sStartdate, sStopdate)
-
-	// sqlRedemption := `select to_char(substring(createdate from 1 for 20)::timestamp,'%s') as orderby, to_char(substring(createdate from 1 for 20)::timestamp,'%s') as label, count(control) as redemption
-	// 				from redemption where merchantcontrol = '%s' and substring(createdate from 1 for 20)::timestamp between '%s'::timestamp and '%s 23:59:59'::timestamp
-	// 				group by 1,2 order by 1
-	// 				`
-	// sqlRedemption = fmt.Sprintf(sqlRedemption, sOrderBy, sLabel, this.AdminControl, sStartdate, sStopdate)
-
-	// curdb.Query("set datestyle = dmy")
-	// mapRedemption, _ := curdb.Query(sqlRedemption)
-	// mapRevenue, _ := curdb.Query(sqlRevenue)
-
-	// revenueReportGenerator["id"] = "revenue"
-	// revenueReportGenerator["title"] = "REVENUE"
-	// revenueHigh := float64(100)
-	// for _, xDoc := range mapRevenue {
-	// 	xDoc := xDoc.(map[string]interface{})
-	// 	// fmt.Printf("[%v]\n", xDoc["revenue"])
-	// 	// if fmt.Sprintf("%v", xDoc["revenue"]) == "" || fmt.Sprintf("%v", xDoc["revenue"]) == "0" {
-	// 	// 	continue
-	// 	// }
-
-	// 	sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
-	// 	sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
-
-	// 	// if revenueReportGenerator[sLabel] != nil {
-	// 	revenueReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
-	// 	// }
-
-	// 	// if revenueReportGenerator[sSeries] != nil {
-	// 	revenueReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["revenue"])
-	// 	if xDoc["revenue"].(float64) > revenueHigh {
-	// 		revenueHigh = xDoc["revenue"].(float64)
-	// 		revenueHigh += float64(2)
-	// 	}
-	// 	// }
-	// }
-	// revenueReportGenerator["high"] = revenueHigh
-	// mapReport["1#report-generator-barchart"] = revenueReportGenerator
-
-	// redemptionReportGenerator["id"] = "redemption"
-	// redemptionReportGenerator["title"] = "REDEMPTION"
-	// redemptionHigh := int64(5)
-	// for _, xDoc := range mapRedemption {
-	// 	xDoc := xDoc.(map[string]interface{})
-	// 	// fmt.Printf("[%v]\n", xDoc["redemption"])
-	// 	// if fmt.Sprintf("%v,", xDoc["redemption"]) == "" || fmt.Sprintf("%v,", xDoc["redemption"]) == "0" {
-	// 	// 	continue
-	// 	// }
-
-	// 	sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
-	// 	sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
-
-	// 	if redemptionReportGenerator[sLabel] != nil {
-	// 		redemptionReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
-	// 	}
-
-	// 	if redemptionReportGenerator[sSeries] != nil {
-	// 		redemptionReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["redemption"])
-	// 		if xDoc["redemption"].(int64) > redemptionHigh {
-	// 			redemptionHigh = xDoc["redemption"].(int64)
-	// 			redemptionHigh += int64(2)
-	// 		}
-	// 	}
-	// }
-	// redemptionReportGenerator["high"] = redemptionHigh
-	// mapReport["2#report-generator-barchart"] = redemptionReportGenerator
-	//BarChart: 12 Months Revenue & Redemption
+	//
 
 	this.pageMap = make(map[string]interface{})
 	this.pageMap["report-summary"] = mapReport
