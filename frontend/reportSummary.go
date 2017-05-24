@@ -489,18 +489,18 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	}
 
 	//Total Active Members Savings
-	sqlTotalActiveMemberSavings := `select (sum(savingsvalue) / count(distinct membercontrol)) as totalactivemember from redemption`
+	sqlTotalActiveMemberSavings := `select (sum(savingsvalue) / count(distinct membercontrol)) as totalmembersavings from redemption`
 	mapTotalActiveMemberSavings, _ := curdb.Query(sqlTotalActiveMemberSavings)
-	mapReport["totalactivemember"] = float64(0)
+	mapReport["totalmembersavings"] = float64(0)
 	if mapTotalActiveMemberSavings["1"] != nil {
 		mapTotalActiveMemberSavingsxDoc := mapTotalActiveMemberSavings["1"].(map[string]interface{})
-		switch mapTotalActiveMemberSavingsxDoc["totalactivemember"].(type) {
+		switch mapTotalActiveMemberSavingsxDoc["totalmembersavings"].(type) {
 		case string:
-			mapReport["totalactivemember"] = float64(0)
+			mapReport["totalmembersavings"] = float64(0)
 		case int64:
-			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberSavingsxDoc["totalactivemember"].(int64))))
+			mapReport["totalmembersavings"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberSavingsxDoc["totalmembersavings"].(int64))))
 		case float64:
-			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberSavingsxDoc["totalactivemember"].(float64)))
+			mapReport["totalmembersavings"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberSavingsxDoc["totalmembersavings"].(float64)))
 		}
 	}
 
