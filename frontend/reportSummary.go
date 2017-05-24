@@ -457,7 +457,7 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	//Savings
 
 	//Total Savings
-	sqlTotalSavings := `select sum(savingsvalue) from redemption`
+	sqlTotalSavings := `select sum(savingsvalue) as totalsavings from redemption`
 	mapTotalSavings, _ := curdb.Query(sqlTotalSavings)
 	mapReport["totalsavings"] = float64(0)
 	if mapTotalSavings["1"] != nil {
@@ -509,7 +509,7 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	//Revenue
 
 	//Total Revenue
-	sqlTotalRevenue := `select sum(transactionvalue) from redemption`
+	sqlTotalRevenue := `select sum(transactionvalue) as totalrevenue from redemption`
 	mapTotalRevenue, _ := curdb.Query(sqlTotalRevenue)
 	mapReport["totalrevenue"] = float64(0)
 	if mapTotalRevenue["1"] != nil {
@@ -541,22 +541,49 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	}
 
 	//Total Active Members Revenue
-	sqlTotalActiveMemberRevenue := `select (sum(transactionvalue) / count(distinct membercontrol)) as totalactivemember from redemption`
+	sqlTotalActiveMemberRevenue := `select (sum(transactionvalue) / count(distinct membercontrol)) as totalmemberrevenue from redemption`
 	mapTotalActiveMemberRevenue, _ := curdb.Query(sqlTotalActiveMemberRevenue)
-	mapReport["totalactivemember"] = float64(0)
+	mapReport["totalmemberrevenue"] = float64(0)
 	if mapTotalActiveMemberRevenue["1"] != nil {
 		mapTotalActiveMemberRevenuexDoc := mapTotalActiveMemberRevenue["1"].(map[string]interface{})
-		switch mapTotalActiveMemberRevenuexDoc["totalactivemember"].(type) {
+		switch mapTotalActiveMemberRevenuexDoc["totalmemberrevenue"].(type) {
 		case string:
-			mapReport["totalactivemember"] = float64(0)
+			mapReport["totalmemberrevenue"] = float64(0)
 		case int64:
-			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberRevenuexDoc["totalactivemember"].(int64))))
+			mapReport["totalmemberrevenue"] = functions.ThousandSeperator(functions.Round(float64(mapTotalActiveMemberRevenuexDoc["totalmemberrevenue"].(int64))))
 		case float64:
-			mapReport["totalactivemember"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberRevenuexDoc["totalactivemember"].(float64)))
+			mapReport["totalmemberrevenue"] = functions.ThousandSeperator(functions.Round(mapTotalActiveMemberRevenuexDoc["totalmemberrevenue"].(float64)))
 		}
 	}
 
 	//Revenue
+
+	//
+
+	// Top 10 redeemed rewards
+	sqlTop10Rewards := `select (select title from profile where control=reward.merchantcontrol ) as merchant, title as reward, 
+		(select count(control) from redemption where rewardcontrol = reward.control) as redemption,
+		reward.control from reward
+		order by 3 desc , 4 `
+	mapTop10Rewards, _ := curdb.Query(sqlTop10Rewards)
+	aTop10RewardsSorted := functions.SortMap(mapTop10Rewards)
+
+	for nRowCounter, sNumber := range aTop10RewardsSorted {
+
+		xDocReward := mapTop10Rewards[sNumber].(map[string]interface{})
+		xDocReward["row"] = sNumber
+		sTag := fmt.Sprintf(`%v#report-summary-toptenredeemed-row`, sNumber)
+		mapReport[sTag] = xDocReward
+
+		if nRowCounter > 9 {
+			break
+		}
+	}
+
+	/*
+
+
+	 */
 
 	//
 
