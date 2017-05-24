@@ -569,15 +569,14 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	aTop10RewardsSorted := functions.SortMap(mapTop10Rewards)
 
 	for nRowCounter, sNumber := range aTop10RewardsSorted {
+		if nRowCounter > 9 {
+			break
+		}
 
 		xDocReward := mapTop10Rewards[sNumber].(map[string]interface{})
 		xDocReward["row"] = sNumber
 		sTag := fmt.Sprintf(`%v#report-summary-toptenredeemed-row`, sNumber)
 		mapReport[sTag] = xDocReward
-
-		if nRowCounter > 9 {
-			break
-		}
 	}
 
 	/*
