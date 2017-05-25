@@ -430,7 +430,7 @@ func (this *AppSubscribe) subscribeMe(xDocTelrOrder map[string]interface{}, curd
 		//Get Current Subscription Expiry
 		sqlSubscription := `select sub.schemecontrol as schemecontrol, sub.code as code, sub.control as control, sub.expirydate as expirydate, sch.title as schemetitle
 						from subscription as sub join scheme as sch on sub.schemecontrol = sch.control
-						AND sub.workflow = 'active' AND sch.workflow = 'active' AND sch.code in ('lite','lifestyle')  
+						AND sch.workflow = 'active' AND sch.code in ('lite','lifestyle')  
 						AND '%s'::timestamp between sub.startdate::timestamp and sub.expirydate::timestamp AND sub.schemecontrol = '%s' AND sub.membercontrol = '%s' order by control desc`
 		sqlSubscription = fmt.Sprintf(sqlSubscription, todayDate.Format("02/01/2006"), xDocTelrOrder["schemecontrol"], this.mapAppCache["control"])
 
