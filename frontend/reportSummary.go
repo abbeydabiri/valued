@@ -18,6 +18,8 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 
 	//Number of Subscriptions
 	//Total
+
+	fTotalSubscription := float64(0)
 	sqlTotalSubscription := `select count(control) as totalsubscription from subscription`
 	mapTotalSubscription, _ := curdb.Query(sqlTotalSubscription)
 	mapReport["totalsubscription"] = float64(0)
@@ -27,13 +29,18 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 		case string:
 			mapReport["totalsubscription"] = float64(0)
 		case int64:
-			mapReport["totalsubscription"] = functions.ThousandSeperator(functions.Round(float64(mapTotalSubscriptionxDoc["totalsubscription"].(int64))))
+			fTotalSubscription = functions.Round(float64(mapTotalSubscriptionxDoc["totalsubscription"].(int64)))
+			mapReport["totalsubscription"] = functions.ThousandSeperator(fTotalSubscription)
+			// mapReport["totalsubscription"] = functions.ThousandSeperator(functions.Round(float64(mapTotalSubscriptionxDoc["totalsubscription"].(int64))))
 		case float64:
-			mapReport["totalsubscription"] = functions.ThousandSeperator(functions.Round(mapTotalSubscriptionxDoc["totalsubscription"].(float64)))
+			fTotalSubscription = functions.Round(float64(mapTotalSubscriptionxDoc["totalsubscription"].(float64)))
+			mapReport["totalsubscription"] = functions.ThousandSeperator(fTotalSubscription)
+			// mapReport["totalsubscription"] = functions.ThousandSeperator(functions.Round(mapTotalSubscriptionxDoc["totalsubscription"].(float64)))
 		}
 	}
 
 	//Employer
+	fEmployerSubscription := float64(0)
 	sqlEmployerSubscription := `select count(control) as employersubscription from subscription where employercontrol not in (select control from profile where code in ('main','britishmums')) `
 	mapEmployerSubscription, _ := curdb.Query(sqlEmployerSubscription)
 	mapReport["employersubscription"] = float64(0)
@@ -43,13 +50,18 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 		case string:
 			mapReport["employersubscription"] = float64(0)
 		case int64:
-			mapReport["employersubscription"] = functions.ThousandSeperator(functions.Round(float64(mapEmployerSubscriptionxDoc["employersubscription"].(int64))))
+			fEmployerSubscription = functions.Round(float64(mapEmployerSubscriptionxDoc["employersubscription"].(int64)))
+			mapReport["employersubscription"] = functions.ThousandSeperator(fEmployerSubscription)
+			// mapReport["employersubscription"] = functions.ThousandSeperator(functions.Round(float64(mapEmployerSubscriptionxDoc["employersubscription"].(int64))))
 		case float64:
-			mapReport["employersubscription"] = functions.ThousandSeperator(functions.Round(mapEmployerSubscriptionxDoc["employersubscription"].(float64)))
+			fEmployerSubscription = functions.Round(float64(mapEmployerSubscriptionxDoc["employersubscription"].(float64)))
+			mapReport["employersubscription"] = functions.ThousandSeperator(fEmployerSubscription)
+			// mapReport["employersubscription"] = functions.ThousandSeperator(functions.Round(mapEmployerSubscriptionxDoc["employersubscription"].(float64)))
 		}
 	}
 
 	//BritishMum
+	fBritishMumSubscription := float64(0)
 	sqlBritishMumSubscription := `select count(control) as britishmumssubscription from subscription where employercontrol in (select control from profile where code in ('britishmums')) `
 	mapBritishMumSubscription, _ := curdb.Query(sqlBritishMumSubscription)
 	mapReport["britishmumssubscription"] = float64(0)
@@ -59,13 +71,18 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 		case string:
 			mapReport["britishmumssubscription"] = float64(0)
 		case int64:
-			mapReport["britishmumssubscription"] = functions.ThousandSeperator(functions.Round(float64(mapBritishMumSubscriptionxDoc["britishmumssubscription"].(int64))))
+			fBritishMumSubscription = functions.Round(float64(mapBritishMumSubscriptionxDoc["britishmumssubscription"].(int64)))
+			mapReport["britishmumssubscription"] = functions.ThousandSeperator(fBritishMumSubscription)
+			// mapReport["britishmumssubscription"] = functions.ThousandSeperator(functions.Round(float64(mapBritishMumSubscriptionxDoc["britishmumssubscription"].(int64))))
 		case float64:
-			mapReport["britishmumssubscription"] = functions.ThousandSeperator(functions.Round(mapBritishMumSubscriptionxDoc["britishmumssubscription"].(float64)))
+			fBritishMumSubscription = functions.Round(float64(mapBritishMumSubscriptionxDoc["britishmumssubscription"].(float64)))
+			mapReport["britishmumssubscription"] = functions.ThousandSeperator(fBritishMumSubscription)
+			// mapReport["britishmumssubscription"] = functions.ThousandSeperator(functions.Round(mapBritishMumSubscriptionxDoc["britishmumssubscription"].(float64)))
 		}
 	}
 
 	//Other
+	fOtherSubscription := float64(0)
 	sqlOtherSubscription := `select count(control) as othersubscription from subscription where employercontrol in (select control from profile where code in ('main')) `
 	mapOtherSubscription, _ := curdb.Query(sqlOtherSubscription)
 	mapReport["othersubscription"] = float64(0)
@@ -75,9 +92,13 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 		case string:
 			mapReport["othersubscription"] = float64(0)
 		case int64:
-			mapReport["othersubscription"] = functions.ThousandSeperator(functions.Round(float64(mapOtherSubscriptionxDoc["othersubscription"].(int64))))
+			fOtherSubscription = functions.Round(float64(mapOtherSubscriptionxDoc["othersubscription"].(int64)))
+			mapReport["othersubscription"] = functions.ThousandSeperator(fOtherSubscription)
+			// mapReport["othersubscription"] = functions.ThousandSeperator(functions.Round(float64(mapOtherSubscriptionxDoc["othersubscription"].(int64))))
 		case float64:
-			mapReport["othersubscription"] = functions.ThousandSeperator(functions.Round(mapOtherSubscriptionxDoc["othersubscription"].(float64)))
+			fOtherSubscription = functions.Round(float64(mapOtherSubscriptionxDoc["othersubscription"].(float64)))
+			mapReport["othersubscription"] = functions.ThousandSeperator(fOtherSubscription)
+			// mapReport["othersubscription"] = functions.ThousandSeperator(functions.Round(mapOtherSubscriptionxDoc["othersubscription"].(float64)))
 		}
 	}
 	//Number of Subscriptions
@@ -578,12 +599,189 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 		sTag := fmt.Sprintf(`%v#report-summary-toptenredeemed-row`, sNumber)
 		mapReport[sTag] = xDocReward
 	}
+	// Top 10 redeemed rewards
+	//
 
-	/*
+	// % OF SUBSCRIBERS WITH A GREATER SAVINGS AMOUNT THAN THE COST OF MEMBERSHIP
+	sqlPercentSubscribersSavings := `select subscription.membercontrol as membercontrol, sum(subscription.price) as subscription, 
+						(select sum(redemption.savingsvalue)  from redemption where membercontrol = subscription.membercontrol) as savings
+						from subscription group by subscription.membercontrol order by 3 desc nulls last`
 
+	mapPercentSubscribersSavings, _ := curdb.Query(sqlPercentSubscribersSavings)
+	aPercentSubscribersSavingsSorted := functions.SortMap(mapPercentSubscribersSavings)
 
-	 */
+	var mapSavingsGreater []string
+	for _, sNumber := range aPercentSubscribersSavingsSorted {
+		xDocSubscribersSavings := mapPercentSubscribersSavings[sNumber].(map[string]interface{})
 
+		switch xDocSubscribersSavings["savings"].(type) {
+		case float64:
+			if xDocSubscribersSavings["savings"].(float64) >
+				xDocSubscribersSavings["subscription"].(float64) {
+				mapSavingsGreater = append(mapSavingsGreater, xDocSubscribersSavings["membercontrol"].(string))
+			}
+
+		}
+	}
+
+	mapReport["percentofsubscriberssavingsvscosts"] = functions.RoundUp(float64(len(mapSavingsGreater)*100)/float64(len(aPercentSubscribersSavingsSorted)), 0)
+
+	// % OF SUBSCRIBERS WITH A GREATER SAVINGS AMOUNT THAN THE COST OF MEMBERSHIP
+	//
+
+	//
+	//
+	//GRAPHS: - NUMBER OF MONTHLY REDEEMED REWARDS FOR LAST 12 MONTHS
+	sLabel := "yyyy-Mon"
+	sOrderBy := "yyyymm"
+
+	curMonth := time.Now().Add(-(time.Hour * 24 * 365))
+	sStartdateChart := curMonth.Format(cFormat)
+
+	oneYearChart := time.Now()
+	sStopdateChart := oneYearChart.Format(cFormat)
+
+	redeemedReportGenerator := make(map[string]interface{})
+
+	counter := 1
+	monthLabelSeries := make(map[string]interface{})
+	for oneYearChart.After(curMonth) {
+		monthLabelSeries[curMonth.Format("200601")] = curMonth.Format("2006-Jan")
+		curMonth = curMonth.Add(time.Hour * 24 * 30)
+		counter++
+	}
+
+	for sOrderby, sLabel := range monthLabelSeries {
+		sLabelIndex := fmt.Sprintf("%s#label", sOrderby)
+		sSeriesIndex := fmt.Sprintf("%s#series", sOrderby)
+
+		redeemedReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
+		redeemedReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
+	}
+
+	sqlRedeemedChart := `select to_char(substring(createdate from 1 for 20)::timestamp,'%s') as orderby, to_char(substring(createdate from 1 for 20)::timestamp,'%s') as label, 
+	count(control) as redeemed from redemption where substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp 
+					group by 1,2 order by 1
+					`
+	sqlRedeemedChart = fmt.Sprintf(sqlRedeemedChart, sOrderBy, sLabel, sStartdateChart, sStopdateChart)
+	mapRedeemedChart, _ := curdb.Query(sqlRedeemedChart)
+
+	redeemedReportGenerator["id"] = "redeemed"
+	redeemedReportGenerator["title"] = "NUMBER OF MONTHLY REDEEMED REWARDS FOR LAST 12 MONTHS"
+	redeemedHigh := int64(100)
+	for _, xDoc := range mapRedeemedChart {
+		xDoc := xDoc.(map[string]interface{})
+
+		sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
+		sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
+
+		redeemedReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
+
+		redeemedReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["redeemed"])
+		if xDoc["redeemed"].(int64) > redeemedHigh {
+			redeemedHigh = xDoc["redeemed"].(int64)
+			redeemedHigh += int64(2)
+		}
+
+	}
+	redeemedReportGenerator["high"] = redeemedHigh
+	mapReport["1#report-generator-barchart-admin"] = redeemedReportGenerator
+	//GRAPHS: - NUMBER OF MONTHLY REDEEMED REWARDS FOR LAST 12 MONTHS
+	//
+	//
+
+	//
+	//
+	//GRAPHS: - NUMBER OF NEW SUBSCRIPTIONS BY MONTH FOR LAST 12 MONTHS
+
+	subscriptionReportGenerator := make(map[string]interface{})
+
+	for sOrderby, sLabel := range monthLabelSeries {
+		sLabelIndex := fmt.Sprintf("%s#label", sOrderby)
+		sSeriesIndex := fmt.Sprintf("%s#series", sOrderby)
+
+		subscriptionReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
+		subscriptionReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
+	}
+
+	sqlSubscriptionChart := `select to_char(substring(createdate from 1 for 20)::timestamp,'%s') as orderby, to_char(substring(createdate from 1 for 20)::timestamp,'%s') as label, 
+	count(control) as subscription from subscription where substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp 
+					group by 1,2 order by 1
+					`
+	sqlSubscriptionChart = fmt.Sprintf(sqlSubscriptionChart, sOrderBy, sLabel, sStartdateChart, sStopdateChart)
+	mapSubscriptionChart, _ := curdb.Query(sqlSubscriptionChart)
+
+	subscriptionReportGenerator["id"] = "subscription"
+	subscriptionReportGenerator["title"] = "NUMBER OF NEW SUBSCRIPTIONS BY MONTH FOR LAST 12 MONTHS"
+	subscriptionHigh := int64(100)
+	for _, xDoc := range mapSubscriptionChart {
+		xDoc := xDoc.(map[string]interface{})
+
+		sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
+		sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
+
+		subscriptionReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
+
+		subscriptionReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["subscription"])
+		if xDoc["subscription"].(int64) > subscriptionHigh {
+			subscriptionHigh = xDoc["subscription"].(int64)
+			subscriptionHigh += int64(2)
+		}
+
+	}
+	subscriptionReportGenerator["high"] = subscriptionHigh
+	mapReport["2#report-generator-barchart-admin"] = subscriptionReportGenerator
+	//GRAPHS: - NUMBER OF NEW SUBSCRIPTIONS BY MONTH FOR LAST 12 MONTHS
+	//
+	//
+
+	//
+	//
+	//- PIE CHART SHOWING % OF SUBSCRIPTIONS BY EMPLOYERS, BM, OTHER
+
+	mapPieChartSubscription := make(map[string]interface{})
+	mapPieChartSubscription["id"] = "subscriptionPie"
+	mapPieChartSubscription["title"] = "NUMBER OF SUBSCRIPTIONS PIE CHART"
+	mapPieChartSubscription["label"] = ""
+	mapPieChartSubscription["series"] = ""
+
+	subscriptionPieTotal := int64(fTotalSubscription)
+	mapSubscriptionPie := map[string]int64{
+		"Employers":    int64(fEmployerSubscription),
+		"British Mums": int64(fBritishMumSubscription),
+		"Others":       int64(fOtherSubscription),
+	}
+
+	if len(mapSubscriptionPie) == 0 {
+		mapPieChartSubscription["label"] = "'No Records'"
+		mapPieChartSubscription["series"] = "100"
+	}
+
+	mapLegendSubscription := []string{"Employers", "British Mums", "Others"}
+	for _, iSeries := range mapSubscriptionPie {
+		iSeriesPercentage := functions.Round(float64(iSeries) / float64(subscriptionPieTotal) * 100)
+
+		mapPieChartSubscription["label"] = fmt.Sprintf(`%v'%v%%',`, mapPieChartSubscription["label"], iSeriesPercentage)
+		mapPieChartSubscription["series"] = fmt.Sprintf(`%v%v,`, mapPieChartSubscription["series"], iSeriesPercentage)
+	}
+	for iNumber, sLabel := range mapLegendSubscription {
+
+		iSeries := mapSubscriptionPie[sLabel]
+		iSeriesPercentage := functions.Round(float64(iSeries) / float64(subscriptionPieTotal) * 100)
+
+		pieChartRow := make(map[string]interface{})
+		pieChartRow["label"] = sLabel
+		pieChartRow["value"] = iSeries
+		pieChartRow["percentage"] = fmt.Sprintf(`%v%%`, iSeriesPercentage)
+
+		sTag := fmt.Sprintf(`%v#report-generator-piechart-row`, iNumber)
+		mapPieChartSubscription[sTag] = pieChartRow
+
+	}
+	mapReport["1#report-generator-piechart-admin"] = mapPieChartSubscription
+
+	//- PIE CHART SHOWING % OF SUBSCRIPTIONS BY EMPLOYERS, BM, OTHER
+	//
 	//
 
 	this.pageMap = make(map[string]interface{})
