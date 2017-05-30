@@ -787,6 +787,6 @@ func (this *Report) summary(httpRes http.ResponseWriter, httpReq *http.Request, 
 	this.pageMap = make(map[string]interface{})
 	this.pageMap["report-summary"] = mapReport
 	contentHTML := strconv.Quote(string(this.Generate(this.pageMap, nil)))
-	httpRes.Write([]byte(`{"pageTitle":"Summary | Merchant Reports","mainpanelContent":` + contentHTML + `}`))
+	httpRes.Write([]byte(`{"pageTitle":"Summary | Admin Reports","mainpanelContent":` + contentHTML + `}`))
 
 }

@@ -219,18 +219,20 @@ func (this *AppRedeem) viewMemberPin(httpRes http.ResponseWriter, httpReq *http.
 		sMessage += "Reward is missing <br>"
 	}
 
+	sMessageSub := ""
 	if this.mapAppCache["subscription"] == nil {
-		sMessage += "Please purchase a membership to be able to redeem rewards"
+		sMessageSub = "Please purchase a membership to be able to redeem rewards"
 	}
 
 	if this.mapAppCache["workflow"] != nil {
 		switch this.mapAppCache["workflow"].(string) {
 		case "subscribed", "subscribed-pending":
 		default:
-			sMessage += "Please purchase a membership to be able to redeem rewards"
+			sMessageSub = "Please purchase a membership to be able to redeem rewards"
 		}
-
 	}
+
+	sMessage += sMessageSub
 
 	if len(sMessage) > 0 {
 		httpRes.Write([]byte(`{"error":"` + sMessage + `"}`))
