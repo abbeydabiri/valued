@@ -749,6 +749,11 @@ func (this *AppRedeem) saveFeedback(httpRes http.ResponseWriter, httpReq *http.R
 	xDocRedemption["merchantcontrol"] = mapAppReward["merchantcontrol"]
 
 	xDocRedemption["schemecontrol"] = ""
+	for _, mapSubscription := range this.mapAppCache["subscription"].(map[string]interface{}) {
+		mapSubscription := mapSubscription.(map[string]interface{})
+		xDocRedemption["schemecontrol"] = mapSubscription["schemecontrol"].(string)
+	}
+
 	xDocRedemption["couponcontrol"] = mapAppReward["couponcontrol"]
 
 	xDocRedemption["rewardcontrol"] = mapAppReward["control"]
