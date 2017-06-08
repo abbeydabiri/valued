@@ -1,0 +1,64 @@
+<!doctype html>
+
+
+<div class="content">
+<div class="container-fluid">
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+				<div class="row">
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-success btn-fill" onclick="alert();getForm('/merchantreport?action=user')">SUMMARY</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/merchantreport?action=redemption')">DEMOGRAPHICS</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/merchantreport?action=feedback')">FEEDBACK</button>
+					</div>
+				</div>
+				</center>
+			</div>
+		</div>
+	</div>
+	
+
+
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="header">
+				<h4 class="title">Revenues</h4>
+				<p class="category"> Revenues </p>
+			</div>
+			<div class="content">
+				<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+				<div class="footer">
+					<div class="legend">
+						<i class="pe-7s-user text-info"></i> 18-25 
+						<i class="pe-7s-user text-info"></i> 25-30 
+						<i class="pe-7s-user text-info"></i> 30-40 
+						<i class="pe-7s-user text-info"></i> 40-60 
+						<i class="pe-7s-user text-info"></i> >60
+					</div>
+					<hr>
+					<div class="stats">
+						<i class="fa fa-history"></i> -------
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+</div>
+
+<script type="text/javascript">
+	Chartist.Pie('#chartPreferences',{labels: ['18-25', '25-30', '30-40', '40-60', '60-Up'], series: [30, 25, 20, 15, 10]});
+</script>

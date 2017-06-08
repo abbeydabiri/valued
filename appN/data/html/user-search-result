@@ -1,0 +1,26 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@username@] </td>
+	<td>[@role@]</td>
+	<td>[@title@]</td>
+	<td>
+		[@title@] -
+		[@firstname@]
+		[@lastname@]
+	</td>
+	<td>[@workflow@]</td>
+</tr>
+<tr>
+	<td colspan="5">
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/user?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/user?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/user?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/user?action=delete\&control=[@control@]')" class="btn-xs btn-raise btn btn-fill">Delete</button>
+			&nbsp;
+		</div>
+	</td>
+</tr>

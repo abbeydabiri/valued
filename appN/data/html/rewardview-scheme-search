@@ -1,0 +1,87 @@
+<!doctype html>
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewRedeemed\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Redeemed Rewards</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewCoupon\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Coupons</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewStore\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Stores</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewScheme\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-success btn-fill">Manage Schemes</button>
+	</div>
+	</div>
+</div>
+
+<form class="form" method="post" action="/reward">
+	<input type="hidden" name="action" value="linkScheme">
+	<input type="hidden" name="reward" value="[@reward@]">
+
+	<div class="row">
+		<div class="col-sm-2">
+			<div class="form-group">
+				<input type="hidden" name="merchant" value="[@merchant@]">
+				<input type="hidden" name="scheme" id="scheme" value="[@schemecontrol@]">
+
+				<div class="dropdown">
+					<input type="text" class=" border-input" placeholder=" Find Scheme" id="schemetitle">
+					
+					<a href="#" id="schemeToggle" data-toggle="dropdown" aria-expanded="true"></a>
+					<ul class="dropdown-menu" id="schemeDropdown">
+						<li> &nbsp;&nbsp;&nbsp; <center><img src="../files/img/siteloader.gif"></center> &nbsp;&nbsp;&nbsp; </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<button type="submit" class=" btn btn-fill btn-success btn-xs">Add Scheme</button>
+		</div>
+	</div>
+</form>
+
+<div class="table-responsive table-full-width">
+	<form method="post" class="form subsearchTrigger" action="/reward">
+
+	<input type="hidden" name="action" value="searchScheme">
+	<input type="hidden" name="merchant" value="[@merchant@]">
+	<input type="hidden" name="reward" value="[@reward@]">
+	<input type="hidden" name="offset" id="offset" value="0">
+	<input type="hidden" name="limit" value="10">
+	
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Scheme Name</th>
+				<th>Scheme Price</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="subsearchresult">
+			[@rewardview-scheme-search-result@]
+		</tbody>
+	</table>
+
+	<div class="col-sm-12">
+		<div class="pull-right">
+			<small>Rows Per Page</small>
+			<select>
+				<option>20</option>
+			</select>
+
+			<small>Go to Page:</small>
+			<select>
+				<option>1</option>
+			</select>
+		</div>
+	</div>
+	</form>
+</div>
+
+
+<script>
+	setupDropdownSearch('','scheme');
+	getForm('/reward?action=searchScheme&reward=[@reward@]&merchant=[@merchant@]');
+</script>

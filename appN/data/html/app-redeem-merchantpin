@@ -1,0 +1,113 @@
+<!doctype html>
+<form class="form memberpinForm" method="post" action="/app-redeem">
+<input type="hidden" name="action" value="save">
+<input type="hidden" name="step" value="merchantpin">
+<input type="hidden" name="reward" value="[@reward@]">
+
+	<div class="redeemBtnDiv">
+		<center>
+			Hand your phone to the merchant to complete these details, please.
+			<br> 
+			[@app-redeem-store@]
+		</center>
+		<div class="redeemPin">
+			<label class="labelInfo">MERCHANT PIN</label> <br>
+			<input type="number" name="pin1" id="pin1" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin(this)">
+			<input type="number" name="pin2" id="pin2" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin(this)">
+			<input type="number" name="pin3" id="pin3" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin(this)">
+			<input type="number" name="pin4" id="pin4" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin(this)">
+		</div>
+		<br><br>
+
+		<center>
+			<div class="redeemAmount">
+				<b>ENTER TRANSACTION VALUE</b> <br>
+				<small>(Before Discount)</small> <br>
+				<input size="12" id="transactionvalue" required="" name="transactionvalue" type="number" maxlength="12">
+			</div>
+		</center>
+
+		<br>
+		<button class="redeemBtn" type="submit">SUBMIT</button> <br>
+
+		<br>
+		<button class="redeemBtn" type="button" onclick="getForm('/app-redeem?control=[@reward@]')">CANCEL</button> <br>
+		
+		<br>
+		<img src="../files/img/valued.png" class="valuedLogo">
+	</div>
+</form>
+
+
+<script>
+
+	$('.appFooter').html('');
+	$('#arrowBackSpan').html('');
+	
+	$('#rewardCode').html('[@couponcode@]');
+	$('#rewardCode').toggleClass('hide');
+
+	$('#pin1').focus();
+
+	function nextPin(idTag){
+		// var transactionValue = $('#transactionvalue').val();
+		// if (transactionValue == "" || transactionValue.length < 2) {
+		// 	error("Transaction Value is Required");	
+		// 	$('#transactionvalue').focus();
+		// 	$(idTag).val('');
+		// 	return
+		// }
+
+
+		var pin = $(idTag).val();
+		switch($(idTag).attr('name')) {
+			case "pin1":
+				if(pin != "") {
+					$('#pin2').val('');
+					$('#pin3').val('');
+					$('#pin4').val('');
+
+					if(pin.length==1){
+						$('#pin2').focus();
+					} else {
+						$('#pin1').val('');
+					}
+				}
+				break;
+			case "pin2":
+				if(pin != "") {
+					$('#pin3').val('');
+					$('#pin4').val('');
+
+					if(pin.length==1){
+						$('#pin3').focus();
+					} else {
+						$('#pin2').val('');
+					}
+				}
+				break;
+			case "pin3":
+				if(pin != "") {
+					$('#pin4').val('');
+					
+					if(pin.length==1){
+						$('#pin4').focus();
+					} else {
+						$('#pin3').val('');
+					}
+				}
+				break;
+			case "pin4":
+				if(pin != "") {
+					if(pin.length==1){
+						// successMessage("Validated Merchant Pin");	
+						
+					} else {
+						$('#pin4').val('');
+					}
+				}
+				break;
+		}	
+	}
+	
+</script>

@@ -1,0 +1,43 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader">
+
+		<nav class="navbar">
+			<br>
+			<span class="appHeaderToggle" onclick="toggleAppSidebar('navBarDrop');">
+				<span class="icon-bar" style="width:80%"></span>
+				<span class="icon-bar"></span>
+			</span>
+			<span onclick="getForm('/app-signup')" class="buynowbutton">REGISTER</span>
+			<center>
+				<span class="appHeaderTitle">FAVOURITES</span>
+			</center>
+
+			[@app-navbar@]
+
+			[@app-slidebar@]
+
+			<div class="clearfix"></div>
+
+			<div id="appSearchDiv"></div>
+			
+		</nav>
+
+	</div>
+		
+	<div class="appContent" style="background: #fff">
+		<div class="appInner" id="map">
+			[@app-map-locator@]
+		</div>
+	</div>
+	
+	[@app-footer@]
+
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	getForm('/app-search');
+</script>

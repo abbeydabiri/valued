@@ -1,0 +1,70 @@
+<!doctype html>
+<div class="searchDiv" >
+
+	<div class="searchBox">
+		<input style="font-size:15px;margin-left:25px;height:100%;" placeholder="SEARCH" id="appSearchText" name="searchtext">
+	</div>
+	<div class="searchFilter">
+		<i class="fa fa-filter appSearchButton"  onclick="$('#searchFilterDrop').slideToggle('slow')"></i>
+		<!-- <img src="../files/img/searchFilter.png" onclick="$('#searchFilterDrop').slideToggle('slow')"> -->
+	</div>
+	<div class="searchIcon">
+		<i id="appSearchIcon" class="pe-7s-search appSearchFilter"></i>
+	</div>
+</div>
+
+
+<div id="searchFilterDrop" class="" >
+
+	<div id="appSearchTags" class="appSearchTags" style="">
+		[@app-searchdiv-tags@]
+	</div>
+
+	<div class="appSearchCategory"> 
+		<span class="Clear" onclick="quickForm('/app-search?action=clearTagCategory')">CLEAR</span>
+		<div class="Title"><label>CATEGORIES</label></div>
+		<span class="Done" onclick="appSearchSubmit();$('#searchFilterDrop').slideToggle('slow');">DONE</span>
+	</div>
+
+	<div id="appSearchCategory">[@app-searchdiv-result@]</div>
+
+	<div id="appSearchSubCategory"></div>
+	
+	<div id="appSearchKeyword"></div>
+
+</div>
+
+
+<script>
+
+	$('html').on("click", "#appSearchCategory .appSearchResult", function(event) {
+		appSearchCategoryClicked('appSearchCategory', this);
+	});
+
+	$('html').on("click", "#appSearchSubCategory .appSearchResult", function(event) {
+		appSearchCategoryClicked('appSearchSubCategory', this);
+	});
+
+	$('html').on("click", "#appSearchKeyword .appSearchResult", function(event) {
+		appSearchCategoryClicked('appSearchKeyword', this);
+	});
+
+
+	function appSearchSubmit() {
+		$('.appSearchForm').trigger('submit');
+	}
+
+
+
+	function clearActiveKeyword(parentTag) {
+		$("#" + parentTag + " .appSearchResult")
+			.each(function(index) { $(this).removeClass('active'); });
+	}
+
+	function appSearchCategoryClicked(parentTag, idTag) {
+		$("#" + parentTag + " .appSearchResult")
+			.each(function(index) { $(this).removeClass('active'); });
+		$(idTag).addClass('active');
+	}
+
+</script>

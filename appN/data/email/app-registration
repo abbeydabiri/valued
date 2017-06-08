@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@fullname@],
+		<br><br>
+
+		Thank you for registering with VALUED.
+		<br><br>
+
+		We have created your VALUED account with the user name [@username@] and e-mail address [@email@].
+		<br><br>
+		
+		To complete the registration process kindly confirm your e-mail address by clicking the link <a href="[@link@]">here</a>. This link will remain valid for 15 days.
+		<br><br>
+
+		[@details@]
+
+		Being registered with VALUED allows you to login to the VALUED app and view all rewards. 
+		<br><br>
+
+		To redeem these, you need to purchase one of the VALUED memberships available on the VALUED app.
+		<br><br>
+
+		Our memberships provides you with access to a world of privileges and free perks.
+		<br><br>
+
+		We look forward to you joining us at VALUED - Because Great Benefits Make Happy People.
+		<br><br>
+
+		<i><small>This e-mail has been generated automatically. Please do not reply to this message.</small></i>
+	</body>
+</html>

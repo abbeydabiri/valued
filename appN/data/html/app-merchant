@@ -1,0 +1,59 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader">
+
+		<nav class="navbar">
+			<br>
+				<span class="appHeaderToggle" onclick="toggleAppSidebar('navBarDrop');">
+					<span class="icon-bar" style="width:80%"></span>
+					<span class="icon-bar"></span>
+				</span>
+				[@app-navbar-button@]
+			<center>
+				<span class="appHeaderTitle">BRANDS</span>
+			</center>
+
+			[@app-navbar@]
+
+			<div class="clearfix"></div>
+
+			<form class="appSearchForm" method="post" action="/app-merchant">
+				<input type="hidden" name="action" value="search">
+				<input type="hidden" name="offset" id="offset" value="0">
+				<div id="appSearchDiv"></div>
+			</form>
+
+		</nav>
+
+	</div>
+		
+	<div class="appContent">
+		<div class="appInner" id="searchresult">
+			[@app-merchant-list@]
+		</div>
+	</div>
+
+	[@app-footer@]
+
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	getForm('/app-search');
+
+	var appendSearchDiv = '<div class="rewardDiv" id="appendSearchDiv"><div class="rewardInner"><div class="couponDiv"><div class="Logo"><img class="LogoImg" style="left:14px; width:25px !important" src="../files/img/siteloader.gif"></div><div class="Desc"><label class="header" id="appendSearchDivTitle">Please Wait</label> <br>..Please Wait..</div></div></div></div>';
+	
+	var searchresultDiv = $('.appContent');
+	$(searchresultDiv).scroll(function() {
+		if (searchresultDiv[0].scrollHeight - searchresultDiv.scrollTop() == searchresultDiv.height()){
+			if ($('#appendSearchDiv').css("display") !== "table") {
+				$('#searchresult').append(appendSearchDiv);
+				$('#offset').val(parseInt($('#offset').val()) + 30);
+				$('.appSearchForm').trigger('submit');
+			} 
+		}
+	});
+	
+</script>

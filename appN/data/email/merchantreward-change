@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<body>
+		Dear VALUED ADMIN,
+		<br><br>
+
+		User: <b>[@username@]</b> requested changes to Reward <b>[@reward@]</b>:
+
+		<br><br>
+
+		MERCHANT: <b>[@merchant@]</b>
+		<br><br>
+
+		REWARD: <b>[@reward@]</b>
+		<br><br>
+
+		<b>Merchant Changes:</b>
+		<hr>
+
+<pre>[@message@]</pre>
+
+		<br><br>
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

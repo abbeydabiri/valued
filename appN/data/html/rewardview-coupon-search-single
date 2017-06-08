@@ -1,0 +1,23 @@
+<!doctype html>
+
+<div class="row center">
+	
+	<div class="col-sm-6">
+		<h4>COUPON: <b>[@coupon@]</b></h4>
+		&nbsp;
+	</div>
+
+	<div class="col-sm-6">
+
+		<form class="form" method="post" action="/reward">
+			<input type="hidden" name="action" value="replaceCoupon">
+			<input type="hidden" name="reward" value="[@reward@]">
+			
+			<h4> <input type="text" class=""  name="code" style="width:80%" > </h4>
+
+			<button style="" type="submit" class="btn-xs btn btn-fill">Replace Coupon</button>
+			
+		</form>
+	&nbsp;
+	</div>
+</div>

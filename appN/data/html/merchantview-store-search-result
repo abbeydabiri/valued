@@ -1,0 +1,9 @@
+<!doctype html>
+<tr>
+	<td>[@title@] </td>
+	<td>[@city@]</td>
+	<td>[@contact@]</td>
+	<td>[@flagship@]</td>
+	<td>[@workflow@]</td>
+	<td><button type="button" onclick="getForm('/store?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button></td>
+</tr>

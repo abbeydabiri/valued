@@ -1,0 +1,43 @@
+<!doctype html>
+
+<style>
+	.subForm {
+		font-size: 1em; background: #FFFFFF; position: absolute; z-index: 50;
+		width: 600px; border: 1px solid #ddd; border-radius: 0px 5px 5px 0px;
+		display: none; margin-bottom: 50px; margin-left: -1px;
+	}
+</style>
+
+<form class="form" method="post" action="/reward">
+	<input type="hidden" name="action" value="saveCoupon">
+	<input type="hidden" name="reward" value="[@reward@]">
+	<input type="hidden" name="control" value="[@control@]">
+	<center>
+		<h4 style="" class="title"><small>Add Coupon</small></h4>
+	</center>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<input type="text" class="form-control border-input" placeholder="Enter Coupon Code" name="code" value="[@code@]">
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<div class="form-group">
+				<select class="form-control border-input" name="workflow"> 
+					 <option>inactive</option>  <option>active</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<center>
+		<button type="button" class="btn btn-xs btn-fill btn-warning" onclick="toggleAppSidebar('subForm');">Cancel</button> 
+		<button type="submit" class="btn btn-xs btn-fill btn-success">Save</button> 
+	</center>
+</form>
+
+<script>
+	toggleAppSidebar('subForm');
+</script>

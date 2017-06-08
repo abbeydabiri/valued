@@ -1,0 +1,5 @@
+<!doctype html>
+
+<div class="appSearchResult [@isselected@]" onclick="quickForm('/app-search?action=[@action@]&category=[@control@]');"> 
+	<div class="Title"><label>[@title@]</label></div>
+</div>

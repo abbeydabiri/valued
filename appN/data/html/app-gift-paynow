@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+
+<div class="wrapper">	
+	<div class="appContent appSchemeBG">
+		<br><br>		<br>
+			<div class="appSchemeBox">
+					<br>
+
+					<div style="padding:15px;text-align:center;">
+						<h5>GIFT MEMBERSHIP</h5>
+
+						<h6>[@schemetitle@] AED [@totalpriceString@]/year  </h6>
+						<br>
+						<form class="form" method="post" action="/app-gift">
+							<input type="hidden" name="action" value="paynow">
+									
+								[@app-subscribe-coupon@]
+							<br>
+
+							<div class="text-center">
+								<button class="schemeBtn" type="submit">PAY NOW</button>
+							</div>
+						</form>
+					</div>
+
+					<img src="files/img/mastercard.png" alt="mastercard" width="50" height="32">
+					<img src="files/img/visa.png" alt="visa" width="50" height="32">
+					<br><br>
+			</div>
+			<br>&nbsp;
+
+	</div>
+	[@app-footer@]
+</div>
+
+<script></script>

@@ -1,0 +1,42 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header text-center">
+						<div class="col-md-12">
+							<h4 style="" class="title"><small>Validate Reward Code <br> <b>[@title@]</b></small></h4>
+						</div>
+					</div>
+					<div class="header text-center">
+						<div class="col-md-12">
+							<h4 style="" class="title"><small>This is only for validating reward codes that Valued is generating.</small></h4>
+						</div>
+					</div>
+
+					<div class="content">
+						<form class="form" method="post" action="/validatecoupon">
+							<input type="hidden" name="action" value="check">
+							
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Reward Code</label>
+										<div class="field-desc">This system is case sensitive</div>
+										<input class="form-control border-input" type="text" placeholder="Type reward code here .." name="code">[@couponcode@]</textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center">
+								<button type="submit" class="btn btn-fill btn-success btn-md">Check if valid</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

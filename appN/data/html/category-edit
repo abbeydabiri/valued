@@ -1,0 +1,108 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-10 col-md-offset-0">
+							<h4 style="" class="title"> <small>[@formtitle@] Reward Category <b>[@title@]</b> </small> </h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						<form class="form" method="post" action="/category">
+							<input type="hidden" name="action" value="save">
+							<input type="hidden" name="control" value="[@control@]">
+
+							<div class="row">
+								<div class="col-sm-2">
+									<div class="imagebox">
+										<div class="imgthumb">
+											<input type="hidden" id="imageName" name="imageName">
+											<input type="hidden" id="image" name="image" default="[@image@]">
+											<img id="imageSrc" src="[@image@]">
+										</div>
+										<div class="caption">
+											Image Preview<br>
+										</div>
+									</div>
+									<label>Logo</label> <a href="javascript:void(0)" onclick="$('#image').val('');$('#imageSrc').attr('src',$('#image').attr('default'));$('#imageFile').val('');defaultImage('.imagebox')" class="pull-right"><small>clear</small></a>
+									<input type="file" id="imageFile" onchange="editFormCompressImage('image')">
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>CODE <small>(CSV-Column-Header)</small></label>
+										<input type="text" class="form-control border-input" placeholder="Enter Code" name="code" value="[@code@]">
+									</div>
+								</div>
+
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Category Name</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Name" name="title" value="[@title@]">
+									</div>
+								</div>
+
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Parent Category</label> <a href="javascript:void(0)" onclick="$('#category').val('');$('#categorytitle').val('');" class="pull-right"><small>clear</small></a>
+										<input type="hidden" name="category" id="category" value="[@categorycontrol@]">
+
+										<div class="dropdown">
+											<input type="text" class="form-control border-input" placeholder="Find Reward Category" id="categorytitle" value="[@categorytitle@]">
+											<a href="#" id="categoryToggle" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"></a>
+											<ul class="dropdown-menu" id="categoryDropdown">
+												<li> &nbsp;&nbsp;&nbsp; <center><img src="../files/img/siteloader.gif"></center> &nbsp;&nbsp;&nbsp; </li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Placement</label>
+										<input type="text" class="form-control border-input" placeholder="Placement" name="placement" value="[@placement@]">
+									</div>
+								</div>
+							
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Description</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Description" name="description" value="[@description@]">
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Status</label>
+										<select class="form-control border-input" name="workflow"> <option>[@workflow@]</option> <option>active</option> <option>inactive</option> </select>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center">
+								<button type="button" onclick="closeView()" class="btn btn-fill btn-warning btn-sm">Cancel</button>
+						<button type="submit" class="btn btn-fill btn-success btn-sm">Save</button>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	setupDropdownSearch('category','category');
+</script>

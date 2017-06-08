@@ -1,0 +1,4 @@
+<!doctype html>
+<li onclick="$('#[@tag@]').val('[@control@]').trigger('change');$('#[@tag@]title').val('[@title@]');">
+	<a href="#">[@title@]</a>
+</li>

@@ -1,0 +1,38 @@
+<!doctype html>
+
+<div class="wrapper">	
+	<div class="appHeader">
+
+		<nav class="navbar">
+			<br>
+				<span class="appHeaderToggle" onclick="toggleAppSidebar('navBarDrop');">
+					<span class="icon-bar" style="width:80%"></span>
+					<span class="icon-bar"></span>
+				</span>
+				[@app-navbar-button@]
+			<center>
+				<span class="appHeaderTitle valuedLogo"><img src="images/valued_logo_white.png"></span>
+			</center>
+			
+			[@app-navbar@]
+
+			
+
+			<div class="clearfix"></div>
+		</nav>
+
+	</div>
+
+	<div class="appContent" >
+			
+		<div class="appCategory">
+			[@app-home-category@]
+		</div>
+			
+	</div>
+
+	[@app-footer@]
+</div>
+<script>
+	
+</script>

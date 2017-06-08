@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+
+<div class="wrapper appLoginBG">	
+	
+	<div class="appContent" style="background:transparent;">
+		
+		<br><br><br>
+		<div style="padding:15px;text-align:center;">
+			<h5>PLEASE CREATE YOUR</h5> <h5>4-DIGIT PIN</h5>
+			<form class="form" method="post" action="/app-profile">
+			<input type="hidden" name="action" value="savePin">
+				<div class="">
+					<Br><Br>
+					<div class="profilePin">
+						<label class="">YOU WILL USE THIS PIN TO REDEEM REWARDS</label> <br>
+						<input type="number" name="newPin1" id="newPin1" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('new',this)">
+						<input type="number" name="newPin2" id="newPin2" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('new',this)">
+						<input type="number" name="newPin3" id="newPin3" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('new',this)">
+						<input type="number" name="newPin4" id="newPin4" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('new',this)">
+					</div>	
+
+					<Br><Br>
+					<div class="profilePin">
+						<label class="">PLEASE CONFIRM YOUR PIN</label> <br>
+						<input type="number" name="confirmPin1" id="confirmPin1" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('confirm',this)">
+						<input type="number" name="confirmPin2" id="confirmPin2" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('confirm',this)">
+						<input type="number" name="confirmPin3" id="confirmPin3" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('confirm',this)">
+						<input type="number" name="confirmPin4" id="confirmPin4" size="1" maxlength="1" onfocus="$(this).val('')" onkeyup="nextPin('confirm',this)">
+					</div>		
+
+					<br><br>
+					<div class="profilePin">
+						<button type="submit" class="btn btn-fill btn-sm">SUBMIT</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<br>&nbsp;
+		
+	</div>
+	[@app-footer@]
+</div>
+
+<script>
+	$('#newPin1').focus();
+	function nextPin(prefix,idTag){
+
+		var pin = $(idTag).val();
+		switch($(idTag).attr('name')) {
+			case prefix+"Pin1":
+				if(pin != "") {
+					$('#'+prefix+'Pin2').val('');
+					$('#'+prefix+'Pin3').val('');
+					$('#'+prefix+'Pin4').val('');
+
+					if(pin.length==1){
+						$('#'+prefix+'Pin2').focus();
+					} else {
+						$('#'+prefix+'Pin1').val('');
+					}
+				}
+				break;
+			case prefix+"Pin2":
+				if(pin != "") {
+					$('#'+prefix+'Pin3').val('');
+					$('#'+prefix+'Pin4').val('');
+
+					if(pin.length==1){
+						$('#'+prefix+'Pin3').focus();
+					} else {
+						$('#'+prefix+'Pin2').val('');
+					}
+				}
+				break;
+			case prefix+"Pin3":
+				if(pin != "") {
+					$('#'+prefix+'Pin4').val('');
+					
+					if(pin.length==1){
+						$('#'+prefix+'Pin4').focus();
+					} else {
+						$('#'+prefix+'Pin3').val('');
+					}
+				}
+				break;
+			case prefix+"Pin4":
+				if(pin != "") {
+					if(pin.length==1){
+						switch(prefix) {
+							case "new":
+								$('#confirmPin1').focus();
+								break;
+						}	
+						
+					} else {
+						$('#'+prefix+'Pin4').val('');
+					}
+				}
+				break;
+		}	
+	}
+</script>

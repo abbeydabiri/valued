@@ -1,0 +1,20 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@code@] </td>
+	<td>[@schemetitle@]</td>
+	<td>[@price@]</td>
+	<td>[@startdate@]</td>
+	<td>[@expirydate@]</td>
+	<td>[@workflow@]</td>
+	<td>
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/member?action=editSubscription\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">Edit</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/member?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/member?action=deleteSubscription\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">Delete</button>
+
+			<button type="button" onclick="getForm('/member?action=sendSubscriptionMail\&control=[@control@]')" class="btn-xs btn-raise btn btn-success btn-fill">Send Subscription EMail</button>
+		</div>
+	</td>
+</tr>

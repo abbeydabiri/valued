@@ -1,0 +1,125 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-10 col-md-offset-0">
+							<h4 style="margin-left:-15px;" class="title">User Administration</h4>
+						</div>
+
+						<div class="col-md-2">
+							<button style="margin-right:-15px;" type="button" onclick="javascript:getForm('/member?action=new')" class="btn-xs btn btn-info btn-fill pull-right">Add User</button>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+
+					<div class="content">
+						<div class="content table-responsive table-full-width">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<td colspan="6">
+										<form class="form searchTrigger" method="post" action="/member">
+											<input type="hidden" name="action" value="search">
+											<input type="hidden" id="offset" name="offset" value="0">
+											<input type="hidden" id="limit" name="limit" value="10">
+										
+											<div style="padding-top:10px" class="col-lg-12">
+												<input class="resetForm" type="text" name="firstname" placeholder=" Firstname" size="15">
+												<input class="resetForm" type="text" name="lastname" placeholder=" Lastname" size="15">
+												<input class="resetForm" type="text" name="email" placeholder=" Email" size="15">
+												<input class="resetForm" type="text" name="username" placeholder=" Username" size="15">
+												<input class="resetForm" type="text" name="subscription" placeholder=" Subscription" size="15">
+											</div>
+
+											<div style="padding-top:10px" class="col-lg-10">
+												<input class="resetForm" type="text" name="employer" placeholder=" Employer" size="15">
+												<select class="resetForm" name="workflow"> 
+													<option value="">-membership-</option> 
+													<option>pending</option> <option>registered</option>  <option>paid</option> <option>subscribed</option> <option>expired</option> 
+												</select>
+												<select class="resetForm" name="status"> 
+													<option value="">-account-</option> <option>active</option> <option>inactive</option> <option>blocked</option> 
+												</select>
+												<select class="resetForm" name="role"> 
+													<option value="">-user-type-</option> <option>member</option> <option>employer</option> <option>merchant</option> <option>admin</option>
+												</select>
+											</div>
+
+
+											
+											<div style="padding-top:10px" class="col-lg-2">
+												<button type="submit"  class="btn btn-xs btn-raise btn-success btn-fill">Filter</button>
+												&nbsp;
+												<button type="button" class="btn-reset btn-xs btn-raise btn btn-info btn-fill">Clear</button>
+											</div>
+										</form>
+										</td>
+									</tr>
+								</thead>
+							</table>
+
+							<form id="formDeactivateAll" class="deactivteTrigger" method="post" action="/member">
+							<input type="hidden" id="deactivteTrigger" name="action" value="deactivateAll">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th>Full Name</th>
+										<th>E-Mail</th>
+										<th>Employer</th>
+										<th>Membership</th>
+										<th>Username</th>
+										<th>Usertype</th>
+										<th>Account</th>
+									</tr>
+								</thead>
+								<tbody id="searchresult">
+									[@member-search-result@]
+								</tbody>
+							</table>
+							</form>
+						</div>
+
+						<button type="button" onclick="$('#deactivteTrigger').val('deactivateAll');$('.deactivteTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-danger btn-fill">Deactivate Selected</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" onclick="$('#deactivteTrigger').val('sendWelcomeMail');$('.deactivteTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-success btn-fill">Send Welcome EMail</button>
+
+						<button type="button" onclick="$('#deactivteTrigger').val('delete');$('.deactivteTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-fill">Delete</button>
+
+						<div class="pull-right">
+							<small>Rows Per Page</small>
+							<select id="searchRecords">
+								<option>10</option>
+								<option>20</option>
+								<option>50</option>
+								<option>100</option>
+							</select>
+
+							<small>Go to Page:</small>
+							<select id="searchPage">
+								[@select-page@]
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	setupDatePicker();
+	$('#searchRecords').change(function() {
+		$('#limit').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+
+	$('#searchPage').change(function() {
+		$('#offset').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+</script>

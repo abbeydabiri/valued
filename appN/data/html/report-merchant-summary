@@ -1,0 +1,96 @@
+<!doctype html>
+
+
+<div class="content">
+<div class="container-fluid">
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+				<div class="row">
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill btn-success" onclick="getForm('/merchantreport?action=summary')">SUMMARY</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/merchantreport?action=demographics')">DEMOGRAPHICS</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/merchantreport?action=feedback')">FEEDBACK</button>
+					</div>
+				</div>
+				</center>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+				<div class="row">
+					<div class="col-sm-4">
+						<h2>AED [@revenueyear@]</h2>
+						<h6><label>Total Revenue (12 Months)</label></h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@redeemedyear@]</h2>
+						<h6><label>Total Redemptions (12 Months)</label></h6>
+					</div>
+					<div class="col-sm-4">
+						<h2> [@npsscore@]</h2>
+						<h6><label>CURRENT NPS SCORE</label></h6>
+					</div>
+				</div>
+				</center>
+				
+				<div class="row center">
+					[@report-generator-barchart@]
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content center">
+				<form method="post" action="/merchantreport" target="_blank">
+				<input type="hidden" name="action" value="downloadReport">
+		
+				<div class="row">		
+					<div class="col-sm-3 col-sm-offset-2">
+						<div class="form-group">
+							<label>From Date</label>
+							<input type="text" class="custom-datepicker form-control border-input" name="startdate" value="[@startdate@]">
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>To Date</label>
+							<input type="text" class="custom-datepicker form-control border-input"  name="stopdate" value="[@stopdate@]">
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label>&nbsp;</label> <br>
+							<button type="submit" class="btn btn-fill btn-success btn-sm">DOWNLOAD REPORT</button> 
+						</div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</div>
+</div>
+
+<script type="text/javascript">
+	setupDatePicker();
+</script>

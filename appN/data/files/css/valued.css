@@ -1,0 +1,1149 @@
+
+.ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
+    stroke: #AF9775;
+}
+.supportBannerDiv span.valuedLogo {
+    padding: 20px;
+    display: block;
+}
+.support {
+    text-align: center;
+}
+.fa {
+    width: auto;
+}
+.fa-2x {
+    font-size: 3em;
+}
+.appFooter .fa {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.forever, .user, .monthly {
+	display: none !important;
+}
+
+.pie-heads {
+    font-weight: 600;
+}
+
+.mainrewardList .expired, .favoriteList .expired, .rewardsList .expired {
+    display: none !important;
+}
+
+.mediaManager {
+	font-size: 1em; background: #AF9775; position: absolute; z-index: 50; margin-top: 7px; width: 75%; border: 1px solid #e0c288; border-radius: 10px; display: none; color: #fff; 
+}
+.field-desc {
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.popupMessage {
+    font-size: 1em; background: #AF9775; position: absolute; z-index: 50; margin-top: 7px; width: 75%; border: 1px solid #e0c288; border-radius: 10px; display: none; color: #fff; 
+}
+
+#searchFilterDrop {display:none;font-size:1em; width:100%;position:absolute;background: #f2e5d2;left: 0; z-index: 40;}
+
+.appSubscribePaynow {
+	background:transparent;border-color:transparent;
+}
+
+.appSchemeBox {
+	 	font-size:14px;border-radius: 15px; color:#FFF;min-height: 300px;  width:90%; margin-left:5%;background-color: #c5b69f;
+	}
+
+.schemeBtn {
+	 	border-radius: 5px; border: none;	width: 70%; margin-bottom: 5px; font-size: 15px;
+		color: white; min-height: 50px; font-weight: 800; background-color: #e0c288; padding: 10px 10px 10px 10px
+	}
+
+.profilePin {width:200px; margin:0 auto; text-align: center; }
+.profilePin input{     
+    text-align: center;
+    border: 1px solid #a0815b;
+    border-radius: 2px !important;
+    font-size: 25px;
+    width: 45px;
+    color: #fff;
+    font-weight: 800;
+    background: transparent;
+}
+
+.merchantPin {width:200px; margin:0 auto;  }
+.merchantPin input{     
+    text-align: center;
+    border: 1px solid #E3E3E3;
+    border-radius: 2px !important;
+    font-size: 25px;
+    width: 45px;
+    color: #000;
+    font-weight: 800;
+    background: transparent;
+}
+
+.appSearchCategory {
+	background-color: #a0815b; width: 100%; height: 40px; text-align: center; font-weight: 100; color:#FFF;
+}
+
+div#searchFilterDrop {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+input#couponBox {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+	min-height: 50px;
+}
+
+.Terms {
+    padding: 20px;
+	background: #F3F3F3;
+}
+
+.appSearchCategory .Clear { 
+	float:left; display: inline-block; width:60px; height:100%; padding-top: 10px;
+	background: #a0815b; color:#FFF; text-align: center; font-weight: 100;
+}
+
+input[type="checkbox"] {
+    font-size: 15px;
+    line-height: 15px;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    top: -4px;
+    position: relative;
+    margin-right: 10px;
+}
+
+input[type="radio"] {
+    font-size: 15px;
+    line-height: 15px;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    top: -4px;
+    position: relative;
+    margin-right: 10px;
+}
+.myradio label {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.appSearchCategory .Done { 
+	float:right; display: inline-block; width:60px; height:100%; padding-top: 10px;
+	background: #a0815b; color:#FFF; text-align: center; font-weight: 100;
+}
+.appSearchCategory .Title { 
+	padding-top:10px; height:30px; float:left; display: inline-block;  width:calc(100% - 120px); overflow: hidden; 
+}
+.appSearchCategory .Title label {font-weight: 100;}
+
+
+.appSearchResult {
+	background-color: #f2e5d2; width: 100%; height: 40px; text-align: center; font-weight: 100; color:#a0815b; border-top:1px solid #a0815b;
+}
+.appSearchResult.active  { background-color: #e0c288 ; color:#FFF;}
+.appSearchResult.category  { background-color:#a0815b ; color:#FFF;}
+
+.appSearchResult .Icon { 
+	float:right; display: inline-block; max-width:40px; width:10%; height:100%; padding-top: 10px;
+	background: transparent; color:#FFF; text-align: center; font-weight: 100;
+}
+.appSearchResult .Title { 
+	padding-top:10px; height:30px; float:left; display: inline-block; width:90%; overflow: hidden; 
+}
+.appSearchResult .Title label {margin-left:10%;font-weight: 400;}
+
+
+.appSearchTags { background: #FFF;padding:0 10px;font-size:10px } 
+.appSearchTags label { background:#a0815b;color:#FFF;padding:5px;margin:5px } 
+.appSearchTags span { padding-left:5px;padding-right:5px;float:right; } 
+
+.btn {margin-bottom: 5px; text-transform: uppercase;}
+.card .header {text-transform: uppercase;}
+
+.feedbackSliderDiv { margin-top: 20px; margin-bottom: 70px;  }
+
+.redeemBtnDivHeader { color:#e0c288;font-size:16px;font-weight:700; }
+.redeemBtnDivHeaderSub { font-size:12px;font-weight:400; }
+
+#feedbackSlider {width:250px;border:0;background-color:#f2e5d2;height:3px}
+#feedbackSlider .firstStep {float:left;width:5.5%}
+#feedbackSlider .centerStep {display:inline-block;text-align:right;width:9%;}
+#feedbackSlider .lastStep {float:right;width:3%;}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	font-weight: normal;
+	background-color:#a0815b;
+	margin-top: -5px;
+	height:20px;
+	height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#navBarDrop {
+    width:100%;height:100vh;display:none;background-color: transparent;position: absolute;z-index:49;
+}
+
+#mainpanelContent select.resetForm { min-height: 26px; }
+#searchDivresult .btn-xs.btn-raise.btn.btn-success.btn-fill,
+#searchresult .btn-xs.btn-raise.btn.btn-danger.btn-fill {width:100px;}
+#searchDivresult .btn-xs.btn-raise.btn.btn-success.btn-fill.btn-longer,
+#searchresult .btn-xs.btn-raise.btn.btn-danger.btn-fill.btn-longer {width:150px;}
+
+
+.appNavbarDiv {
+	font-size: 1em; background-color: #252525; position: absolute; z-index: 50;
+	display:none
+}
+@media (min-width: 450px) {
+.appNavbarDiv {
+	width:49%;
+}
+}
+@media (max-width: 449px) {
+.appNavbarDiv {
+	width:100%;
+}
+}
+nav.navbar {
+    min-height: 48px;
+}
+
+.appNavbarDiv ul li { border-bottom:1px solid #e0c288;text-align: center;}
+.appNavbarDiv ul li a { margin:0px 0px !important; padding: 10px 0 !important; color:#e0c288; font-size: 12px;}
+
+div#pageLoading {
+    background: #252525;
+    height: 100vh;
+    padding-top: 30%;
+}
+
+.appUpArrow { 
+	font-size:15px;border-radius: 5px 5px 0px 0px;background-color: #e0c288;width:50px;height:35px;color:white;margin-left: 0; margin-right: 0;
+}
+
+.appUpArrow img {
+	width: 10px;
+	padding-bottom:5px;
+	display: none;
+}
+.appUpArrow:after {
+	content: "<";
+	font-size: 23px;
+}
+
+.sidebar:after, body > .navbar-collapse:after {
+    background: #AF9775;
+    background: -moz-linear-gradient(top, #AF9775 0%, #343434 100%);
+    
+    background: -o-linear-gradient(top, #AF9775 0%, #343434 100%);
+    background: -ms-linear-gradient(top, #AF9775 0%, #343434 100%);
+    
+    background-size: 150% 150%;
+    z-index: 3;
+    opacity: 1;
+}
+
+.text-center.reg_title {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+
+.appHeader .searchDiv {	background-color: #777777; width: 100%; height: 40px; 
+-webkit-box-shadow: inset 0px 0px 20px rgba(0,0,0,0.25);-moz-box-shadow: inset 0px 0px 20px rgba(0,0,0,0.25); box-shadow: inset 0px 0px 20px rgba(0,0,0,0.25); 
+}
+.appHeader .searchDiv .searchFilter { float:right; display: inline-block; max-width:40px; width:10%; height:100%; background: none; } 
+.appHeader .searchDiv .searchFilter i { margin-top:10px; margin-left:10px; height: 20px; font-size:20px;color:#FFF;font-weight:800; }
+
+
+.appHeader .searchDiv .searchIcon { float:right; display: inline-block; max-width:40px; width:10%; height:100%; }
+.appHeader .searchDiv .searchIcon i { margin-top:10px; margin-left:5px; height: 20px; font-size:20px;color:#FFF;font-weight:800; }
+
+
+.appHeader .searchDiv .searchBox { 
+	margin-top:5px; height:30px; float:left; display: inline-block; font-size:9px; 
+	max-width:728px; width:80%; overflow: hidden; position:absolute;
+}
+
+.appHeader .searchDiv .searchBox input { font-weight: 400; width: 90%; background: transparent; border: 0px; color: #FFF;}
+
+.appHeader .searchDiv .searchBox input::-webkit-input-placeholder { color: white; font-weight: 400 }
+
+.appHeader .searchDiv .searchBox input:-moz-placeholder { color: white; font-weight: 400 }
+
+.appHeader .searchDiv .searchBox input::-moz-placeholder { color: white; font-weight: 400 }
+
+.appHeader .searchDiv .searchBox input:-ms-input-placeholder { color: white; font-weight: 400 }
+
+.appContent.no-scroll {
+    overflow: hidden;
+}
+
+.titleBck {
+    background: #252525;
+    border-radius: 10px 10px 0 0;
+    padding: 1px 10px 20px;
+}
+
+.appContent .merchantDiv {
+	margin: 0 auto; margin-top: 10px; margin-bottom: 15px; background-color: white;
+	width: 95%;	min-height: 70px; height: auto; border-radius: 10px; border: 1px solid rgba(160, 129, 91, 0.47); display: table;
+}
+
+.appContent .rewardDiv {
+	margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    width: 95%;
+    min-height: 60px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(160, 129, 91, 0.47);
+	display: table;
+	table-layout: fixed;
+}
+
+.appContent .Logo { 
+    margin-left: 7px;
+    float: left;
+    display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;
+    width: 50px;
+    min-width: 50px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+}
+
+div#app-profile-redemption span.btn.btn-fill.btn-sm.buynow {
+    top: 0px !important;
+}
+
+.appContent .Logo img { 
+    width: 100%;
+    position: relative;
+    padding: 5px 0;
+}
+
+.appContent .Desc { 
+	padding: 10px 0 10px 10px;
+    font-size: 13px; 
+	overflow: hidden;
+	word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+.appContent .Desc .header { color: #a0815b; margin-bottom: 0px; }
+
+/*.appContent .rewardDiv .Heart { 
+	padding-right: 10px; padding-top: 15px; padding-bottom: 5px; float:right; display: inline-block; max-width: 10%;
+	color: #a0815b;	font-size: 10px; font-weight: 700; text-align: right;
+}
+
+.appContent .rewardDiv .Heart img { width: 20px }
+*/
+.alert-danger, .alert-warning, .alert-success {
+    background-color: #252525;
+	color: #e0c288;
+	border: #e0c288 1px solid;
+}
+.couponDiv {
+    width: calc(100% - 115px);
+    height: 100%;
+    float: left;
+	display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;
+}
+.appContent .Action {
+	display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;
+	    margin-right: 5px;
+}
+.appContent .Action2 {
+    padding-left: 5px;
+    display: flex;
+    width: 80px;
+    align-items: center;
+}
+
+.redeemedList .couponDiv {
+    width: calc(100% - 85px) !important;
+}
+
+.appSchemeBox select option {
+    color: #000;
+}
+
+.rewardListError { color:red; font-size:10px;}
+
+.appContent .rewardDiv .rewardInner, .appContent .merchantDiv .rewardInner  {
+    display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+	border-radius: 10px;
+    background-color: white;
+}
+.appContent .rewardDiv .Action .heartDiv, .appContent .merchantDiv .Action .heartDiv {
+display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    float: left;
+    z-index: 2;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+            flex-direction: row;
+}
+
+.appContent .Action .discountDiv {
+display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 75px;
+    position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+            flex-direction: row;
+}
+
+div#searchFilterDrop {
+font-size: 12px;
+    position: absolute;
+    background: rgb(242, 229, 210);
+    left: 0px;
+    z-index: 40;
+}
+
+.appContent .Action .rewardDiscountCaption {
+    color: #e0c288;
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+width: 100%;
+overflow-wrap: break-word;
+padding: 10px 0;
+background: #252525;
+border-radius: 5px;
+line-height: 13px;
+float: right;
+text-transform: uppercase;
+}
+
+.merchantDiv .discountDiv {
+    min-width: 85px;
+}
+
+.appContent .Action .merchantRewardsBtn { 
+	border-radius: 25px; height: 30px; color: #a0815b; font-size: 9px;
+	font-weight: 400; border: 1px solid #a0815b;background-color: #FFF; padding: 1px 8px;
+}
+
+
+
+.appContent .storeBannerDiv {
+	max-height:305px;overflow:hidden; background: #fff;
+}
+.appContent .storeBannerDivImg {
+    display: block;
+    padding: 20px;
+    max-height: 305px;
+    margin: 0 auto;
+}
+
+.appContent .storeHeaderDiv {
+	margin: 0 auto; background-color: white;
+	width: 100%; min-height: 70px; color: #656565;
+	padding-left: 10px; padding-right: 10px;
+	display:block;
+	overflow:auto;
+}
+
+
+
+.appContent .storeHeaderDiv .Logo { 
+	padding-top: 15px; padding-bottom: 5px; padding-left: 5px; float:left; display: inline-block; 
+}
+.appContent .storeHeaderDiv .Logo img { max-width: 90%; max-height: 90%; }
+
+.appContent .storeHeaderDiv .Details { 
+	    padding: 15px;
+    display: block;
+    font-size: 12px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    color: #656565;
+    text-align: center;
+}
+
+.appContent .merchDesc {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.appContent .storeHeaderDiv .Details .header { font-size: 12px; color: #000;  margin-bottom: 0px; display: block }
+.appContent .storeHeaderDiv .Details img { max-width: 10px; max-height: 10px;  }
+
+.appContent .storeHeaderDiv .KM { 
+	padding-right: 5px; padding-top: 15px; padding-bottom: 5px; display: inline-block; float:right;
+	font-size: 11px; font-weight: 700; text-align: right;
+}
+.appContent .storeHeaderDiv .KM img { max-width: 10px; max-height: 10px;  }
+.appInner {width:100%; height: 100%; }
+.support {
+    height: 100%;
+}
+
+.appStoreBtn {
+	font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: none;
+    padding: 8px;
+    width: 30%;
+    font-weight: 800;
+    color: white;
+    background-color: #e0c288;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.appStoreBtn a {color: white;}
+
+.appContent .storeDescDiv { padding-left: 10px; padding-right: 10px; font-size: 12px; color: #656565; background:#fff;}
+
+.rewardsList {
+    padding-top: 8px;
+}
+
+.appContent .storeDiv {
+	margin: 10px auto; background-color: white;
+	width: 98%; height: 80px; border-radius: 10px; border: 2px solid rgba(160, 129, 91, 0.47);
+}
+
+.appContent .storeDiv.storeDivLocked {
+	border: 2px solid #e1e1e1;
+}
+
+.appContent .storeDiv .Icon { 
+	float:left; 
+	display: inline-block; max-width: 25%; background-color: #e0c288;
+	border-radius: 7px 0 0 7px;
+	width:100px; height:100%;
+	padding-top: 20px;
+	text-align: center;
+}
+
+.appContent .storeDiv .Icon.storeDivLocked {
+	background-color: #e1e1e1;
+}
+
+.appContent .storeDiv .Icon img { height: 40px; }
+
+.appContent .storeDiv .Desc { 
+	padding-top: 10px; padding-bottom: 5px; padding-left: 5px; float:left; display: inline-block;
+	font-size: 11px;
+}
+.appContent .storeDiv .Desc .header { color: #e0c288; }
+
+.appContent .storeDiv .Desc .header.storeDivLocked {
+	color: #e1e1e1;
+}
+
+.appContent .storeDiv .Tag {
+	margin-right:10px; position:relative; float:right; display: inline-block; 
+}
+
+.appContent .storeDiv .Tag img { margin-top:-7px; max-width: 70px; position:relative;}
+.appContent .storeDiv .Tag .storeTagCaption {
+    position: absolute; bottom: 20px; color: #FFF; font-size: 10px; font-weight: 700; text-align: center; width:100%;
+}
+
+.appContent .storeMapDiv {
+	max-height:80%; height:500px;
+}
+
+.appContent .storeDiv .Desc .storeRewardSpan {
+	position:absolute; float:right; right:10px; bottom: 10px; color: #FFF; font-size: 14px; font-weight: 700;
+}
+
+.appContent .storeDiv .Desc .storeRewardSpan .storeRewardsBtn { 
+	border-radius: 25px; height: 30px; width: 90px; color: #a0815b; font-size: 9px;
+	font-weight: 800; border: 1px solid #a0815b;background-color: #FFF;
+}
+
+.appContent .redeemBannerDiv { text-align: center; width:100%; padding: 10px 0px 10px 0px }
+.appContent .redeemBannerDiv img { max-height: 50px; }
+
+.appContent .redeemDiv, .appContent .redeemBtnDiv {	overflow: auto;font-size:12px; margin: 5px 10px; background-color: white; border-radius: 10px; padding: 20px 10px 20px 10px}
+
+.profileDetails {
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    color: #a0815b;
+    margin: 5px 10px;
+	font-size: 15px;
+}
+
+/*
+.appContent .redeemDiv .redeemDivHeaderImg {display:inline-block;width:10%;float:left;}
+.appContent .redeemDiv .redeemDivHeaderImg .redeemArrow {height:15px;}*/
+.appContent .redeemDiv .redeemDivHeader {display:inline-block;width:55%;float:left;}
+.appContent .redeemDiv .redeemArrow {height:15px;}
+
+.appContent .redeemDiv .redeemDivLabel {display:inline-block;width:55%;float:left;padding-bottom:30px}
+
+.appContent .redeemDiv .labelHeader, .appContent .redeemDiv .labelMain, .appContent .redeemDiv .labelInfo { color:#e0c288; padding-top: 3px;}
+.appContent .redeemDiv .labelMain {font-size: 13px}
+.appContent .redeemDiv .labelHeader {font-size: 15px}
+
+.appContent .redeemBtnDiv {	padding: 20px 10px 20px 10px; overflow: hidden; display: block; }
+.appContent .redeemBtnDiv .labelInfo { color:#e0c288; padding-top: 3px;}
+
+.appContent .redeemBtnDiv .redeemBtn {
+	 border-radius: 10px; border: none;	width: 100%; margin-bottom: 5px; font-size: 15px;
+	color: white; min-height: 50px; font-weight: 800; background-color: #e0c288; padding: 10px 10px 10px 10px
+}
+
+
+.appContent .redeemBtnDiv .valuedLogo { float:right;  height: 15px; margin-top: 10px;}
+.appContent .redeemBtnDiv .valuedQRCode { text-align: center;}
+.appContent .redeemBtnDiv .valuedQRCode img { width:200px;}
+
+.appContent .redeemBtnDiv .redeemAmount input{ text-align:center; border: 1px solid #a0815b; border-radius: 2px;font-size: 25px; width: 180px; color: #a0815b; font-weight: 800; }
+
+.appContent .redeemBtnDiv .redeemPin {width:200px; margin:0 auto;}
+.appContent .redeemBtnDiv .redeemPin input{ text-align:center; border: 1px solid #a0815b; border-radius: 2px;font-size: 25px; width: 45px; color: #a0815b; font-weight: 800; }
+
+.feedbackReviewCat {
+    background: #e0c288;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 30px 5px;
+    width: 49%;
+    margin: 2px;
+    min-height: 80px;
+}
+@media (max-width:456px){
+.feedbackReviewCat {
+	width: 48%;
+	}
+}
+
+.feedback {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.appContent .redeemBtnDiv .feedbackReviewCat.active { background-color: #a0815b; }
+
+.appContent .selectChevron { font-size: 30px; margin-top: -5px; }
+
+
+
+.appContent .profilePic {
+
+}
+
+.appContent .profileBannerDiv {
+	max-height:305px;max-width:inherit;overflow:hidden; padding-bottom: 10px;
+}
+.appContent .profileBannerDivImg {
+	display: block;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.appContent .profileSelectDiv {
+    width: 100% !important;
+    position: relative;
+    background-color: #f9f9f9; 
+    text-align: center;
+    padding: 20px 0 20px 0;
+    margin: 20px 0 20px 0;
+
+ }
+
+.appContent .profileSelectDiv i { position: absolute; }
+
+.appContent .savingsDiv {
+    padding: 1px 20px;
+    position: relative;
+}
+
+.savingsDiv h3, .savingsDiv h2, .savingsDiv h4 {
+    margin: 10px 0;
+}
+
+.showPromobox h3 {
+    margin: 10px 0;
+    line-height: 28px;
+    color: #e0c288;
+}
+
+.showPromobox {
+    display: -webkit-inline-box;
+    padding: 0 20px;
+    margin-top: 10px;
+    background: #252525;
+    border-radius: 10px;
+}
+
+.savingsDiv h3, .savingsDiv h4 {
+    color: #fff;
+}
+.savingsDiv h2 {
+    color: #a0815b;
+    font-weight: 600;
+}
+
+.appContent .profileDiv {
+	border-radius: 5px;
+	position:relative;
+}
+.profileDiv label, .editprofileDiv label {
+    margin: 10px 0 2px 0;
+    color: #a0815b;
+	text-transform: uppercase;
+}
+.profileDiv .form-control {
+    background-color: transparent;
+    border: 1px solid #a0815b;
+	color: #fff;
+}
+
+span.blackText {
+    color: #000;
+}
+
+.profileEditBtn {
+	border-radius: 5px;
+    border: none;
+    font-size: 12px;
+    color: white;
+    font-weight: 800;
+    background-color: #e0c288;
+    padding: 8px 15px;
+	margin-bottom: 5px;
+}
+
+.appContent .profileDiv .profileChangePwdBtn {
+	border-radius: 5px; border: none; font-size: 10px; color: white; font-weight: 800;
+	background-color: #e0c288; padding: 5px 5px 5px 5px; width: 150px;
+	margin-bottom: 30px;
+}
+
+.profileDiv button.profileEditBtn {
+    top: -10px;
+    position: relative;
+}
+
+.appContent .profileChangePicBtn {
+	border-radius: 5px;
+    border: none;
+    font-size: 12px;
+    color: white;
+    font-weight: 800;
+    background-color: #e0c288;
+    padding: 8px 15px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+#login form span.pull-left, #login form span.pull-right {
+    margin-top: 3px;
+}
+#login input.pull-left {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
+span.btn.btn-fill.btn-sm.buynow {
+    display: inline-block;
+    float: right;
+    margin: 0 10px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    line-height: 1em;
+	top: -10px;
+    position: relative;
+	border-radius: 13px;
+}
+
+.appHeader .appHeaderInner {padding-top:10px;padding-bottom:10px; width: 100%; text-align: center; font-size: 20px; font-weight: 400; color: #fff;}
+
+/* .appHeader .appHeaderInner span {padding-right:15px} */
+
+.appHeader .arrowBack {float:left; margin-top:10px; left:10px; width:15px;position: absolute;}
+
+.buynowbutton{ 
+	border-radius: 15px;
+	color: white; 
+	background-color: #0d2648; 
+	font-size: 14px;
+	text-align: center;
+	margin-top: -3px;
+	margin-right: 10px;
+	float: right;
+	padding:5px 25px;
+	text-transform: uppercase;
+}
+
+.appHeader .angleslide {width:10px;}
+.appHeader .angleslide.left {display: none; float:left;margin-top:10px;margin-left:5px;}
+.appHeader .angleslide.right {display: none; float:right;margin-top:10px;margin-right:5px;}
+
+img.Heart {
+    min-width: 35px;
+    padding-right: 5px;
+	max-width: 35px;
+}
+
+.appHeader .slidebarToggle {
+	border-radius: 15px; border: none; 
+	height: 30px; width:32%; font-size: 13px; font-weight: 800; color: #e0c288; 
+	background-color: transparent; border: 1px solid #e0c288;
+}
+
+.appHeader .slidebarToggle.active { color: white;background-color: #e0c288;}
+
+.appHeader .slidebardiv { text-align: center; margin-bottom: 15px; 
+	font-size: 9px; display: block; width:100%; float:left;
+}
+
+.appHeader .icon-bar { margin:0;}
+.appHeader .navbar-toggle {float:left;position: absolute;}
+.appHeader .navbar { margin-bottom: 0px; }
+.appHeader .navbar-brand { width:100%; text-align:center; font-size:20px; font-weight: 700; color:#000;}
+
+.appLoginHeader {text-align: center; width:100%; padding-top:25px; padding-bottom:25px;}
+
+.appLoginBG { background: #252525;
+	-webkit-background-size: inherit; -moz-background-size: inherit; -o-background-size: inherit;
+	background-size: cover;	min-height: 100vh;	color: #FFF;
+}
+/*.appLoginBG span { position: absolute; top: 13px; left: 20px; font-size:20px; }*/
+
+.appSchemeBG { background: url(../img/scheme-bg.jpg) no-repeat center center fixed !important;
+	-webkit-background-size: inherit; -moz-background-size: inherit; -o-background-size: inherit;
+	background-size: cover !important; text-align: center !important; height: 100%;
+	/*safari issue fix => -webkit-overflow-scrolling: touch;height: calc(100% + 1px); */  
+}
+
+.appSchemeBG .schemeBtn {
+ 	border-radius: 5px; border: none;	width: 80%; margin-bottom: 5px; font-size: 15px;
+	color: white; min-height: 50px; font-weight: 800; background-color: #e0c288; padding: 10px 10px 10px 10px
+}
+
+.appLoginBG .input-group {width:100%;}
+.appLoginBG .input-group i {font-size:25px;}
+.appLoginBG input, .input-group-addon { font-size:15px; color: #fff; border-radius: 20px; border: 1px solid #AF9775; background: #AF9775; }
+.appLoginBG input:focus {color: #fff; background-color: #AF9775; border: 1px solid #AF9775;}
+
+.appLoginBG .row { margin-bottom: 15px }
+
+.appLoginBG button { width:100%; font-size:15px; text-transform: uppercase; font-weight: 600; color: #fff; border-radius: 20px; border: 1px solid #AF9775; background: #a0815b; }
+.appLoginBG a { color:white; }
+
+.appCategory { 
+	width:100%; max-height:100%; text-align: center; letter-spacing: 1px;
+	-webkit-overflow-scrolling: touch;
+	height: calc(100% + 1px);
+}
+
+.appCatFull, .appCatLeft, .appCatRight {  padding-top: 0; padding-bottom: 12px;  overflow: hidden; min-height: 33.3%;}
+.appCatFull { width: 100%; background: #fff; }
+.appCatLeft, .appCatRight { width: 50%; }
+.appCatLeft { float:left; background-color: #f2e5d2; }
+.appCatRight { float:right; background-color: #e0c288; }
+
+.appCategory img{ max-height: 100%; }
+.appCatCaption { width:100%;font-size: 0.9em; letter-spacing: 2px; font-weight: 600; }
+
+.wrapper { 
+    min-width: 100%;
+    overflow: hidden;
+	max-width: 100%;
+}
+
+.appcontainer {	max-width: 1024px; max-height: 1028px; width: 100%; margin: 0 auto; }
+
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#login a.pull-right {
+    margin-top: 3px;
+}
+
+.appHeader, .appFooter {
+	 background: #252525; 
+ }
+ 
+ .text-center.spaceTop {
+    margin-top: 10px;
+}
+ 
+ .schemeChoice {
+    text-align: left;
+	margin-left: 10%;
+	padding: 15px 0;
+}
+ 
+ .titleBck h3 {
+    color: #a0815b;
+}
+
+.friendForm {
+    display: block;
+    width: 78%;
+    margin: 0 auto;
+}
+ 
+ .appHeader {
+    display: block;
+    height: auto;
+    z-index: 1;
+    width: 100%;
+	z-index: 10;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.appContent {
+    display: block;
+    z-index: 0;
+	width: 100%;
+    height: 584px;
+	overflow-y: scroll;
+	background: #e0c288;
+}
+html {
+    overflow: hidden;
+}
+
+.editprofileDiv {
+    padding: 20px;
+    background: #252525;
+    color: #fff;
+}
+
+.editpassDiv {
+    padding: 20px 20px 0;
+}
+
+.appInner.darkBG, .savingsDiv {
+    background: #252525;
+}
+
+@media (min-width: 350px){
+	.appHeaderTitle{ 
+	margin-left: 35px;
+}
+}
+.appHeaderTitle{ 
+	font-size: 20px;
+	font-weight: 400;
+	color: #fff;
+	position:relative;
+	top: -13px;
+}
+
+.appHeaderToggle {
+	margin-top: -15px;
+	float: left;
+	border: 0;
+    width: 40px;
+    height: 40px;
+    padding: 9px 10px;
+	background-color: transparent;
+    background-image: none;
+    position:relative;
+}
+
+.appHeaderToggle .icon-bar {
+	margin-top: 4px;
+	display: block;
+    position: relative;
+    background: #fff;
+    width: 24px;
+    height: 2px;
+    border-radius: 1px;
+}
+.appFooter {
+    display: inline-block;
+    bottom: 0%;
+    height: auto;
+    width: 100%;
+    z-index: 10;
+	background: #252525; text-align:center;
+}
+.appFooter div { padding-top: 15px; padding-bottom: 5px; float:left; display: inline-block; width: 20%; }
+.appFooter img { height: 30px; }
+.appFooter p { color: #e0c288; font-size: 10px; font-weight: 800; }
+.appFooter p.white { color: #ffffff !important; }
+@media (max-width: 350px){
+.appFooter p {  font-size: 9px;}
+}
+
+.reviewCategoryCheckbox {
+	margin-left:10px !important;
+}
+
+
+/*old-admin-panel*/
+
+.imagebox, .productbox {
+	text-align: center;
+	position: relative;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	-webkit-transition: all .2s ease-in-out; 
+}
+
+.imagebox, .imgthumb, img {max-width:100%;}
+
+.caption {
+	padding:10px;
+	background-color:rgba(0,0,0,0.7);
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	max-height: 40%;
+	overflow: hidden;
+	font-size: 11px;
+  color: #FFF;
+
+}
+.finalprice {
+  font-size:15px;
+	color: #AAFCAE;
+}
+h5 {
+  margin-top: 0px;
+  color: white;
+  max-height: 30px;
+  overflow: hidden;
+}
+.img-responsive img{
+	max-width: 80%;    
+	max-height: 80%;
+}
+
+
+@media (min-width: 992px){
+
+	.typo-line{
+		padding-left: 140px;
+		margin-bottom: 40px;
+		position: relative;
+	}
+
+	.typo-line .category{
+		transform: translateY(-50%);
+		top: 50%;
+		left: 0px;
+		position: absolute;
+	}
+}
+
+.all-icons [class*="pe-"]{
+	font-size: 40px;
+}
+.all-icons input{
+	border: 0;
+}
+.all-icons .font-icon-detail{
+	text-align: center;
+	padding: 45px 0px 30px;
+	border: 1px solid #e5e5e5;
+	border-radius: 6px;
+	margin: 15px 0;
+}
+.all-icons .font-icon-detail input{
+	margin: 25px auto 0;
+	width: 100%;
+	text-align: center;
+	display: block;
+	color: #aaa;
+	font-size: 13px;
+}
+
+#map{
+	position:relative;
+	width:100%;
+}
+
+.places-buttons .btn{
+	margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+	position: absolute;
+	width: 100%;
+	bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+	background: rgba(255, 255, 255, 0.14);
+	opacity: 1;
+	color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+	text-align: center;
+}
+
+.valuedUntilDiv, .valuedMemberDiv {
+    text-align: left;
+    display: inline-block;
+}
+.redeemDivHeader-R, .redeemDivLabel-R {
+    display: inline-block;
+    width: 45%;
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
+
+div.deactive {
+    display: inline-block;
+    margin-left: 14px;
+}

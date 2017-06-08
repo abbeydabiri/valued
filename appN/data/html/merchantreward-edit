@@ -1,0 +1,360 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-10 col-md-offset-0">
+							<h4 style="" class="title"> <small>[@formtitle@] Reward <b>[@title@]</b> </small> </h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						<form class="form" method="post" action="/merchantreward">
+							<input type="hidden" name="action" value="save">
+							<input type="hidden" id="reward" name="control" value="[@control@]">
+							<input type="hidden" id="merchant" value="[@merchantcontrol@]">
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Reward Title</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Reward Title" name="title" value="[@title@]">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Is it a Perk or Privilege?</label> <br>
+										Perk <input type="radio" name="type" [@Perk@] value="Perk"> &nbsp;
+										Privilege <input type="radio" name="type" [@Privilege@] value="Privilege">
+									</div>
+								</div>
+
+								<div class="col-sm-8">
+									<div class="form-group">
+										<label>Redemption Method</label> <br>
+										Pin <input type="radio" name="method" [@Pin@] value="Pin" onclick="methodToggle('')"> &nbsp;
+										Valued Code <input type="radio" name="method" [@ValuedCode@] value="Valued Code" onclick="methodToggle('')"> &nbsp;
+										Client Code Bulk<input type="radio" name="method" [@ClientCodeBulk@] value="Client Code Bulk" onclick="methodToggle('bulk')">
+										Client Code Single <input type="radio" name="method" [@ClientCodeSingle@] value="Client Code Single" onclick="methodToggle('single')">
+									</div>
+								</div>
+							</div>
+
+							<div class="row hide" id="showCodeBulk">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Bulk Method</label> <br>
+										Import CSV <input type="radio" name="methodbulk" value="Import" onclick="methodBulkToggle('import')"> &nbsp;
+										Generate <input type="radio" name="methodbulk" value="Generate" onclick="methodBulkToggle('generate')"> &nbsp;
+									</div>
+								</div>
+
+								<div class="col-sm-4 hide" id="showCodeBulkImport">
+									<div class="form-group">
+										<label>Import Coupons</label> <a href="/reward/?action=importcouponcsvdownload" target="_blank" class="pull-right"><small>Download CSV Template</small></a>
+										<input type="file" name="csvfile"> <br>
+									</div>
+								</div>
+
+								<div class="col-sm-4 hide" id="showCodeBulkGenerate">
+									<div class="form-group">
+										<label>Generate Coupons</label>
+										<input type="number" class="form-control border-input" name="generate" value="1000">
+									</div>
+								</div>
+							</div>
+
+							<div class="row hide" id="showCodeSingle">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Single Coupon</label> 
+										<input type="text" class="form-control border-input" placeholder="ENTER COUPON CODE" name="coupon" value="">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Total Uses</label>
+										<div class="field-desc">Maximum amount of times this reward may be used, 0 for unlimited.</div>
+										<input type="number" class="form-control border-input" placeholder="Enter Number of Eligible Members" name="maxuse" value="[@maxuse@]">
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Transactions Per Member</label>
+										<div class="field-desc">Maximum times this reward may be used by each user, 0 for unlimited.</div>
+										<input type="number" class="form-control border-input" placeholder="Enter Transactions Per Member" name="maxperuser" value="[@maxperuser@]">
+									</div>
+								</div>
+								
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Transactions per Month</label>
+										<div class="field-desc">Maximum times this reward may be used by each user each month, 0 for unlimited.</div>
+										<input type="number" class="form-control border-input" placeholder="Enter Transactions per Month" name="maxpermonth" value="[@maxpermonth@]">
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Visible To</label> <br>
+										Public <input type="radio" name="visibleto" [@Public@] value="Public" > &nbsp;
+										Private <input type="radio" name="visibleto" [@Private@] value="Private" >
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Start Date</label>
+										<input type="text" class="custom-datepicker form-control border-input" placeholder="dd/mm/yyyy" name="startdate" value="[@startdate@]">
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>End Date</label>
+										<input type="text" class="custom-datepicker form-control border-input" placeholder="dd/mm/yyyy" name="enddate" value="[@enddate@]">
+									</div>
+								</div>
+
+								<div class="col-sm-2">
+									<div class="form-group">
+										<label>Discount [@discount@]</label> 
+										<input class="form-control border-input" type="text" placeholder="Enter Discount" name="discount" value="[@discount@]">
+									</div>
+								</div>
+
+								<div class="col-sm-1">
+									<div class="form-group">
+										<label>Type</label>
+										<select class="form-control border-input" name="discounttype"> <option [@%@] >%</option> <option [@Off@]> Off</option> </select>
+									</div>
+								</div>
+								
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Discount Value</label>
+										<input type="number" class="form-control border-input" placeholder="Enter Discount Value" name="discountvalue" value="[@discountvalue@]">
+									</div>
+								</div>
+							</div>
+
+							
+
+							
+							<div class="row">
+								<span id="reward-edit-category">
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>Category</label>  <a href="javascript:void(0)" onclick="$('#category').val('');$('#categorytitle').val('');$('#subcategorytitle').val('');$('#subcategorywhere').val('sub=true');$('#categorylink').html('');" class="pull-right"><small>clear</small></a>
+											<span class="quickSearch">
+												<input type="hidden" name="category" id="category" value="[@categorycontrol@]" onchange="$('#subcategorywhere').val('sub=true&category='+$(this).val());$('#subcategorytitle').val('');$('#categorylink').html('');">
+												<i class="icon pe-7s-search"></i>
+											</span>
+											
+											<div class="dropdown">
+												<input type="text" class="form-control border-input dropdown-toggle" placeholder="Find Category" id="categorytitle" value="[@categorytitle@]">
+												<a href="#" id="categoryToggle" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"></a>
+												<ul class="dropdown-menu" id="categoryDropdown">
+													<li> &nbsp;&nbsp;&nbsp; <center><img src="../files/img/siteloader.gif"></center> &nbsp;&nbsp;&nbsp; </li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>Sub-Category</label> <a href="javascript:void(0)" onclick="$('#subcategory').val('');$('#subcategorytitle').val('');$('#keywordswhere').val('sub=true');$('#categorylink').html('');" class="pull-right"><small>clear</small></a>
+											<span class="quickSearch">
+												<input type="hidden" name="subcategory" id="subcategory" value="[@subcategorycontrol@]" onchange="fetchKeywords()">
+												<input type="hidden" id="subcategorywhere" value="sub=true&category=[@categorycontrol@]">
+
+												<i class="icon pe-7s-search"></i>
+											</span>
+											
+											<div class="dropdown">
+												<input type="text" class="form-control border-input dropdown-toggle" placeholder="Find Sub-Category" id="subcategorytitle" value="[@subcategorytitle@]">
+												<a href="#" id="subcategoryToggle" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"></a>
+												<ul class="dropdown-menu" id="subcategoryDropdown">
+													<li> &nbsp;&nbsp;&nbsp; <center><img src="../files/img/siteloader.gif"></center> &nbsp;&nbsp;&nbsp; </li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</span>
+
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Beneficiary</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Beneficiary" name="beneficiary" value="[@beneficiary@]">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Extra Category Filter <small>(maximum of four)</small></label><br>
+									</div>
+									<div class="clearfix"></div>
+									<div id="categorylink">
+										[@categorylink-checkbox@]
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Keywords Filter</label> <br>
+                        				<input type="text" style="width:100%" class="form-control border-input" placeholder="Enter Keywords" name="keywords" value="[@keywords@]" data-role="tagsinput"/>
+									</div>
+								</div>
+							</div>
+
+							<!-- <div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Schemes</label><br>
+									</div>
+									<div class="clearfix"></div>
+									<div id="rewardschemecheckbox">
+										[@rewardscheme-checkbox@]
+									</div>
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Stores</label><br>
+									</div>
+									<div class="clearfix"></div>
+									<div id="rewardstorecheckbox">
+										[@rewardstore-checkbox@]
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Description <small>(2000 max characters)</small></label>
+										<textarea class="form-control border-input" rows="5" name="description">[@description@]</textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label>Add Reward Restrictions <small>(2000 max characters)</small></label>
+										<textarea class="form-control border-input" rows="5" name="restriction">[@restriction@]</textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center">
+								<button type="button" onclick="closeView()" class="btn btn-fill btn-warning btn-sm">Cancel</button>
+								<button type="submit" class="btn btn-fill btn-success btn-sm">Save</button>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	setupDatePicker();
+	defaultImage('.imagebox');	
+	setupDropdownSearch('','merchant');
+	setupDropdownSearch('','category');
+	setupDropdownSearch('category','subcategory');
+	$("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+	
+
+	function fetchMerchantRewardScheme(){
+		quickForm('/merchantreward?action=fetchMerchantRewardScheme&reward=[@control@]');
+	}	
+
+	function fetchCategory(){
+		quickForm('/category?action=fetchCategory&merchant='+$('#merchant').val());
+	}
+
+	function fetchMerchantRewardStore(){
+		quickForm('/merchantreward?action=fetchMerchantRewardStore&reward=[@control@]');
+	}
+
+	function fetchKeywords(){
+		if ($('#subcategory').val() !== "") {
+			quickForm('/category?action=fetchKeywords&reward=[@control@]&category='+$('#subcategory').val());
+		}
+	}
+
+	if ($('#merchant').val() != "") {
+		fetchCategory();
+	}
+
+	fetchMerchantRewardScheme();
+	fetchMerchantRewardStore();
+	fetchKeywords();
+
+	// // // //
+
+	function methodToggle(showDiv) {
+		switch(showDiv){
+			default:
+				$('#showCodeBulk').addClass('hide');
+				$('#showCodeSingle').addClass('hide');
+				break;
+
+			case "bulk":
+				$('#showCodeSingle').addClass('hide');
+				$('#showCodeBulk').removeClass('hide');
+				break;
+
+			case "single":
+				$('#showCodeBulk').addClass('hide');
+				$('#showCodeSingle').removeClass('hide');
+				break;
+		}
+	}
+
+	function methodBulkToggle(showDiv) {
+		switch(showDiv){
+			default:
+				$('#showCodeBulkImport').addClass('hide');
+				$('#showCodeBulkGenerate').addClass('hide');
+				break;
+
+			case "import":
+				$('#showCodeBulkGenerate').addClass('hide');
+				$('#showCodeBulkImport').removeClass('hide');
+				break;
+
+			case "generate":
+				$('#showCodeBulkImport').addClass('hide');
+				$('#showCodeBulkGenerate').removeClass('hide');
+				break;
+		}
+	}
+
+</script>

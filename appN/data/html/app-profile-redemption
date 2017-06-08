@@ -1,0 +1,39 @@
+<!doctype html>
+
+
+<div id="app-profile-redemption" class="wrapper">
+	<div class="appHeader">
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-profile')" class="arrowBack"/>
+				[@app-navbar-button@]
+			<center>
+				<span class="appHeaderTitle"></span>
+			</center>
+
+			
+
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<div class="appContent">
+		<div class="appInner">
+
+			<div class="savingsDiv">
+				<center>
+					<h3>MY SAVINGS</h3>
+					<h2>AED [@sumofsavings@]</h2>
+					<h4>REDEMPTION HISTORY</h4> 
+				</center>
+
+			</div>
+			
+			<div class="redeemedList">
+			     [@app-profile-redemption-list@]
+			</div>	 
+
+		</div>
+	</div>
+	[@app-footer@]
+</div>

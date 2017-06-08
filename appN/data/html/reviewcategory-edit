@@ -1,0 +1,73 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-10 col-md-offset-0">
+							<h4 style="" class="title"> <small>[@formtitle@] Review Category <b>[@title@]</b> </small> </h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						<form class="form" method="post" action="/reviewcategory">
+							<input type="hidden" name="action" value="save">
+							<input type="hidden" name="control" value="[@control@]">
+
+							<div class="row">
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Image</label>
+										<input type="file" class="" name="image">
+									</div>
+								</div>
+							
+								<div class="col-sm-2">
+									<div class="form-group">
+										<label>Placement</label>
+										<input type="number" class="form-control border-input" placeholder="Placement" name="placement" value="[@placement@]">
+									</div>
+								</div>
+								
+							</div>
+
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label> Name</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Name" name="title" value="[@title@]">
+									</div>
+								</div>
+							
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Description</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Description" name="description" value="[@description@]">
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Status</label>
+										<select class="form-control border-input" name="workflow"> <option>[@workflow@]</option> <option>active</option> <option>inactive</option> </select>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center">
+								<button type="button" onclick="closeView()" class="btn btn-fill btn-warning btn-sm">Cancel</button>
+						<button type="submit" class="btn btn-fill btn-success btn-sm">Save</button>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

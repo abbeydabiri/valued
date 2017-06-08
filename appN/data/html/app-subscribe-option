@@ -1,0 +1,4 @@
+
+<input type="radio" name="scheme" [@state@] value="[@control@]">
+<label onclick="appSubscribeOption('[@control@]')"> [@title@] AED [@schemeprice@]/year</label>
+<br>

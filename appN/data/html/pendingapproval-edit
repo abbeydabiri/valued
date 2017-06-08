@@ -1,0 +1,95 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-10 col-md-offset-0">
+							<h4 style="" class="title"> <small>[@formtitle@] Pending Approval <b>[@title@]</b> </small> </h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						<form class="form" method="post" action="/pendingapproval">
+							<input type="hidden" name="action" value="save">
+							<input type="hidden" name="control" value="[@control@]">
+
+							<div class="row">
+								<div class="form-group">
+									<label>Pending Approval ID</label>
+									<input type="text" class="form-control border-input" placeholder="Enter Pending Approval ID" name="code" value="[@code@]">
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Company Name</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Company Name" name="title" value="[@title@]">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>First Name</label>
+										<input type="text" class="form-control border-input" placeholder="Enter First Name" name="firstname" value="[@firstname@]">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Last Name</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Last Name" name="lastname" value="[@lastname@]">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>E-mail</label>
+										<input type="email" class="form-control border-input" placeholder="Enter E-mail" name="email" value="[@email@]">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Phone</label>
+										<input type="text" class="form-control border-input" placeholder="Enter Phone" name="phone" value="[@phone@]">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Commercialized</label>
+										<select class="form-control border-input" name="commercialized"> [@commercialized@] <option>Yes</option> <option>No</option> </select>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Expiry Date</label>
+										<input type="text" class="custom-datepicker form-control border-input" placeholder="dd/mm/yyyy" name="expirydate" value="[@expirydate@]">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label>Status</label>
+										<select class="form-control border-input" name="workflow"> [@workflow@] <option>active</option> <option>inactive</option> </select>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center">
+								<button type="button" onclick="closeView()" class="btn btn-fill btn-warning btn-sm">Cancel</button>
+								<button type="submit" class="btn btn-fill btn-success btn-sm">Save</button>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>setupDatePicker();</script>

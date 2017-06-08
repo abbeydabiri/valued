@@ -1,0 +1,58 @@
+<!doctype html>
+
+<div class="wrapper">
+	<div class="appHeader">
+
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-merchant')" class="arrowBack"/>
+			[@merchanttitle@]
+		</div>
+
+	</div>
+		
+	<div class="appContent">
+		<div class="appInner">
+			<div class="storeBannerDiv">
+				<img src="[@merchantimage@]" class="storeBannerDivImg"/>
+			</div>
+
+			<div class="storeHeaderDiv" >
+				
+				<div class="Details">
+						<label class="header">[@title@]</label> 
+						[@address@]
+				</div>
+			</div>
+
+			<div class="storeDescDiv">
+				<center>
+				<div class="merchDesc">
+					[@merchantdescription@]
+				</div>
+				<br><br>
+					<a href="tel:[@merchantphone@]"><button class="appStoreBtn">CALL </button></a>
+					<a href="mailto:[@merchantemail@]"><button class="appStoreBtn">EMAIL</button></a>
+					<a href="[@merchantwebsite@]?browser" target="_blank"><button class="appStoreBtn">WEBSITE</button></a>
+				</center>
+				<br>
+			</div>
+
+
+			<div class="rewardsList">
+				[@app-reward-list@]
+			</div>
+
+
+			<div id="map" class="storeMapDiv">
+				[@app-map-locator@]
+			</div>
+
+		</div>
+	</div>
+
+
+	[@app-footer@]
+</div>
+<script>
+	defaultImage('.storeBannerDiv');	
+</script>

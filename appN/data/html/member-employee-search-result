@@ -1,0 +1,24 @@
+<!doctype html>
+<tr>
+	<td>
+		<input name="control" value="[@control@]" type="checkbox"> [@title@]
+	</td>
+	<td>[@firstname@]</td>
+	<td>[@lastname@]</td>
+	<td>[@email@]</td>
+	<td>[@status@]</td>
+	<td>
+		<div class="pull-right">
+			[@workflow-button@]
+		
+			<!-- <button type="button" onclick="getForm('/user?action=[@action@]\&control=[@logincontrol@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill btn-longer">[@actionLabel@] <small>ACCOUNT</small></button>
+			&nbsp;|&nbsp; -->
+			<button type="button" onclick="getForm('/member?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;|&nbsp;
+			<button type="button" onclick="getForm('/member?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+			
+			&nbsp;
+			<!-- <button type="button" onclick="getForm('/member?action=delete\&control=[@control@]')" class="btn-xs btn-raise btn btn-fill">Delete</button> -->
+		</div>
+	</td>
+</tr>

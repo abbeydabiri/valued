@@ -1,0 +1,16 @@
+<!doctype html>
+<tr>
+	<td>[@title@]</td>
+	<td>[@discount@]</td>
+	<td>[@type@]</td>
+	<td>[@enddate@]</td>
+	<td>[@workflow@]</td>
+</tr>
+<tr>
+	<td colspan="5">
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/reward?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;
+		</div>
+	</td>
+</tr>

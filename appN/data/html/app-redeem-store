@@ -1,0 +1,10 @@
+<!doctype html>
+
+<div class="redeemAmount [@state@]">
+	<br>
+		<b>SELECT MERCHANT STORE</b> <br>
+		<select name="store" class="form-control" style="width: 180px;">
+			[@app-redeem-store-option@]
+		</select>
+	<br>
+</div>

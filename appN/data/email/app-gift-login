@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@fullname@],
+		<br><br>
+
+		Your user account with the e-mail address [@email@] has been created.
+		<br><br>
+
+		Please follow the link below to activate your account. The link will remain valid for 15 days.
+		<br><br>
+
+		Login Details: <br>
+		============== <br>
+		Username: [@username@] <br>
+		Password: [@password@]
+		<br><br>
+
+		<a href="[@link@]">Click here </a>
+		<br><br>
+
+		You will be able to login, subscribe and redeem rewards once your account is activated.
+		<br><br>
+		<br><br>
+
+		If you have not requested the creation of a Valued Rewards account or if you think this is an unauthorized use of your e-mail address, please forward this e-mail to <a href="mailto:rewards@valued.com">rewards@valued.com</a>.
+		<br><br>
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

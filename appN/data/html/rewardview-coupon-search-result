@@ -1,0 +1,13 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@code@] </td>
+	<td>[@workflow@]</td>
+	<td>[@createdate@]</td>
+	<td>
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/reward?action=editCoupon\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">Edit</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/reward?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+		</div>
+	</td>
+</tr>

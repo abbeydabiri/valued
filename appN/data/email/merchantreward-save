@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<body>
+		Dear VALUED ADMIN>,
+		<br><br>
+
+		User: <b>[@username@]</b> requested [@action@] the below Reward:
+
+		<br><br>
+
+		MERCHANT: <b>[@merchant@]</b>
+		<br><br>
+
+		REWARD: <b>[@reward@]</b>
+		<br><br>
+
+		REDEMPTION METHOD: <b>[@method@]</b>
+		<br><br>
+		
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

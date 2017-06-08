@@ -1,0 +1,30 @@
+<!doctype html>
+
+
+<div class="col-sm-6">
+	<h4>[@title@]</h4>
+	<div id="[@id@]" class="ct-chart"></div>
+</div>
+
+
+<script type="text/javascript">
+	
+		
+	var [@id@]Data = {
+		labels: [[@label@]],
+		series: [[@series@]]
+	};
+
+	var [@id@]Options = {
+		donut: true,
+		donutWidth: 100,
+		startAngle: 0,
+		total: [@total@],
+		showLabel: true,
+		axisX: {
+		    showGrid: false
+		}
+	};
+
+	Chartist.Pie('#[@id@]', [@id@]Data);
+</script>

@@ -1,0 +1,221 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader" style="background: #f2e5d2;">
+
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-reward')" class="arrowBack"/>
+			THE REWARD <br> [@code@]
+		</div>
+
+	</div>
+		
+	<div class="appContent">
+		<div class="appInner" style="background: #f2e5d2">
+			
+			<!-- <div class="redeemBannerDiv">
+				<img src="../files/img/table.png" >
+			</div>		 -->
+
+			<div class="redeemDiv">
+				<div class="redeemDivHeader">
+					COMPANY <br>
+					<label class="labelHeader">[@merchanttitle@]</label>
+					<img src="../files/img/redeemArrow.png" class="redeemArrow"/>
+				</div>
+
+				<!-- <div class="redeemDivHeaderImg">
+					<br>
+					<img src="../files/img/redeemArrow.png" class="redeemArrow"/>
+				</div> -->
+
+				<div class="redeemDivHeader" style="text-align: right">
+					VALUED MEMBER <br>
+					<label class="labelHeader">[@merchantfirstname@] [@merchantlastname@]</label>
+				</div>
+			</div>
+
+			
+			<div class="redeemDiv">
+				<div class="redeemDivLabel" style="width:50%">
+					THE REWARD <br>
+					<label class="labelMain">[@title@]</label>
+				</div>
+
+				<!-- <div class="redeemDivLabel">
+					NUMBER <br>
+					<label class="labelMain">[@code@]</label>
+				</div> -->
+
+				<div class="redeemDivLabel" style="width:50%;text-align: right">
+					VALID UNTIL <br>
+					<label class="labelMain">[@enddate@]</label>
+				</div>
+				<div class="clearfix"></div>
+				<center><p style="font-size:13px">[@description@]</p></center>
+				<br><br><br>
+
+				<center>
+					Offers are subject to Terms & Conditions <br>
+					<label class="labelInfo">REVIEW TERMS & CONDITIONS</label>
+				</center>
+			</div>
+
+			<div id="redemptionStep">
+				<div class="redeemBtnDiv">
+					<button class="redeemBtn" onclick="getForm('/app-redeem?reward=[@control@]&step=redeem')">REDEEM REWARD</button> <br>
+
+					<button class="redeemBtn" onclick="getForm('/app-reward?merchant=[@merchantcontrol@]')">OTHER REWARDS BY MERCHANT</button> <br>
+
+					<button class="redeemBtn" onclick="warningMessage('Added to Favourites <br><b>[@title@]</b>')">ADD TO FAVOURITES</button> <br>
+					<br>
+					<img src="../files/img/valued.png" class="valuedLogo">
+				</div>
+			</div>
+
+			
+
+			<div class="redeemBtnDiv">
+				
+				<div class="redeemPin">
+					<label class="labelInfo">ENTER PIN</label> <br>
+					<input type="number" name="pin1" size="1" maxlength="1">
+					<input type="number" name="pin2" size="1" maxlength="1">
+					<input type="number" name="pin3" size="1" maxlength="1">
+					<input type="number" name="pin4" size="1" maxlength="1">
+				</div>
+				
+				<br>
+				<img src="../files/img/valued.png" class="valuedLogo">
+			</div>
+
+			<div class="redeemBtnDiv">
+				<center>
+					<div class="redeemAmount">
+						<b>ENTER TRANSACTION VALUE</b> <br>
+						<input size="12" type="number" maxlength="12">
+					</div>
+				</center>
+			</div>
+
+			<div class="redeemBtnDiv">
+				
+				<div class="redeemPin">
+					<label class="labelInfo">MERCHANT PIN</label> <br>
+					<input type="number" name="pin1" size="1" maxlength="1">
+					<input type="number" name="pin2" size="1" maxlength="1">
+					<input type="number" name="pin3" size="1" maxlength="1">
+					<input type="number" name="pin4" size="1" maxlength="1">
+				</div>
+				
+				<br>
+				<img src="../files/img/valued.png" class="valuedLogo">
+			</div>
+
+			<div class="redeemBtnDiv">
+				<center>
+					<label class="labelInfo">PROMO CODE</label> <br>
+					<h3>TABLE 1456</h3>
+				</center>
+				<br>
+				<img src="../files/img/valued.png" class="valuedLogo">
+			</div>
+
+			<div class="redeemBtnDiv">
+				<center>
+					<span class="redeemBtnDivHeader">REDEMPTION SUCCESSFUL</span> <br>
+					<span class="redeemBtnDivHeaderSub">TO COMPLETE THE TRANSACTION</span> 
+					<br><br>
+					<button class="redeemBtn">GIVE US FEEDBACK</button>
+				</center>
+				<br>
+				<img src="../files/img/valued.png" class="valuedLogo">
+			</div>
+
+			<div class="redeemBtnDiv">
+			
+				<center>
+					<span style="text-transform: uppercase">
+					<b>HOW LIKELY ARE YOU TO RECOMMEND <br>
+					[@merchanttitle@] TO YOUR FRIENDS?</b> <br>
+					<b>1 = UNLIKELY, 10 VERY LIKELY? </b> <br><br>
+					</span>
+
+					
+		           <input type=hidden id="feedbackRate" name="feedbackRate">
+
+					<div class="feedbackSliderDiv">
+						<div id="feedbackSlider" class="ui-slider ui-slider-horizontal">
+							<a class="ui-slider-handle ui-state-default" href="#"></a>
+							<br>
+							<div class="feedbackSlider">
+								<span class="firstStep">1</span>
+								<span class="centerStep">2</span>
+								<span class="centerStep">3</span>
+								<span class="centerStep">4</span>
+								<span class="centerStep">5</span>
+								<span class="centerStep">6</span>
+								<span class="centerStep">7</span>
+								<span class="centerStep">8</span>
+								<span class="centerStep">9</span>
+								<span class="lastStep">10</span>
+							</div>
+						</div>
+
+						<script>
+							$( "#feedbackSlider" ).slider({ value:1, min: 1, max: 10, step: 1,
+								slide: function( event, ui ) {
+									$( "#feedbackRate" ).val( "$" + ui.value );
+								}
+							});
+							$( "#feedbackRate" ).val( "$" + $( "#feedbackSlider" ).slider( "value" ) );
+						</script>
+					</div>
+
+
+					<b>
+						WHERE WOULD YOU LIKE TO SEE AN <br>
+						IMPROVEMENT WHEN YOU NEXT<br>
+						PURCHASE WITH [@merchanttitle@]?
+					</b> <br><br>
+
+				</center>
+					
+				<div>
+					<div class="feedbackReview" >
+						<div rvc="[@rvcOne@]" class="feedbackReviewCat" style="padding-left:10px">[@rvOne@]&nbsp;</div>
+						<div rvc="[@rvcTwo@]" class="feedbackReviewCat">[@rvTwo@]&nbsp;</div>
+						<div rvc="[@rvcThree@]" class="feedbackReviewCat">[@rvThree@]&nbsp;</div>
+						<div rvc="[@rvcFour@]" class="feedbackReviewCat">[@rvFour@]&nbsp;</div>
+					</div>
+				</div>
+
+				<input type="hidden" id="reviewcategory" name="reviewcategory" value=""/>
+				
+				<script>
+					$('.feedbackReviewCat').click(function(){
+						if($(this).attr("rvc")=="") {
+							return
+						}
+						$('.feedbackReviewCat').each(function (index, object) { 
+							$(this).removeClass("active");
+						});	
+						$(this).addClass("active");
+						$('#reviewcategory').val($(this).attr("rvc"));
+					});
+				</script>
+
+				<br><br><br>
+				<button class="redeemBtn">SUBMIT</button> 
+				<br><br>
+				<img src="../files/img/valued.png" class="valuedLogo">
+			</div>
+
+			<br><br><br>
+		</div>
+	</div>
+
+	[@app-footer@]
+</div>
+

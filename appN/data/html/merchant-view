@@ -1,0 +1,277 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Merchant <br> <b>[@title@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button style="" type="button" onclick="javascript:getForm('/merchant?action=new')" class="btn-xs btn btn-info btn-fill">New</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/merchant?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/merchant?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="imagebox">
+									<div class="imgthumb">
+										<img src="[@image@]">
+									</div>
+									<div class="caption">
+										[@title@] <br>
+									</div>
+								</div>
+								<br>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+							
+						<button type="button" onclick="toggleAppSidebar('mediaManager');" class="btn-xs btn btn-info btn-fill">Manage Media</button>
+
+						<div id="mediaManager" class="mediaManager">
+								<div class="modal-header">
+									<h4 class="text-center">Add Images</h4>
+									<br>
+								</div>
+									
+								<div class="row addmediamenu">
+									<div class="col-xs-6">
+										<a href="javascript:void(0)" onclick="$('#uploadfiles').toggleClass('hide');$('#medialibrary').toggleClass('hide');">
+											<i class="fa fa-photo fa-black"></i>
+											&nbsp;Upload Files
+										</a>
+									</div>
+									<div class="col-xs-6">
+										<a href="javascript:void(0)" onclick="$('#uploadfiles').toggleClass('hide');$('#medialibrary').toggleClass('hide');">
+											<i class="fa fa-film fa-black"></i>
+											&nbsp;Media Library
+										</a>
+									</div>
+								</div>
+								
+											
+								<div class="modal-body" style="min-height:100px">
+									<div id="medialibrary" class="row hide">
+										<form id="searchMediaLibrary" method="post" action="/media">
+										<input type="hidden" name="action" value="search">
+										<input type="hidden" name="offset" id="offset" value="0">
+										<input type="hidden" name="limit" value="10">
+
+											<div class="col-sm-9">
+												<input class="form-control resetForm" type="text" name="title" placeholder=" Search Media Library">
+											</div>
+										
+											<div class="col-sm-3">
+												<button type="submit" class="btn btn-xs">Search</button>
+											</div>
+
+										</form>
+									</div>
+
+									<div id="uploadfiles" class="row">	
+										<img id="upload_image" type='hidden'/>
+										<div class="col-sm-9">
+											Upload Multiple Files: <input type="file" id="images" multiple>
+										</div>
+										<div class="col-sm-3">
+											<button type="button" onclick="editFormCompressImage()" class="btn btn-xs">Upload</button>
+										</div>
+									</div>
+
+									<br>
+									Select Images to Insert
+									<hr style="border-top: dotted 1px;margin-top:0px"/>
+									<div id="medialist" class="medialist row text-center"></div>
+								</div>
+								<div class="modal-footer">
+									<hr style="border-top: dotted 1px;" >
+									<center>
+										<button type="button" class="btn btn-xs" onclick="toggleAppSidebar('mediaManager');">Close</button> 
+										<button type="button" class="btn btn-xs" onclick="tinyMceAddImages()">Add Images</button> 
+									</center>
+								</div>
+						</div>
+
+
+						
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Profile Role</label>
+								</div>
+								<div class="clearfix"></div>
+								[@role-view-checkbox@]
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Merchant PIN</label>
+									<br>[@pincode@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Username</label>
+									<br>[@username@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Password</label>
+									<br>********
+								</div>
+							</div>
+						</div>
+						
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@status@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Partner Since</label>
+									<br>[@createdate@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label>Company Name</label> 
+									<br> [@title@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Phone</label>
+									<br>([@phonecode@]) [@phone@]
+								</div>
+							</div>
+						</div>
+							
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Primary E-mail</label>
+									<br>[@email@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Secondary E-mail</label>
+									<br>[@emailsecondary@]
+								</div>
+							</div>
+							
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Alternate E-mail</label>
+									<br>[@emailalternate@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Website</label>
+									<br>[@website@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Category</label> 
+									<br> [@categorytitle@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Sub-Category</label> 
+									<br> [@subcategorytitle@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Keywords Filter <small>(maximum of four)</small></label><br>
+								</div>
+								<div class="clearfix"></div>
+								<div id="categorylink">
+									[@categorylink-checkbox@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Description <small>(2000 max characters)</small></label>
+									<br>[@description@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>User review categories</label>
+								</div>
+								<div class="clearfix"></div>
+								[@merchant-view-checkbox@]
+							</div>
+						</div>
+
+						<div id="subview"></div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/merchant?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	
+	quickForm('/category?action=fetchKeywords&readonly=true&merchant=[@control@]&category=[@subcategorycontrol@]');
+	getForm('/merchant?action=[@subview@]&merchant=[@control@]');
+</script>

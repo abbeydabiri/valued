@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<br>
+<div class="input-append date custom-datepicker" data-date="29/05/1980" data-date-format="dd/mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+	<input type="text" class="form-control" placeholder="Select Date of Birth" name="dob">
+	<span class="add-on"></span>
+</div>
+
+<script>
+	var dt = new Date();
+	dt.setFullYear(new Date().getFullYear()-18);
+	$('.custom-datepicker').datepicker({startView: 2,endDate : dt,autoclose: true});
+</script>

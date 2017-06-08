@@ -1,0 +1,6 @@
+<!doctype html>
+<li class="[@class@]" onclick="getForm('[@code@]')">
+	<a href="#">
+		<i class="fa fa-[@icon@]"></i><p>[@title@]</p>
+	</a>
+</li>

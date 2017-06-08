@@ -1,0 +1,20 @@
+<!doctype html>
+
+<div class="redeemBtnDiv" id="feedbackMsg">
+	<center>
+		<br><br>
+		<span class="redeemBtnDivHeader">PROMOTIONAL CODE REJECTED</span> <br>
+		<br><br>
+
+		<div class="redeemBtnDiv">
+			<button class="redeemBtn" onclick="getForm('/app-redeem?reward=[@reward@]&action=view')">GO BACK</button> <br>
+		</div>
+	</center>
+	<br>
+	<img src="../files/img/valued.png" class="valuedLogo">
+</div>
+
+<script>
+	clearInterval(checkValuedCodeTimer);
+	getForm('/app-redeem?control=[@reward@]')
+</script>

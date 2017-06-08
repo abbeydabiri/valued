@@ -1,0 +1,26 @@
+<!doctype html>
+
+	<div id="navBarDrop" style="" onclick="toggleAppSidebar('navBarDrop');">
+		<div class="appNavbarDiv" style="display: inherit;">
+			<ul class="nav">
+				[@app-navbar-item@]
+
+				<li>
+					<a href="javascript:void(0)" onclick="getForm('/app-terms')">
+						TERMS & CONDITIONS
+					</a>
+				</li>
+
+				<li>
+					<a href="javascript:void(0)" onclick="getForm('/app-version')">
+						SUPPORT
+					</a>
+					<center>
+						<div class="appUpArrow" onclickX="toggleAppSidebar('navBarDrop');">
+							<img src="../files/img/uparrow.png" style="">
+						</div>
+					</center>
+				</li>
+			</ul>
+		</div>
+	</div>

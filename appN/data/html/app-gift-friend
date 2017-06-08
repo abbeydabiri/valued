@@ -1,0 +1,80 @@
+<!doctype html>
+
+<div class="wrapper">	
+	<div class="appHeader">
+		<nav class="navbar"><br>
+				<span class="appHeaderToggle" onclick="toggleAppSidebar('navBarDrop');">
+					<span class="icon-bar" style="width:80%"></span>
+					<span class="icon-bar"></span>
+				</span>
+			[@app-navbar-button@]
+			<center>
+				<span class="appHeaderTitle">GIFT A MEMBERSHIP</span>
+			</center>	
+			[@app-navbar@]
+			<div class="clearfix"></div>
+		</nav>
+	</div>	
+	<div class="appContent appSchemeBG">
+		<br><br>		<br>
+			<div class="appSchemeBox">
+					<br>
+
+					<div style="padding:15px;text-align:center;">
+						<h3>GIFT A MEMBERSHIP</h3>
+
+						<h5>Please Complete Friend's Profile</h5>
+						<form class="form" method="post" action="/app-gift">
+							<input type="hidden" name="action" value="subscribe">
+								
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											  <input type="text" class="form-control" name="firstname" required="" placeholder="Enter Friend's Name">
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="text" class="form-control" name="surname"  required="" placeholder="Enter Friend's Surname">
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="email" class="form-control" name="email"  required="" placeholder="Enter Friend's Email">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="form-control broder-input" name="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+								</div>
+
+							<div class="text-center">
+								<button class="schemeBtn" type="submit">SUBSCRIBE FRIEND</button>
+							</div>
+						</form>
+					</div>
+
+					<img src="files/img/mastercard.png" alt="mastercard" width="50" height="32">
+					<img src="files/img/visa.png" alt="visa" width="50" height="32">
+					<br><br>
+			</div>
+			<br>&nbsp;
+
+	</div>
+	[@app-footer@]
+</div>
+
+<script></script>

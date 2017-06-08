@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<div class="wrapper">	
+	<div class="appContent appSchemeBG" >
+		<br><br>		<br>
+			<div class="appSchemeBox">
+					
+
+					<div class="giftChoose">
+					<div class="titleBck">
+						<h3>SELECT A SCHEME</h3>
+						Please choose a scheme from the list below. After payment you will be able to redeem your Rewards.
+						</div>
+					<div class="myradio">
+						<form class="form" method="post" action="/app-subscribe">
+							<input type="hidden" name="action" value="subscribe">
+														
+							<div class="schemeChoice">							
+							[@app-subscribe-option@]
+							</div>
+							
+							<div class="text-center">
+								<button class="schemeBtn" type="submit">BUY NOW</button>  <br>
+								<button class="schemeBtn" type="button" onclick="rewardsinscheme()">SHOW REWARDS</button><br>
+								<button class="schemeBtn" type="button" onclick="getForm('/app-gift')">GIFT A MEMBERSHIP</button> 
+							</div>
+						</form>
+					</div>	
+					</div>
+					<br>
+					<img src="files/img/mastercard.png" alt="mastercard" width="50" height="32">
+					<img src="files/img/visa.png" alt="visa" width="50" height="32">
+					<br><br>
+			</div>
+			<br>&nbsp;
+		
+	</div>
+	[@app-footer@]
+</div>
+
+<script>
+	function rewardsinscheme(){
+		
+		scheme = $('input[name=scheme]:checked').val();
+		if (scheme !== "") {
+			getForm('/app-reward?scheme='+scheme)
+		} else {
+			error("Please Select a Scheme to View Rewards");
+		}
+	}
+</script>

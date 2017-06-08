@@ -1,0 +1,55 @@
+<!doctype html>
+
+<style>
+	.subForm {
+		font-size: 1em; background: #FFFFFF; position: absolute; z-index: 50;
+		width: 75%; border: 1px solid #ddd; border-radius: 0px 5px 5px 0px;
+		display: none; margin-bottom: 50px; margin-left: -1px;
+	}
+</style>
+
+<form class="form" method="post" action="/employee">
+	<input type="hidden" name="action" value="saveSubscription">
+	<input type="hidden" name="employee" value="[@employee@]">
+	<input type="hidden" name="control" value="[@control@]">
+	<center>
+		<h4 style="" class="title"><small>Subscribe Member</small></h4>
+	</center>
+
+	<div class="row">
+		<div class="col-sm-6">	
+			<div class="form-group">
+				<label>Scheme</label><a href="javascript:void(0)" onclick="$('#scheme').val('');$('#schemetitle').val('');" class="pull-right"><small>clear</small></a>
+				<input type="hidden" name="scheme" id="scheme" value="[@schemecontrol@]">
+
+				<div class="dropdown">
+					<input type="text" class="form-control border-input" placeholder="Find Scheme" id="schemetitle" value="[@schemetitle@]">
+					<a href="#" id="schemeToggle" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"></a>
+					<ul class="dropdown-menu" id="schemeDropdown">
+						<li> &nbsp;&nbsp;&nbsp; <center><img src="../files/img/siteloader.gif"></center> &nbsp;&nbsp;&nbsp; </li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Activation Date</label>
+				<input type="text" class="custom-datepicker form-control border-input" placeholder="dd/mm/yyyy" name="startdate" value="[@startdate@]">
+			</div>
+		</div>
+
+	</div>
+
+	<center>
+		<button type="button" class="btn btn-xs btn-fill btn-warning" onclick="toggleAppSidebar('subForm');">Cancel</button> 
+		<button type="submit" class="btn btn-xs btn-fill btn-success">Save</button> 
+	</center>
+</form>
+
+<script>
+	setupDatePicker();
+	setupDropdownSearch('','scheme');
+	toggleAppSidebar('subForm');
+</script>

@@ -1,0 +1,268 @@
+<!doctype html>
+
+
+<div class="content">
+<div class="container-fluid">
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+				<div class="row">
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill btn-success" onclick="getForm('/report?action=summary')">SUMMARY</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/report?action=subscription')">SUBSCRIPTIONS</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/report?action=merchant')">MERCHANTS</button>
+					</div>
+				</div>
+				</center>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h4>NUMBER OF SUBSCRIPTIONS</h4>
+				<div class="row">
+					<div class="col-sm-3">
+						<h2>[@totalsubscription@]</h2>
+						<h6>Total <br><label>Number Of Subscriptions</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@employersubscription@]</h2>
+						<h6>Employers <br><label>Number Of Subscriptions</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@britishmumssubscription@]</h2>
+						<h6>British Mums <br><label>Number Of Subscriptions</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@othersubscription@]</h2>
+						<h6>Other <br><label>Number Of Subscriptions</label></h6>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>		
+				<h4>SUBSCRIPTIONS DUE NEXT MONTH</h4>
+				<div class="row">
+					<div class="col-sm-3">
+						<h2>[@totalsubscriptiondue@]</h2>
+						<h6>Total <br><label>Subscriptions Due Next Month</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@employersubscriptiondue@]</h2>
+						<h6>Employers <br><label>Subscriptions Due Next Month</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@britishmumssubscriptiondue@]</h2>
+						<h6>British Mums <br><label>Subscriptions Due Next Month</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@othersubscriptiondue@]</h2>
+						<h6>Other Number <br><label>Subscriptions Due Next Month</label></h6>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h4>NUMBER OF REDEEMED REWARDS</h4>
+				<div class="row">
+					<div class="col-sm-3">
+						<h2>[@totalredeemed@]</h2>
+						<h6>Total <br><label> Number of Redeemed Rewards</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@employerredeemed@]</h2>
+						<h6>Employers <br><label> Number of Redeemed Rewards</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@britishmumsredeemed@]</h2>
+						<h6>British Mums <br><label>Number of Redeemed Rewards</label></h6>
+					</div>
+					<div class="col-sm-3">
+						<h2>[@otherredeemed@]</h2>
+						<h6>Other Number <br><label>of Redeemed Rewards</label></h6>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+					<h4>DEMOGRAPHICS</h4>
+				</center>
+				<div class="row center">
+					[@report-summary-demographics@]
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h4>ENGAGEMENT FUNNEL</h4>
+				<div class="row">
+					<div class="col-sm-4">
+						<h2>[@totalregistered@]</h2>
+						<h6>Registrations</h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@totalsubscribed@]</h2>
+						<h6>Subscriptions</h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@totalactivemember@]</h2>
+						<h6>Active Members</h6>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h4>SAVINGS</h4>
+				<div class="row">
+					<div class="col-sm-4">
+						<h2>[@totalsavings@]</h2>
+						<h6>Total Savings</h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@totalrewardsavings@]</h2>
+						<h6>Per Reward</h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@totalmembersavings@]</h2>
+						<h6>Per Active Member</h6>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h4>MERCHANT REVENUES</h4>
+				<div class="row">
+					<div class="col-sm-4">
+						<h2>[@totalrevenue@]</h2>
+						<h6>Total Savings</h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@totalrewardrevenue@]</h2>
+						<h6>Per Reward</h6>
+					</div>
+					<div class="col-sm-4">
+						<h2>[@totalmemberrevenue@]</h2>
+						<h6>Per Active Member</h6>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				
+				<div class="row">
+					<div class="col-sm-6">
+						<h4>% OF SUBSCRIBERS </h4>
+						<h6>WITH A GREATER SAVINGS AMOUNT THAN THE COST OF MEMBERSHIP</h6>
+					</div>
+					<div class="col-sm-6">
+						<h1>[@percentofsubscriberssavingsvscosts@] %</h1>
+					</div>
+				</div>
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h4>Top 10 REDEEMED REWARDS</h4>
+				<div class="row">
+					<b><div class="col-sm-4">Merchant</div><div class="col-sm-4">Reward</div><div class="col-sm-4">Total Redemptions</div></b>
+				</div>
+			
+				[@report-summary-toptenredeemed-row@]
+			
+			</center>
+		</div>
+	</div>
+
+
+
+	
+	[@report-generator-barchart-admin@]
+	
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				[@report-generator-piechart-admin@]
+			</center>
+		</div>
+	</div>
+
+	
+
+
+	
+	
+</div>
+</div>
+
+<script type="text/javascript">
+	setupDatePicker();
+</script>

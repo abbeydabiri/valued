@@ -1,0 +1,70 @@
+<!doctype html>
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		<!-- <button style="" type="button" onclick="javascript:getForm('/merchant?action=viewRedeemed\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Redeemed Rewards</button>
+		&nbsp; -->
+		<button style="" type="button" onclick="javascript:getForm('/merchant?action=viewReward\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Rewards</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/merchant?action=viewStore\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Stores</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/merchant?action=viewUser\&merchant=[@merchant@]')" class="btn-xs btn btn-success btn-fill">Manage Users</button>
+	</div>
+	</div>
+</div>
+
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		<button style="" type="button" onclick="javascript:getForm('/member?action=new\&role=merchant\&merchant=[@merchant@]')" class="btn-xs btn btn-success btn-fill">New User</button>
+	</div>
+	</div>
+</div>
+
+
+
+<div class="table-responsive table-full-width">
+	<form method="post" class="form subsearchTrigger" action="/merchant">
+
+	<input type="hidden" name="action" value="searchUser">
+	<input type="hidden" name="merchant" value="[@merchant@]">
+	<input type="hidden" name="offset" id="offset" value="0">
+	<input type="hidden" name="limit" value="10">
+	
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>User Name</th>
+				<th>Password</th>
+				<th>Membership</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="subsearchresult">
+			[@merchantview-user-search-result@]
+		</tbody>
+	</table>
+
+	<div class="col-sm-12">
+		<div class="pull-right">
+			<small>Rows Per Page</small>
+			<select>
+				<option>20</option>
+			</select>
+
+			<small>Go to Page:</small>
+			<select>
+				<option>1</option>
+			</select>
+		</div>
+	</div>
+	</form>
+</div>
+
+<script>
+	setupDropdownSearch('','user');
+	getForm('/merchant?action=searchUser&merchant=[@merchant@]');
+</script>

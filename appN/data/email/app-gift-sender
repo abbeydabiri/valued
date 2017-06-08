@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@fullname@],
+		<br><br>
+		Thank you very much for gifting a VALUED membership. Please see below a summary of your transaction:
+		<br><br>
+
+		Membership Type: [@scheme@] <br>
+		Recipient's first name: [@firstname@] <br>
+		Recipient's surname: [@lastname@] <br>
+		Price: [@schemeprice@] AED <br>
+		Prsonal message from you: [@message@] <br><br>
+
+		We have already sent your message to the email provided and included the unique access code for your
+		recipient to start discovering the benefits of VALUED membership
+		<br><br>
+
+		Thank you for your generously gifting VALUED - Because Great Benefits Make Happy People. 
+		<br><br>
+		
+		<i><small>This e-mail has been generated automatically. Please do not reply to this message.</small></i>
+	</body>
+</html>

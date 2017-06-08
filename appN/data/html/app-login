@@ -1,0 +1,171 @@
+<!doctype html>
+
+
+<div class="wrapper appLoginBG">	
+	<div class="appHeader" style="background:transparent;">
+
+		<nav class="navbar">
+			<br>
+				<span class="appHeaderToggle" onclick="toggleAppSidebar('navBarDrop');"></span>
+				<span onclick="getForm('/app-reward')" class="btn btn-fill btn-sm buynow">VIEW REWARDS</span>
+			<center>
+				<span class="appHeaderTitle" style="color:#FFF; margin-left:50px;">LOGIN</span>
+			</center>
+			<div class="clearfix"></div>
+		</nav>
+	</div>
+
+	<div class="appContent" style="background:transparent;">	
+		<div class="appCategory">
+		<div id="scroller" class="container-fluid">
+			<br>
+			<div class="content" id="login">
+				<form class="form" method="post" action="/app-login">
+					<input type="hidden" name="action" value="login">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="input-group">
+								  <span class="input-group-addon">
+								  	<i class="fa fa-user"></i>
+								  </span>
+								  <input type="text" name="user" class="form-control" placeholder="USERNAME">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="input-group">
+								  <span class="input-group-addon">
+								  	<i class="fa fa-lock"></i>
+								  </span>
+								  <input type="password" name="pass" class="form-control" placeholder="PASSWORD">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<button type="submit" class="btn" >Login</button>
+							</div>
+						</div>
+					</div>
+
+					<span>
+						<input class="pull-left" id="rememberme" type="checkbox" value="Yes" checked="checked" name="rememberme"> 
+						<span id="remembermeLabel" class="pull-left">REMEMBER ME</span>
+
+	
+						<span class="pull-right">
+							<a href="javascript:void(0)" onclick="$('#login').toggleClass('hide');$('#forgotpassword').toggleClass('hide');">FORGOT PASSWORD</a> 
+						</span>
+					</span>
+
+					<div class="clearfix"></div>
+				</form>
+			</div>
+
+			<div class="content hide" id="forgotpassword">
+				<form class="form" method="post" action="/app-login">
+					<input type="hidden" name="action" value="forgotpassword">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="input-group">
+								  <span class="input-group-addon">
+								  	<i class="pe-7s-user"></i>
+								  </span>
+								  <input type="text" name="email" class="form-control" placeholder="EMAIL">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<button type="submit" class="btn" >RESET PASSWORD</button>
+							</div>
+						</div>
+					</div>
+					<a href="javascript:void(0)" class="pull-right" onclick="$('#login').toggleClass('hide');$('#forgotpassword').toggleClass('hide');">BACK TO LOGIN</a>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+
+			
+			<div class="content" id="signup">
+				
+				<br>
+				<div class="text-center reg_title" >REGISTER FOR FREE</div>
+				<br>
+				<form class="form" method="post" action="/app-login">
+					<input type="hidden" name="action" value="signup">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								  <input type="text" class="form-control" name="firstname" placeholder="FIRST NAME">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="text" class="form-control" name="surname"  placeholder="SURNAME">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="email" class="form-control" name="email"  placeholder="EMAIL">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="password" class="form-control" name="password"  placeholder="PASSWORD">
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<button type="submit" class="btn" >Register</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="clearfix"></div>
+				</form>
+			</div>	
+
+			<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
+
+			<a id="signupclick" href="#signup"></a>
+		</div>
+		</div>
+	</div>
+	[@app-footer@]
+</div>
+
+<script type="text/javascript">
+	if ("[@formId@]" == "signup") {}
+
+	$("#remembermeLabel").click(function() {
+		var checkBoxes = $("#rememberme");
+		checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+	});
+</script>

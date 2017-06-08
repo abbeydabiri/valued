@@ -1,0 +1,43 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader">
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-home')" class="arrowBack"/>
+			<span>SUPPORT</span>
+		</div>
+	</div>
+		
+	<div class="appContent">
+		<div class="appInner">
+		
+			<div class="supportBannerDiv">
+				<center>
+				<span class="valuedLogo"><img src="images/valued_logo_white.png"></span>
+			</center>
+			</div>
+						
+			<div class="profileDiv">
+			<div class="profileDetails support">
+				<span class="blackText">Telephone</span> <br>
+				+ 971 (0) 56 369 6723<br>
++ 971 (0) 4 422 9021 
+				
+				<hr>	
+
+				<span class="blackText">Email Address</span> <br>
+				<a href="mailto:general@valued.com">general@valued.com</a> 
+				<hr>
+
+				</div>
+				<div class="redeemBtnDiv">
+					<a href="http://www.valued.com/support/" target="_blank"><button class="redeemBtn" class="profileChangePwdBtn">OPEN SUPPORT TICKET</button></a>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+	[@app-footer@]
+</div>

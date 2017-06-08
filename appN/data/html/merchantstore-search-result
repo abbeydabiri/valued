@@ -1,0 +1,17 @@
+<!doctype html>
+
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@merchanttitle@] </td>
+	<td>[@title@]</td>
+	<td>[@city@]</td>
+	<td>[@flagship@]</td>
+	<td>[@workflow@]</td>
+	<td>
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/merchantstore?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/merchantstore?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+			
+		</div>
+	</td>
+</tr>

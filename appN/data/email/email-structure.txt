@@ -1,0 +1,88 @@
+TELL A FRIEND
+-----------------
+
+Email to the person RECEIVING Info about VALUED”
+	app-tell = DONE
+
+
+Email to the person who successfully referred 5 friends to a paid VALUED Membership
+	app-referral-fifthpaid 
+
+
+Follow Up Email to the person who successfully referred 5 friends (to redeem his brand new VALUED Membership as he didn’t have one before)
+	app-referral-fifthpaid-newmember
+
+
+
+Email to the person who successfully referred 10 friends to a paid VALUED Membership and they had their own scheme already
+	app-referral-tenpaid
+
+
+Gift A MEMBERSHIP
+-----------------
+
+Email for person GIFTING the VALUED scheme”
+	app-gift-sender = DONE
+
+
+Email for person RECEIVING the VALUED scheme”
+	app-gift-receiver = DONE
+
+
+Registration/Purchase/Renewal Membership
+----------------------------------------
+
+
+Email for person Registering to the VALUED scheme”
+	app-registration = DONE
+
+
+Email for person after purchasing the VALUED scheme”
+	app-subscribe = DONE
+
+Email for person RENEWING the VALUED scheme - 1 month prior”
+	app-renew-onemonth
+
+Email for person RENEWING the VALUED scheme - 1 week prior”
+	app-renew-oneweek
+
+Email for person RENEWING the VALUED scheme - EXPIRED”
+	app-renew-expired
+
+
+MERCHANT EMAILS
+---------------
+
+Email to MERCHANT - Welcome Email”
+	merchant-welcome  = DONE
+	merchant-company-welcome = DONE
+
+Email for MERCHANT after a REDEMPTION took place” - PIN REDEMPTION
+	app-redemption-merchant-pin = DONE
+
+Email to MERCHANT after a PROMO CODE has been requested” - PROMO REDEMPTION
+	app-redemption-merchant-promo = DONE
+
+Email to MERCHANT requesting new PROMO CODES
+	app-merchant-request-promo = DONE
+
+
+EMPLOYER EMAILS
+---------------
+
+Email to EMPLOYER providing LOGIN detail”
+	employer-company-welcome = DONE
+
+Email to EMPLOYER providing Invoice”
+	employer-invoice = DONE
+
+Email to EMPLOYEE after Employer settled invoice”
+	employee-invoice-settled
+
+
+OTHER EMAILS
+------------
+
+Email to User providing Password reset 
+	app-password-reset = DONE
+	

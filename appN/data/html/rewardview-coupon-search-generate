@@ -1,0 +1,54 @@
+<!doctype html>
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewRedeemed\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Redeemed Rewards</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewCoupon\&reward=[@reward@]')" class="btn-xs btn btn-success btn-fill">Manage Coupons</button>
+	&nbsp;
+	<button style="" type="button" onclick="javascript:getForm('/reward?action=viewStore\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Stores</button>
+	&nbsp;
+	<button style="" type="button" onclick="javascript:getForm('/reward?action=viewScheme\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Schemes</button>
+	</div>
+	</div>
+</div>
+
+
+
+
+<div class="row center">
+	<div class="col-sm-4">
+		<h4>USED: <b>1</b></h4>
+	</div>
+
+	<div class="col-sm-4">
+		<h4>ACTIVE: <b>1</b></h4>
+		&nbsp;
+
+		<a type="button" href="/reward/?reward=[@reward@]&action=downloadActiveCoupon" target="_blank" class="btn-xs btn btn-fill">Download Active</a>
+
+	</div>
+
+	<div class="col-sm-4">
+
+		<form class="form" method="post" action="/reward">
+			<input type="hidden" name="action" value="generateCoupon">
+			<input type="hidden" name="reward" value="[@reward@]">
+			
+			<h4> <input type="number" class=""  name="generate" style="width:80%"  > </h4>
+
+			<button style="" type="button" onclick="javascript:getForm('/reward?action=generateCoupon\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Generate More</button>
+			
+		</form>
+	&nbsp;
+</div>
+
+
+<div id="subForm" class="subForm content"></div>
+
+
+<script>
+	getForm('/reward?action=searchCoupon&reward=[@reward@]');
+</script>

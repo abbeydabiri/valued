@@ -1,0 +1,3 @@
+If you have a promotional code kindly enter it below.<br>&nbsp;
+
+<input type="text" id="couponBox" class="form-control border-input" placeholder="ENTER COUPON CODE" name="coupon"> <br>

@@ -1,0 +1,107 @@
+<script>
+
+	function searchMap(fulladdress, title, myHtml) {
+		gpsPoint = { lat: 0, lng: 0 };
+
+		if (fulladdress.trim() != "") {			
+			var searchURL = "https://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=true&components=country:AE&key=AIzaSyATeWsDPJ4R4ksjvK7Yyb9jrZe_wjIpE7E";
+			$.get(searchURL,  function(response,status){
+				var results = response["results"];		
+
+				if (results[0] !== undefined) {
+					var location = results[0];
+					gpsPoint = location["geometry"]["location"];
+					
+					if (gpsPoint["lat"] > 0 && gpsPoint["lng"] > 0) {
+						createMarker(markers, map, gpsPoint, title, myHtml, 'files/img/location.png');
+						map.setCenter(gpsPoint);	
+					}
+
+				}
+			});
+		}
+	}
+	
+	function createMarker(markers, map, point, title, content, icon) {
+
+		var marker = new google.maps.Marker({
+			position: point,
+			title: title,
+			icon: icon,
+			map: map
+		});
+
+		var infowindow = new google.maps.InfoWindow({
+			content: content
+		});
+
+		marker.addListener('click', function() {
+			infowindow.open(map, marker);
+		});
+
+		markers.push(marker);
+	}
+
+
+
+	
+	var bounds = new google.maps.LatLngBounds();
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 10,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+	var markers = [];
+
+	var center = {
+		lat: 25.276987,
+		lng: 55.296249
+	};
+	
+	
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position){
+			center = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+
+			var myHtml = "<P class='mapIcon'><STRONG>You are Here</STRONG> <br>GPS: "+center.lat+" | "+center.lng+"</P>";
+			//createMarker(markers, map, center, "You are here", myHtml, 'files/img/mylocation.png');
+			//bounds.extend(center);
+		});
+	} 
+	
+	var lHideMap = true;
+
+	[@app-map-locator-marker@]
+	
+	var clusterStyles = [
+		{
+			textColor: 'white',
+			url: 'files/img/m1.png?new',
+			height: 53,
+			width: 53
+		},
+		{
+			textColor: 'white',
+			url: 'files/img/m2.png?new',
+			height: 56,
+			width: 56
+		},
+		{
+			textColor: 'white',
+			url: 'files/img/m3.png?new',
+			height: 66,
+			width: 66
+		}
+	];
+
+	var markerCluster = new MarkerClusterer(map, markers, {styles:clusterStyles});
+	//map.setCenter(bounds.getCenter());
+
+	if (lHideMap) {
+		$('#map').toggleClass('hide');
+	}
+
+</script>

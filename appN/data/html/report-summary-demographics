@@ -1,0 +1,13 @@
+<!doctype html>
+
+<div class="col-sm-4">
+		
+	<center><h5 style="color:black">[@title@] Demographics</h5></center>
+	
+	<hr>
+
+	<div class="row pie-heads">
+		<div class="col-sm-4">Label</div><div class="col-sm-4">Value</div><div class="col-sm-4">(%)</div>
+	</div>
+	[@report-summary-demographics-row@]
+</div>

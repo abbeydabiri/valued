@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@merchanttitle@],
+		<br><br>
+
+		The following transaction has been completed successfully:
+		<br><br>
+
+		Transaction date: [@transactiondate@] <br>
+		Transaction Number: [@transactionnumber@] <br>
+		Transaction Amount: [@transactionvalue@] <br>
+		Reward Title: [@rewardtitle@] <br>
+		Promo code used: <strong>[@couponcode@]</strong><br> <br>
+		<br><br>
+
+		With Kind Regards,
+		<br><br>
+
+		Your VALUED Team
+		<br><br>
+
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

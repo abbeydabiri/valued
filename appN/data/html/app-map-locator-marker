@@ -1,0 +1,12 @@
+var point = { lat: [@gpslat@]0, lng: [@gpslong@]0 };
+if (point["lat"] > 0 && point["lng"] > 0) {
+	var myHtml = "<P class='mapIcon'><STRONG>[@title@]</STRONG><br><span style=font-size:11px;>[@address@]<br>[@city@]<br>Tel: [@phone@]<br>GPS: [@gpslat@] | [@gpslong@]</span></P>";
+	createMarker(markers, map, point, '[@title@]', myHtml, 'files/img/location.png');
+	//bounds.extend(point);
+	map.setCenter(point);
+	lHideMap = false;
+} else {
+	var myHtml = "<P class='mapIcon'><STRONG>[@title@]</STRONG><br><span style=font-size:11px;>[@address@]<br>[@city@]<br>Tel: [@phone@]</span></P>";
+	gpsPoint = searchMap('[@address@] [@city@] [@country@]',  '[@title@]', myHtml);
+	lHideMap = false;
+}

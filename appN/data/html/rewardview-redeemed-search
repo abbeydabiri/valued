@@ -1,0 +1,56 @@
+<!doctype html>
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewRedeemed\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn-success btn btn-fill">Redeemed Rewards</button>		
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewCoupon\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Coupons</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewStore\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Stores</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewScheme\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Schemes</button>
+	</div>
+	</div>
+</div>
+
+<div class="table-responsive table-full-width">
+	<form method="post" class="form subsearchTrigger" action="/reward">
+
+	<input type="hidden" name="action" value="searchRedeemed">
+	<input type="hidden" name="merchant" value="[@merchant@]">
+	<input type="hidden" name="reward" value="[@reward@]">
+	<input type="hidden" name="offset" id="offset" value="0">
+	<input type="hidden" name="limit" value="10">
+	
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Redemption Date</th>
+				<th>Member</th>
+				<th>Store ID</th>
+				<th>Scheme</th>
+				<th>Rating</th>
+				<th>Member Feedback</th>
+			</tr>
+		</thead>
+		<tbody>
+			[@rewardview-redeemed-search-result@]
+		</tbody>
+	</table>
+
+	<div class="col-sm-12">
+		<div class="pull-right">
+			<small>Rows Per Page</small>
+			<select>
+				<option>20</option>
+			</select>
+
+			<small>Go to Page:</small>
+			<select>
+				<option>1</option>
+			</select>
+		</div>
+	</div>
+	</form>
+</div>

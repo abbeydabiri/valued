@@ -1,0 +1,82 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header text-center">
+						<div class="col-md-12">
+							<h4 style="" class="title"><small>Validate Reward code <br> <b>[@couponcode@]</b></small></h4>
+						</div>
+					</div>
+
+					<div class="content">
+						<div class="row">
+							<div class="col-sm-9">
+								<div class="form-group">
+									<label>THE REWARD NAME</label>
+									<p>[@title@]</p>
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>VALID UNTIL</label>
+									<p>[@enddate@]</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<p>[@description@]</p>
+
+								<br>
+								<label>BENEFICIARY:</label>
+								<p>[@beneficiary@]</p>
+								
+								<br>
+								<label>RESTRICTIONS:</label>
+								<p>[@restriction@]</p>
+								<br><br>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group text-center">
+									<button class="btn btn-fill btn-warning" 
+									onclick="reject()">
+										REJECT
+									</button>
+									&nbsp;
+									<button class="btn btn-fill btn-success" 
+									onclick="approve()">
+										APPROVE
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function approve() {
+		if( confirm('Are you sure?')) {
+			getForm('/validatecoupon?action=validate&coupon=[@coupon@]&status=approved');
+		}
+	}
+
+	function reject() {
+		if( confirm('Are you sure?')) {
+			getForm('/validatecoupon?action=validate&coupon=[@coupon@]&status=rejected');
+		}
+	}
+</script>

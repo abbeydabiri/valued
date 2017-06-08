@@ -1,0 +1,14 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@code@] </td>
+	<td>[@schemetitle@]</td>
+	<td>[@price@]</td>
+	<td>[@startdate@]</td>
+	<td>[@workflow@]</td>
+	<td>
+		<div class="pull-right">
+			<!-- <button type="button" onclick="getForm('/employee?action=editSubscription\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">Edit</button> -->
+			<!-- <button type="button" onclick="warningMessage('Employee Invoice has been generated/emailed - <br>Sorry this is a placeholder text. <br><br> Thanks.')" class="btn-xs btn-raise btn btn-success btn-fill">Request Invoice</button> -->
+		</div>
+	</td>
+</tr>

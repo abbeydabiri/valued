@@ -1,0 +1,52 @@
+<!doctype html>
+
+
+<div class="content">
+<div class="container-fluid">
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+				<div class="row">
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/report?action=summary')">SUMMARY</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/report?action=subscription')">SUBSCRIPTIONS</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill btn-success" onclick="getForm('/report?action=merchant')">MERCHANTS</button>
+					</div>
+				</div>
+				</center>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h2>MERCHANT REPORT SECTION</h2>
+
+				
+
+			</center>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	
+</div>
+</div>
+
+<script type="text/javascript">
+	setupDatePicker();
+</script>

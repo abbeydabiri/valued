@@ -1,0 +1,12 @@
+<!doctype html>
+
+<div class="col-sm-4 col-md-3" style="padding:5px">
+	<div class="productbox">
+		<div class="imgthumb img-responsive">
+			<img src="[@image@]">
+		</div>
+		<div class="caption">
+			[@title@] <br> <small>[@merchanttitle@]</small>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@merchanttitle@] </td>
+	<td>[@title@]</td>
+	<td>[@discount@]</td>
+	<td>[@orderby@]</td>
+	<td>[@type@]</td>
+	<td>[@enddate@]</td>
+	<td>[@workflow@]</td>
+</tr>
+<tr>
+	<td colspan="7">
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/reward?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/reward?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/reward?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/reward?action=delete\&control=[@control@]')" class="btn-xs btn-raise btn btn-fill">Delete</button>
+		</div>
+	</td>
+</tr>

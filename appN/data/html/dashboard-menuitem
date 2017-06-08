@@ -1,0 +1,7 @@
+<!doctype html>
+<li class="">
+	<a href="javascript:getForm('/[@action@]')">
+		<i class="[@icon@]"></i>
+		<p>[@title@]</p>
+	</a>
+</li>

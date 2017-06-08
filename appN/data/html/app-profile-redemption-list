@@ -1,0 +1,20 @@
+<!doctype html>
+<div class="rewardDiv">
+  <div class="rewardInner">
+  	<div class="couponDiv">
+  	  <div class="Logo"><img src="[@merchantimage@]"></div>
+  	  <div class="Desc">
+    		<label class="header">[@merchanttitle@]</label> <br>
+
+    		[@rewardtitle@] <br>
+    		Redeemed at [@storetitle@]
+
+	  </div>
+	</div>
+	<div class="Action2">
+	  <div class="savingsAmount">
+          You saved: <br> AED [@savingsvalue@]
+		  </div>
+  	  </div>
+	  </div>
+</div>

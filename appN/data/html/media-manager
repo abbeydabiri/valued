@@ -1,0 +1,56 @@
+<!doctype html>
+<div id="mediaManager" class="appNavbarDiv">
+	<ul class="nav">
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				LOGOUT
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				GIFT A MEMBERSHIP
+			</a>
+		</li>
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				TELL A FRIEND
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				FAVOURITES
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				NOTIFICATIONS
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				REDEMPTION HISTORY
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				TERMS & CONDITIONS
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:alert('Under Development')" target="">
+				APP VERSION
+			</a>
+			<center>
+				<div class="appUpArrow" onclick="toggleAppSidebar('navBarDrop');">
+					<img src="../files/img/uparrow.png" style="">
+				</div>
+			</center>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,4 @@
+<!doctype html>
+<button class="redeemBtn" onclick="getForm('/app-profile?action=setPin')" class="profileChangePwdBtn">CHANGE PIN</button>
+<br>
+<button class="redeemBtn" onclick="getForm('/app-profile?action=forgotPin')" class="profileChangePwdBtn">FORGOT PIN</button>

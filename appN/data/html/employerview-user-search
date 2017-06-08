@@ -1,0 +1,68 @@
+<!doctype html>
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		<!-- <button style="" type="button" onclick="javascript:getForm('/employer?action=viewEmployee\&employer=[@employer@]')" class="btn-xs btn btn-fill">Employees</button>
+		&nbsp; -->
+		<button style="" type="button" onclick="javascript:getForm('/employer?action=viewSubscription\&employer=[@employer@]')" class="btn-xs btn btn-fill">Subscriptions</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/employer?action=viewUser\&employer=[@employer@]')" class="btn-xs btn btn-success btn-fill">Users</button>
+	</div>
+	</div>
+</div>
+
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		<button style="" type="button" onclick="javascript:getForm('/user?action=new\&role=employer\&control=[@employer@]')" class="btn-xs btn btn-info btn-fill">New User</button>
+	</div>
+	</div>
+</div>
+
+
+
+<div class="table-responsive table-full-width">
+	<form method="post" class="form subsearchTrigger" action="/employer">
+
+	<input type="hidden" name="action" value="searchUser">
+	<input type="hidden" name="employer" value="[@employer@]">
+	<input type="hidden" name="offset" id="offset" value="0">
+	<input type="hidden" name="limit" value="10">
+	
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>User Name</th>
+				<th>Password</th>
+				<th>Membership</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="subsearchresult">
+			[@employerview-user-search-result@]
+		</tbody>
+	</table>
+
+	<div class="col-sm-12">
+		<div class="pull-right">
+			<small>Rows Per Page</small>
+			<select>
+				<option>20</option>
+			</select>
+
+			<small>Go to Page:</small>
+			<select>
+				<option>1</option>
+			</select>
+		</div>
+	</div>
+	</form>
+</div>
+
+<script>
+	setupDropdownSearch('','user');
+	getForm('/employer?action=searchUser&employer=[@employer@]');
+</script>

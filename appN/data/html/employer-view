@@ -1,0 +1,176 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Employer <br> <b>[@title@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							
+							<button style="" type="button" onclick="javascript:getForm('/employer?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/`?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="imagebox">
+									<div class="imgthumb">
+										<img src="[@image@]">
+									</div>
+									<div class="caption">
+										[@title@] <br>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<button type="button" onclick="javascript:alert('Development in Progress')" class="btn-xs btn btn-info btn-fill">Add Media</button>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Partner Since</label>
+									<br>[@createdate@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Profile Role</label>
+								</div>
+								<div class="clearfix"></div>
+								[@role-view-checkbox@]
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Username</label>
+									<br>[@username@]
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Password</label>
+									<br>[@password@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Company Name</label> 
+									<br> [@title@]
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Phone</label>
+									<br>([@phonecode@]) [@phone@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Primary E-mail</label>
+									<br>[@email@]
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Secondary E-mail</label>
+									<br>[@emailsecondary@]
+								</div>
+							</div>
+						</div>
+							
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Alternate E-mail</label>
+									<br>[@emailalternate@]
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Website</label>
+									<br>[@website@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Employer Groups</label>
+								</div>
+								<div class="clearfix"></div>
+								[@employer-view-group@]
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Description <small>(2000 max characters)</small></label>
+									<br>[@description@]
+								</div>
+							</div>
+						</div>
+
+						
+						<div id="subview"></div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/employer?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	setupDatePicker();
+	defaultImage('.imagebox');
+	getForm('/employer?action=[@subview@]&employer=[@control@]');
+</script>
+

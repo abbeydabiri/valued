@@ -1,0 +1,15 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@schemetitle@] </td>
+	<td>[@schemeprice@]</td>
+	<td>[@workflow@]</td>
+	<td>
+	<div class="pull-right">
+		<button type="button" onclick="getForm('/scheme?action=view\&control=[@schemecontrol@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+		&nbsp;
+		<button type="button" onclick="getForm('/reward?action=linkStoreDelete\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Delete</button>
+		&nbsp;
+		<button type="button" onclick="getForm('/reward?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+	</div>
+	</td>
+</tr>

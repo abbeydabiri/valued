@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@title@],
+		<br><br>
+
+		Thank you very much for becoming a VALUED employer - we value your brand and we are looking forward to working with you and your employees.
+		<br><br>
+
+		Please find your login details below for the employer portal we have created for you. 
+		<br><br>
+
+		
+
+		You can access the employer portal by clicking the link below:
+		<br><br>
+
+		<a href="https://app.valued.com/employer">LINK</a>
+		<br><br>
+
+		Please see your username and password below:
+		<br><br>
+
+		[@userdata@]
+		<br><br>
+		
+
+		The portal provides you with a summary outlining the engagement and savings achieved of your staff with regards to the VALUED schemes. It is also designed to easily add and remove users. 
+		<br><br>
+
+		
+		If you have any questions regarding the portal please feel free to contact us on info@valued.com
+		<br><br>
+
+		Your VALUED Team
+		<br><br>
+
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+
+<div class="redeemBtnDiv" id="feedbackMsg">
+	<center>
+		<span class="redeemBtnDivHeader">REDEMPTION SUCCESSFUL</span> <br><br>
+		<span class="redeemBtnDivHeaderSub">
+			You have successfully validated reward no: <br>
+
+			<b>[@couponcode@]</b>
+			<br>For this transaction [@employertitle@] has provided you with estimated savings of:</br>
+
+			<b>AED [@savings@]</b><br>
+			<br> TO COMPLETE THE TRANSACTION
+		</span> 
+		<br><br>
+		<button class="redeemBtn" onclick="$('#feedbackMsg').toggleClass('hide');$('#feedbackForm').toggleClass('hide');">PROVIDE FEEDBACK</button>
+	</center>
+	<br>
+	<img src="../files/img/valued.png" class="valuedLogo">
+</div>
+
+<form class="form memberpinForm" method="post" action="/app-redeem">
+<input type="hidden" name="action" value="save">
+<input type="hidden" name="step" value="feedback">
+<input type="hidden" name="reward" value="[@reward@]">
+		
+
+<div class="redeemBtnDiv hide" id="feedbackForm">
+	<center>
+		<span style="text-transform: uppercase">
+		<b>HOW LIKELY ARE YOU TO RECOMMEND <br>
+		[@merchanttitle@] TO YOUR FRIENDS?</b> <br><br>
+		<b>0 = UNLIKELY, 10 = VERY LIKELY</b> <br>
+		</span>
+
+		<br>
+
+		<input name="feedbackRate" type="range" min="0" max="10" step="1" value="7" data-rangeslider> 
+		<output></output>
+
+	
+		<br><br>
+
+
+		<b>
+			WHERE WOULD YOU LIKE TO SEE THE<br>
+			MOST IMPROVEMENT WHEN YOU NEXT<br>
+			PURCHASE WITH [@merchanttitle@]?
+		</b> <br><br>
+
+	</center>
+		
+	<div class="feedback">
+		
+			<div rv="[@rvOne@]" rvc="[@rvcOne@]" class="feedbackReviewCat">[@rvOne@]&nbsp;</div>
+			<div rv="[@rvTwo@]" rvc="[@rvcTwo@]" class="feedbackReviewCat">[@rvTwo@]&nbsp;</div>
+		
+		    <div rv="[@rvThree@]" rvc="[@rvcThree@]" class="feedbackReviewCat">[@rvThree@]&nbsp;</div>
+			<div rv="[@rvFour@]" rvc="[@rvcFour@]" class="feedbackReviewCat">[@rvFour@]&nbsp;</div>
+		
+	</div>
+
+	<input type="hidden" id="reviewcategory" name="reviewcategory" value=""/>
+
+	<br><br><br>
+	<button class="redeemBtn" type="submit">SUBMIT</button> 
+	<br><br>
+	<img src="../files/img/valued.png" class="valuedLogo">
+</div>
+</form>
+
+
+<script>
+
+	$('.feedbackReviewCat').click(function(){
+		if($(this).attr("rvc")=="") {
+			return
+		}
+		$('.feedbackReviewCat').each(function (index, object) { 
+			$(this).removeClass("active");
+		});	
+		$(this).addClass("active");
+		$('#reviewcategory').val($(this).attr("rv"));
+	});
+
+	 var $document = $(document); 
+	 var selector = '[data-rangeslider]'; var $inputRange = $(selector); 
+	 /** * Example functionality to demonstrate a value feedback * and change the output's value. */ 
+	 function valueOutput(element) { 
+	 	var value = element.value; 
+	 	var output = element.parentNode.getElementsByTagName('output')[0]; 
+	 	output.innerHTML = value; 
+	 }
+
+	 /** * Initial value output */ 
+	 for (var i = $inputRange.length - 1; i >= 0; i--) { 
+	 	valueOutput($inputRange[i]); 
+	 }; 
+
+	 /** * Update value output */ 
+	 $document.on('input', selector, function(e) { valueOutput(e.target); }); 
+
+	 /** * Initialize the elements */ 
+	 $inputRange.rangeslider({ polyfill: false });
+
+
+</script>

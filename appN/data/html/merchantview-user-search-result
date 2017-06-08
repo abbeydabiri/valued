@@ -1,0 +1,12 @@
+Í<!doctype html>
+<tr>
+	<td>[@username@] </td>
+	<td>[@password@]</td>
+	<td>[@workflow@]</td>
+	<td>[@status@]</td>
+	<td>
+		<button type="button" onclick="getForm('/member?action=view\&control=[@logincontrol@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+		&nbsp;-&nbsp;
+		<button type="button" onclick="getForm('/member?action=edit\&control=[@logincontrol@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+	</td>
+</tr>

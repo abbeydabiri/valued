@@ -1,0 +1,54 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader">
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-home')" class="arrowBack"/>
+			PROFILE
+		</div>
+	</div>
+		
+	<div class="appContent">
+		<div class="appInner" style="background-color:#f3f3f3;">
+			<div class="profileBannerDiv">
+				<img src="../files/img/storeBanner.png" class="profileBannerDivImg"/>
+			</div>
+			<br>
+			<center><button class="profileChangePicBtn">CHANGE PROFILE PIC</button></center>
+
+			<div class="profileDiv">
+				[@title@] [@firstname@] [@lastname@]
+				<hr>
+				Membership Number: [@subscriptioncode@]
+				<hr>
+				<small>Your subscription expires on</small> [@subscriptionexpiry@]
+				<hr>
+				[@email@] &nbsp; <button class="pull-right profileEditBtn">EDIT</button>
+				<hr>
+				[@mobile@] &nbsp;<button class="pull-right profileEditBtn">EDIT</button>
+				<hr>
+
+				<br><br>
+				<center>
+					&nbsp;&nbsp;
+					<button onclick="error('Will BeDevelopment in Progress')" class="profileChangePwdBtn">CHANGE PASSWORD</button> 
+					&nbsp;&nbsp;
+					<button  onclick="error('Will BeDevelopment in Progress')" class="profileChangePwdBtn">CHANGE PIN</button>
+				</center>
+				
+				<!-- SCHEMES SHOULD BE AN ACCORDION -->
+
+				<div class="profileSelectDiv">
+					<label>MY SAVINGS</label>
+					<span>
+						<i class="pe-7s-angle-right selectChevron"></i>
+					</span>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+	[@app-footer@]
+</div>

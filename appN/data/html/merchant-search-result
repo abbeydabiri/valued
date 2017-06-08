@@ -1,0 +1,25 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@title@] </td>
+	<td>[@categorytitle@]</td>
+	
+	<td>[@status@]</td>
+
+	<td>[@phone@]</td>
+	<td>[@email@]</td>
+
+</tr>
+<tr>
+	<td colspan="6">
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/merchant?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/merchant?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/merchant?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+			&nbsp;
+			<!-- <button type="button" onclick="getForm('/merchant?action=delete\&control=[@control@]')" class="btn-xs btn-raise btn btn-fill">Delete</button> -->
+			&nbsp;
+		</div>
+	</td>
+</tr>

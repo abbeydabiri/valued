@@ -1,0 +1,145 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid" id="viewForm">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Store <b>[@title@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button type="button" onclick="javascript:getForm('/merchantstore?action=new')" class="btn-xs btn btn-info btn-fill">Add New</button>
+							&nbsp;
+							<button type="button" onclick="javascript:getForm('/merchantstore?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit Store</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Store Name</label>
+									<br>[@title@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Is Flagship Store?</label><br>
+									Yes <input type="radio" disabled [@FlagshipYes@] > &nbsp;
+									No <input type="radio" disabled [@FlagshipNo@] >
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Contact Person</label>
+									<br>[@contact@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Contact Number Store</label>
+									<br>[@phonecode@] [@phone@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Customer Service Email</label>
+									<br>[@email@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Address</label>
+									<br>[@address@]
+								</div>
+							</div>
+						
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>City</label>
+									<br>[@city@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Country</label>
+									<br>[@country@]
+								</div>
+							</div>	
+						</div>
+
+						
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Opening Hours <small>(2000 max characters)</small></label>
+									<br>[@hoursmontofri@]
+								</div>
+							</div>
+							
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>GPS Longitude</label>
+									<br>[@gpslong@]
+								</div>
+							</div>
+							
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>GPS Latitude</label>
+									<br>[@gpslat@]
+								</div>
+							</div>
+							
+						</div>
+						
+						<!--<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Description</label>
+									<br>[@description@]
+								</div>
+							</div>
+						</div>-->
+
+						<div id="subview"></div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	// getForm('/merchantstore?action=viewRedeemed&store=[@control@]&merchant=[@merchantcontrol@]');
+</script>
+

@@ -1,0 +1,65 @@
+<!doctype html>
+
+<div class="sidebar" data-color="gray" data-image="files/img/sidebar.jpg">
+
+	<div class="sidebar-wrapper">
+		<ul class="nav">
+			[@dashboard-menuitem@]
+		</ul>
+	</div>
+</div>
+
+
+<div class="main-panel">
+	<nav class="navbar navbar-default navbar-fixed">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" id="">
+					<img src="../files/img/logo_black.png"  class="" width="150"/>
+				</a>
+
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+					   <a href="http://www.valued.com/support" target="_blank">
+						   Support
+						</a>
+					</li>
+					<li>
+					   <a href="javascript:getForm('/password')">
+						   Change Password
+						</a>
+					</li>
+					<li>
+						<a href="javascript:getForm('/logout')">
+							Log out
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<p style="padding-top:10px"></p>
+	<div id="mainpanelContentSearch"></div>
+	<div id="mainpanelContent"></div>
+
+</div>
+<script>
+	[@payload@] 
+	// stoploading();
+	if(window_width <= 991){
+		navbar_initialized = false;
+	    lbd.initRightMenu();   
+	}    
+
+	$('#appcontainer').removeClass('appcontainer');
+	getForm('/profile');
+</script>

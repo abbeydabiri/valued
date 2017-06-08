@@ -1,0 +1,5 @@
+<!doctype html>
+<label onclick="quickForm('/app-search?action=[@action@]')">
+	[@title@]
+	<span class="pull-right">X</span>
+</label>

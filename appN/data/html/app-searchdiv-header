@@ -1,0 +1,7 @@
+<!doctype html>
+
+<div class="appSearchCategory"> 
+	<div class="Title"><label>[@title@]</label></div>
+</div>
+
+[@app-searchdiv-result@]

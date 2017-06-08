@@ -1,0 +1,143 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-sm-6">
+							<h4 style="margin-left:-15px;" class="title">Employees</h4>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="pull-right">
+								<button type="button" onclick="javascript:getForm('/employee?action=new')" class="btn-xs btn btn-info btn-fill">Add Employee</button>
+								&nbsp;
+								<button type="button" onclick="javascript:getForm('/employee?action=importcsv')" class="btn-xs btn btn-success btn-fill">Import Employees (CSV File)</button>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+
+					<div class="content">
+						<div class="content table-responsive table-full-width">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<td colspan="6">
+										<form class="form searchTrigger" method="post" action="/employee">
+											<input type="hidden" name="action" value="search">
+											<input type="hidden" id="offset" name="offset" value="0">
+											<input type="hidden" id="limit" name="limit" value="10">
+										
+											<div style="padding-top:10px" class="col-lg-10">
+												<input class="resetForm" type="text" name="firstname" placeholder=" First Name" size="9">
+												<input class="resetForm" type="text" name="lastname" placeholder=" Last Name" size="9">
+												<input class="resetForm" type="text" name="email" placeholder=" Email" size="9">
+												<input class="resetForm" type="text" name="code" placeholder=" Employee ID" size="12">
+											
+												<select class="resetForm" name="status"> 
+													<option value="">--membership-status--</option> <option>pending</option> <option>registered</option>  <option>paid</option> <option>subscribed</option> <option>expired</option> 
+												</select>
+												
+												<select class="resetForm" name="scheme"> 
+													<option value="">--scheme--</option> [@employee-search-select@]
+												</select>
+											</div>
+											
+											<div style="padding-top:10px" class="col-lg-2">
+												<div class="pull-right">
+													<button type="submit"  class="btn btn-xs btn-raise btn-success btn-fill">Filter</button>
+													&nbsp;
+													<button type="button" class="btn-reset btn-xs btn-raise btn btn-info btn-fill">Clear</button>
+												</div>
+											</div>
+										</form>
+										</td>
+									</tr>
+								</thead>
+							</table>
+
+							<form id="formSelected" class="selectTrigger" method="post" action="/employee">
+							<input type="hidden" name="action" id="selectTriggerAction" value="">
+							<input type="hidden" name="scheme" id="selectTriggerScheme" value="">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>	
+										<th>FIRST NAME </th>
+										<th>SURNAME </th>
+										<th>EMPLOYEE ID</th>
+										<th>E-MAIL</th>
+										<th>EMPLOYEE STATUS</th>
+										<th>SCHEME</th>
+										<th>ACTIVATION DATE</th>
+										<th>EXPIRY DATE</th>
+									</tr>
+								</thead>
+								<tbody id="searchresult">
+									[@employee-search-result@]
+								</tbody>
+							</table>
+							</form>
+						</div>
+
+						<div class="row">
+							
+							<div class="col-sm-6">
+								<select class="resetForm" name="scheme" onchange="$('#selectTriggerScheme').val($(this).val())"> 
+									<option value="">--select-scheme--</option> 
+									[@employee-search-select@]
+								</select>
+								&nbsp;&nbsp;
+								<button type="button" onclick="$('#selectTriggerAction').val('subscribeEmployee');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-success btn-fill">Subscribe</button>
+								&nbsp;&nbsp;
+								<button type="button" onclick="$('#selectTriggerAction').val('renewSubscription');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-success btn-fill">Renew</button>
+								&nbsp;&nbsp;
+								<button type="button" onclick="$('#selectTriggerAction').val('deleteSubscription');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-success btn-fill">Delete</button>
+							</div>
+
+							<div class="col-sm-6">
+								<button type="button" onclick="$('#selectTriggerAction').val('requestInvoice');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-success btn-fill pull-right">Request Invoice</button>
+							</div>
+						</div>
+
+
+						
+						<br>
+						<div class="pull-right">
+							<small>Rows Per Page</small>
+							<select id="searchRecords">
+								<option>10</option>
+								<option>20</option>
+								<option>50</option>
+								<option>100</option>
+							</select>
+
+							<small>Go to Page:</small>
+							<select id="searchPage">
+								[@select-page@]
+							</select>
+						</div>
+
+						<br>&nbsp;
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	setupDatePicker();
+	$('#searchRecords').change(function() {
+		$('#limit').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+
+	$('#searchPage').change(function() {
+		$('#offset').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+</script>

@@ -1,0 +1,7 @@
+<!doctype html>
+[@clearfix@]
+<div class="[@class@]" onclick="[@onclick@]">
+	<div class="catImage"><img src="[@image@]?" style="[@description@];">
+	<div class="appCatCaption">[@title@]</div>
+	</div>
+</div>

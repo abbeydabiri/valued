@@ -1,0 +1,87 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Review Category <b>[@title@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button type="button" onclick="javascript:getForm('/reviewcategory?action=new')" class="btn-xs btn btn-info btn-fill">Add New</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/reviewcategory?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn btn-[@actionColor@] btn-fill">[@actionLabel@] Category</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="imagebox">
+									<div class="imgthumb img-responsive">
+										<img src="[@image@]">
+									</div>
+									<div class="caption">
+										[@title@] <br> <small>[@merchanttitle@]</small>
+									</div>
+								</div>
+								<label>Placement:</label> <b>[@placement@]</b>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Name</label> 
+									<br> [@title@]
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Description</label>
+									<br> [@description@]
+								</div>
+							</div>
+						</div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/reviewcategory?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+//All JS Triggers
+
+function defaultImage(className) {
+	$(className).each(function(pos, imageBox) {
+	var imageboxIMG = imageBox.getElementsByTagName("img")[0];
+	if ($(imageboxIMG).attr('src') == ""){
+		$(imageboxIMG).attr('src','files/img/default.jpg');
+	}
+});
+}
+
+defaultImage('.imagebox');</script>
+

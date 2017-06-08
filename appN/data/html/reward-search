@@ -1,0 +1,114 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="margin-left:-15px;" class="title">Rewards</h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button type="button" onclick="javascript:getForm('/reward?action=new')" class="btn-xs btn btn-success btn-fill">New</button>
+							&nbsp;
+							<button type="button" onclick="javascript:getForm('/category')" class="btn-xs btn btn-warning btn-fill">Reward Categories</button>
+
+							&nbsp;
+							<button type="button" onclick="javascript:getForm('/redemption')" class="btn-xs btn btn-fill">Redeemed Rewards</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+
+					<div class="content">
+						<div class="content table-responsive table-full-width">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<td colspan="6">
+										<form class="form searchTrigger" method="post" action="/reward">
+											<input type="hidden" name="action" value="search">
+											<input type="hidden" id="offset" name="offset" value="0">
+											<input type="hidden" id="limit" name="limit" value="10">
+										
+											<div style="padding-top:10px" class="col-lg-6">
+												<input class="resetForm" type="text" name="merchant" placeholder=" Merchant" size="9">
+												<input class="resetForm" type="text" name="title" placeholder=" Title" size="9">
+												<input class="resetForm" type="text" name="category" placeholder=" Category" size="9">
+												<input class="custom-datepicker resetForm" type="text" placeholder=" dd/mm/yyyy" size="10" name="expirydate"/>
+											</div>
+
+											<div style="padding-top:10px" class="col-lg-4">
+												<select class="resetForm" name="type"> <option value="">--perk/privilege--</option> <option>Perk</option> <option>Privilege</option> </select>
+												<select class="resetForm" name="status"> <option value="">--status--</option> <option>active</option> <option>inactive</option> </select>
+											</div>			
+											
+											<div style="padding-top:10px" class="col-lg-2">
+												<button type="submit"  class="btn btn-xs btn-raise btn-success btn-fill">Filter</button>
+												&nbsp;
+												<button type="button" class="btn-reset btn-xs btn-raise btn btn-info btn-fill">Clear</button>
+											</div>
+										</form>
+										</td>
+									</tr>
+								</thead>
+							</table>
+
+							<form id="formDeactivateAll" class="deactivteTrigger" method="post" action="/reward">
+							<input type="hidden" name="action" value="deactivateAll">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th>Merchant</th>
+										<th>Title</th>
+										<th>Discount</th>
+										<th>Order</th>
+										<th>Type</th>
+										<th>End Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody id="searchresult">
+									[@reward-search-result@]
+								</tbody>
+							</table>
+							</form>
+						</div>
+
+						<button type="button" onclick="$('.deactivteTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-danger btn-fill">Deactivate Selected</button>
+
+						<div class="pull-right">
+							<small>Rows Per Page</small>
+							<select id="searchRecords">
+								<option>10</option>
+								<option>20</option>
+							</select>
+
+							<small>Go to Page:</small>
+							<select id="searchPage">
+								[@select-page@]
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	setupDatePicker();
+	$('#searchRecords').change(function() {
+		$('#limit').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+
+	$('#searchPage').change(function() {
+		$('#offset').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+</script>

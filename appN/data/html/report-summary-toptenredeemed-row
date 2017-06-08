@@ -1,0 +1,5 @@
+<!doctype html>
+
+<div class="row">
+	<div class="col-sm-4">[@merchant@]</div><div class="col-sm-4">[@reward@]</div><div class="col-sm-4">[@redemption@]</div>
+</div>

@@ -1,0 +1,557 @@
+<!doctype html>
+
+
+<div class="content">
+<div class="container-fluid">
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+				<div class="row">
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/report?action=summary')">SUMMARY</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill  btn-success" onclick="getForm('/report?action=subscription')">SUBSCRIPTIONS</button>
+					</div>
+
+					<div class="col-sm-4">
+						<button type="button" class="btn-xs btn btn-fill" onclick="getForm('/report?action=merchant')">MERCHANTS</button>
+					</div>
+				</div>
+				</center>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h2>TOTAL SUBSCRIPTIONS</h2>
+
+				<h2>[@percentofsubscriberssavingsvscoststotal@] %</h2>
+				<p>
+					% OF SUBSCRIBERS WITH A GREATER SAVINGS <br> 
+					AMOUNT THAN THE COST OF MEMBERSHIP
+				</p>
+
+				<br><br>				
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@userspendingtotal@]</h3>
+								<p>NUMBER OF USERS <br> <label>PENDING</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@userspaidtotal@]</h3>
+								<p>NUMBER OF USERS <br> <label>PAID</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@usersexpiredtotal@]</h3>
+								<p>NUMBER OF USERS <br> <label>EXPIRED</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@registrationsvaluedtotal@]</h3>
+								<p>Number Of REGISTRATIONS <br> <label>VALUED</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@registrationsemployerstotal@]</h3>
+								<p>Number Of REGISTRATIONS <br> <label>EMPLOYERS</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@registrationsbritishmumstotal@]</h3>
+								<p>Number Of REGISTRATIONS <br> <label>BRITISH MUMS</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<hr>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@subscriptionslitetotal@]</h3>
+								<p>Number Of SUBSCRIPTIONS <br> <label>LITE SCHEME</label> </p>
+								
+							</div>
+							<div class="col-sm-4">
+								<h3>[@subscriptionslifestyletotal@]</h3>
+								<p>Number Of SUBSCRIPTIONS <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@subscriptionsbritishmumstotal@]</h3>
+								<p>Number Of SUBSCRIPTIONS <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@numredeemedlitetotal@]</h3>
+								<p>Number of REDEEMED REWARDS <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@numredeemedlifestyletotal@]</h3>
+								<p>Number of REDEEMED REWARDS <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@numredeemedbritishmumstotal@]</h3>
+								<p>Number of REDEEMED REWARDS <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@avgsavingperrewardlitetotal@] AED</h3>
+								<p>AVERAGE SAVINGs per REWARD <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@avgsavingperrewardlifestyletotal@] AED</h3>
+								<p>AVERAGE SAVINGs per REWARD <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@avgsavingperrewardbritishmumstotal@] AED</h3>
+								<p>AVERAGE SAVINGs per REWARD <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@avgsavingperemployeelitetotal@] AED </h3>
+								<p>AVERAGE SAVINGs per USER <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@avgsavingperemployeelifestyletotal@] AED </h3>
+								<p>AVERAGE SAVINGs per USER <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@avgsavingperemployeelbritishmumstotal@] AED </h3>
+								<p>AVERAGE SAVINGs per USER <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@savinglitetotal@] AED</h3>
+								<p>TOTAL SAVINGS <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@savinglifestyletotal@] AED</h3>
+								<p>TOTAL SAVINGS <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@savingbritishmumstotal@] AED</h3>
+								<p>TOTAL SAVINGS <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@yearsavinglitetotal@] AED</h3>
+								<p>LAST 12 MONTHS SAVINGS <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@yearsavinglifestyletotal@] AED</h3>
+								<p>LAST 12 MONTHS SAVINGS <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@yearsavingbritishmumstotal@] AED</h3>
+								<p>LAST 12 MONTHS SAVINGS <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- <hr>
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@numactivelitetotal@]</h3>
+								<p>Number Of ACTIVE EMPLOYEES <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@numactivelifestyletotal@]</h3>
+								<p>Number Of ACTIVE EMPLOYEES <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@numactivebritishmumstotal@]</h3>
+								<p>Number Of ACTIVE EMPLOYEES <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@percentactivelitetotal@]%</h3>
+								<p>Percentage Of ACTIVE EMPLOYEES <br> <label>LITE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@percentactivelifestyletotal@]%</h3>
+								<p>Percentage Of ACTIVE EMPLOYEES <br> <label>LIFESTYLE SCHEME</label> </p>
+							</div>
+							<div class="col-sm-4">
+								<h3>[@percentactivebritishmumstotal@]%</h3>
+								<p>Percentage Of ACTIVE EMPLOYEES <br> <label>BRITISH MUMS SCHEME</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr> -->
+
+			</center>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h2>EMPLOYERS SUBSCRIPTIONS</h2>
+
+				<h2>[@percentofsubscriberssavingsvscostsemployer@] %</h2>
+				<p>
+					% OF SUBSCRIBERS WITH A GREATER SAVINGS <br> 
+					AMOUNT THAN THE COST OF MEMBERSHIP
+				</p>
+
+				<br><br>				
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@subscriptionspendingliteemployer@]</h3>
+								<p>PENDING SUBSCRIPTIONS <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@subscriptionspendinglifestyleemployer@]</h3>
+								<p>PENDING SUBSCRIPTIONS <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@subscriptionspaidliteemployer@]</h3>
+								<p>ACTIVE SUBSCRIPTIONS <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@subscriptionspaidlifestyleemployer@]</h3>
+								<p>ACTIVE SUBSCRIPTIONS <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@subscriptionsexpiredliteemployer@]</h3>
+								<p>EXPIRED SUBSCRIPTIONS <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@subscriptionsexpiredlifestyleemployer@]</h3>
+								<p>EXPIRED SUBSCRIPTIONS <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@usersactiveliteemployer@]</h3>
+								<p>ACTIVE EMPLOYEES <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@usersactivelifestyleemployer@]</h3>
+								<p>ACTIVE EMPLOYEES <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@usersactivepercentliteemployer@]%</h3>
+								<p>ACTIVE EMPLOYEES in % OF TOTAL <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@usersactivepercentlifestyleemployer@]%</h3>
+								<p>ACTIVE EMPLOYEES in % OF TOTAL <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@usersredeemedliteemployer@]</h3>
+								<p>REWARDS REDEEMED BY EMPLOYEES <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@usersredeemedlifestyleemployer@]</h3>
+								<p>REWARDS REDEEMED BY EMPLOYEES <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@usersavgsavingsliteemployer@]</h3>
+								<p>AVERAGE SAVINGS per EMPLOYEE <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@usersavgsavingslifestyleemployer@]</h3>
+								<p>AVERAGE SAVINGS per EMPLOYEE <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@userssavingsliteemployer@]</h3>
+								<p>TOTAL EMPLOYEE SAVINGS <br> <label>LITE</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@userssavingslifestyleemployer@]</h3>
+								<p>TOTAL EMPLOYEE SAVINGS <br> <label>LIFESTYLE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<hr>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<h4>TOP 5 EMPLOYERS WITH THE MOST SUBSCRIPTIONS</h4>
+					</div>
+				</div>
+				<div class="row">
+					<b><div class="col-sm-6">Employer</div><div class="col-sm-6">Number of Subscriptions</div></b>
+				</div>
+				[@report-subscription-topfiveredeemed-row@]
+			
+					
+				<br><br>
+				<br><br>
+			</center>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h2>BRITISH MUMS SUBSCRIPTIONS</h2>
+
+				<h2>[@percentofsubscriberssavingsvscostsbritishmums@] %</h2>
+				<p>
+					% OF SUBSCRIBERS WITH A GREATER SAVINGS <br> 
+					AMOUNT THAN THE COST OF MEMBERSHIP
+				</p>
+
+				<br><br>				
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>AVERAGE SAVINGS PER REWARD</p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>AVERAGE SAVINGS PER USER</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>TOTAL SAVINGS ALL TIME</p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>TOTAL SAVINGS LAST 12 MONTHS</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@@]</h3>
+								<p>NUMBER OF SUBSCRIPTIONS</p>
+							</div>
+
+							<div class="col-sm-4">
+								<h3>[@@]</h3>
+								<p>NUMBER OF REGISTRATIONS</p>
+							</div>
+
+							<div class="col-sm-4">
+								<h3>[@@]</h3>
+								<p>NUMBER OF REDEEMED REWARDS</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+			</center>
+		</div>
+	</div>
+
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<h2>VALUED SUBSCRIPTIONS</h2>
+
+				<h2>[@percentofsubscriberssavingsvscostsvalued@] %</h2>
+				<p>
+					% OF SUBSCRIBERS WITH A GREATER SAVINGS <br> 
+					AMOUNT THAN THE COST OF MEMBERSHIP
+				</p>
+
+				<br><br>				
+				
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>AVERAGE SAVINGS PER REWARD</p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>AVERAGE SAVINGS PER USER</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>TOTAL SAVINGS ALL TIME</p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@@]</h3>
+								<p>TOTAL SAVINGS LAST 12 MONTHS</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-4">
+								<h3>[@@]</h3>
+								<p>NUMBER OF SUBSCRIPTIONS</p>
+							</div>
+
+							<div class="col-sm-4">
+								<h3>[@@]</h3>
+								<p>NUMBER OF REGISTRATIONS</p>
+							</div>
+
+							<div class="col-sm-4">
+								<h3>[@@]</h3>
+								<p>NUMBER OF REDEEMED REWARDS</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+			</center>
+		</div>
+	</div>
+	
+	
+</div>
+</div>
+
+<script type="text/javascript">
+	setupDatePicker();
+</script>

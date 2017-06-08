@@ -1,0 +1,17 @@
+<!doctype html>
+<div class="col-sm-12">
+	<div class="card">
+		<div class="header">
+			<h4 class="title">STORE: <b>[@title@] </b> </h4>
+			<p>[@address@]</p>
+			<hr>
+		</div>
+		<div class="content">
+			<center>
+				<div class="row">
+					[@report-generator-piechart@]
+				</div>
+			</center>
+		</div>
+	</div>
+</div>

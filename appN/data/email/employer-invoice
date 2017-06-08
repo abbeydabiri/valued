@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@employer@],
+		<br><br>
+
+		You have requested the addition of the employees as listed below 
+		<br><br>
+
+		<table>
+			<tr><td>First Name</td>	<td>Surname</td>	<td>Email</td>	<td>Scheme Type</td></tr>
+			[@rows@]
+		</table>
+		<br><br>
+
+		
+		As soon as the invoice amount is settled we will activate your employee's account.
+		<br><br>
+
+		If you have any questions regarding the portal please feel free to contact us on info@valued.com
+		<br><br>
+		<br><br>
+
+		
+
+		Your VALUED Team
+		<br><br>
+
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

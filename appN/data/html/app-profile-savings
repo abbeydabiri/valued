@@ -1,0 +1,48 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader">
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-profile')" class="arrowBack"/>
+			<span>MY SAVINGS</span>
+		</div>
+	</div>
+	
+
+	<div class="appContent">
+		<div class="appInner" style="background-color:#f3f3f3;">	
+
+			<form class="form" method="post" action="/app-profile">
+			<input type="hidden" name="action" value="savePassword">
+				<div class="profileDiv">
+
+					<center>
+						<small>Total Savings</small>
+						<h2><small>AED</small> 40,000.00 </h2><hr>
+						<small>Details of Savings</small> <br><br><br>
+					</center>
+
+
+					1.) On Monday You Saved <small>AED</small><b>50</b> <hr>
+
+					2.) On Tuesday You Saved <small>AED</small><b>100</b> <hr>
+
+					3.) On Wednesday You Saved <small>AED</small><b>200</b> <hr>
+
+					4.) On Thursday You Saved <small>AED</small><b>250</b> <hr>
+
+					5.) On Friday You Saved <small>AED</small><b>300</b> <hr>
+					
+					6.) On Saturday You Saved <small>AED</small><b>350</b> <hr>
+
+					7.) On Sunday You Saved <small>AED</small><b>400</b> <hr>
+
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+	[@app-footer@]
+</div>

@@ -1,0 +1,24 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@firstname@] </td>
+	<td>[@lastname@]</td>
+	
+	<td>[@email@]</td>
+	<td>[@phone@]</td>
+
+	<td>[@employertitle@]</td>
+	<td>[@schemetitle@]</td>
+
+	<td>[@expirydate@]</td>
+
+	<td>[@workflow@]</td>
+	<td>
+		<div class="pull-right">
+			<button type="button" onclick="getForm('/profile?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/profile?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+			&nbsp;
+			<button type="button" onclick="getForm('/profile?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+		</div>
+	</td>
+</tr>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<body>
+		Dear VALUED ADMIN,
+		<br><br>
+
+		User: <b>[@username@]</b> requested the below Store Changes:
+
+		<br><br>
+		
+		<pre>[@message@]</pre>
+
+		<table>
+			<tr>
+				<td>New Status</td>	<td>Current Status</td>	<td>Store</td>	<td>Merchant</td>
+			</tr>
+
+			[@rows@]
+
+		</table>
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

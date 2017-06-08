@@ -1,0 +1,16 @@
+<!doctype html>
+<tr>
+	<td> [@number@] <input name="control" value="[@control@]" type="checkbox"> [@title@] </td>
+	<td>[@industrytitle@]</td>
+	<td>[@placement@]</td>
+	<td>[@workflow@]</td>
+	<td>
+	<div class="pull-right">
+		<button type="button" onclick="getForm('/industry?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+		&nbsp;
+		<button type="button" onclick="getForm('/industry?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+		&nbsp;
+		<button type="button" onclick="getForm('/industry?action=[@action@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+	</div>
+	</td>
+</tr>

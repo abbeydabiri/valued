@@ -1,0 +1,50 @@
+<!doctype html>
+<form class="form" method="post" action="/app-redeem">
+<input type="hidden" name="action" value="save">
+<input type="hidden" name="step" value="promocode">
+<input type="hidden" name="reward" value="[@reward@]">
+<input type="hidden" name="control" value="[@control@]">
+<input type="hidden" name="couponcontrol" value="[@couponcontrol@]">
+	
+	<div class="redeemBtnDiv">
+		<center>
+		<div class="promoDesc">
+			<label class="labelInfo">PROMO CODE</label>
+			<br>
+			Please quote/insert the following code to get your [@discount@][@discounttype@] discount.</div>
+			<div class="showPromobox"><h3>[@couponcode@]</h3></div>
+		</center>
+	</div>
+
+	<div class="redeemBtnDiv">
+		<center>
+			Please give us the total before your discount
+			<br>
+			[@app-redeem-store@]
+
+			<div class="redeemAmount">
+				<b>ENTER TRANSACTION VALUE</b> <br>
+				<input size="12" id="transactionvalue" name="transactionvalue" type="number" maxlength="12">
+			</div>
+		</center>
+
+		<br>
+		<button class="redeemBtn">SUBMIT</button> 	
+		<br>
+		<img src="../files/img/valued.png" class="valuedLogo">
+	</div>
+
+	<div id="checkValuedCode">[@app-redeem-promocode-valuedcode-check@]</div>
+
+</form>
+
+<script>
+	$('.appFooter').html('');
+	$('#arrowBackSpan').html('');
+
+	$('#rewardCode').html('[@couponcode@]');
+	$('#rewardCode').toggleClass('hide');
+
+	$('#transactionvalue').focus();
+
+</script>

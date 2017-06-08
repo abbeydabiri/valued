@@ -1,0 +1,124 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Employee <br><b>[@title@] [@firstname@] [@lastname@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button style="" type="button" onclick="javascript:getForm('/employee?action=new')" class="btn-xs btn btn-info btn-fill">New</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/employee?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Employer</label> 
+									<br> [@employertitle@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Employee ID</label> 
+									<br> [@code@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Title</label>
+									<br>[@title@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>First Name</label>
+									<br>[@firstname@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Last Name</label>
+									<br>[@lastname@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Date of Birth</label>
+									<br>[@dob@] - [@age@] Yrs
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Nationality</label> 
+									<br> [@nationality@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Contact Number</label>
+									<br>[@phonecode@] [@phone@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Email</label>
+									<br>[@email@]
+								</div>
+							</div>
+						</div>
+						
+
+						<div id="subedit"></div>
+						<div id="subview"></div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/employee?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	getForm('/employee?action=viewSubscription&employee=[@control@]');
+</script>
+

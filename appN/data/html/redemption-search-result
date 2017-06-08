@@ -1,0 +1,7 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@title@] </td>
+	<td>[@createdby@]</td>
+	<td>[@createdate@]</td>
+	<td>AED [@savingsvalue@]</td>
+</tr>

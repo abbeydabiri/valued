@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<body>
+		Dear [@firstname@] [@lastname@],
+		<br><br>
+
+		You have been given access to the VALUED EMPLOYER PORTAL for [@employertitle@].
+		<br><br>
+
+		You can access the employer portal by clicking the link below:
+		<br><br>
+
+		<a href="https://app.valued.com/employer">LINK</a>
+		<br><br>
+
+		Please see your username and password below:
+		<br><br>
+
+		Username: [@username@] <br>
+		Password: [@password@]
+		<br><br>
+
+		We strongly recommend that you change your password during your first login.
+		<br><br>
+
+		Thank you
+		<br><br>
+
+		VALUED - Because Great Benefits Make Happy People.
+		<br><br>
+
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

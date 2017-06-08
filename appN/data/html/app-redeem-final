@@ -1,0 +1,16 @@
+<!doctype html>
+
+<div class="redeemBtnDiv" id="feedbackMsg">
+	<center>
+		<br><br>
+		<span class="redeemBtnDivHeader">REDEMPTION SUCCESSFUL</span> <br>
+		<br><br>
+	</center>
+	<br>
+	<img src="../files/img/valued.png" class="valuedLogo">
+</div>
+
+<script>
+	warningMessage('Thank You for the Feedback!');
+	getForm('/app-reward')
+</script>

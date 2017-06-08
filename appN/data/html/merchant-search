@@ -1,0 +1,115 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-3">
+							<h4 style="margin-left:-15px;" class="title">Merchants</h4>
+						</div>
+
+						<div class="col-md-9">
+							<div class="pull-right">
+								<button type="button" onclick="javascript:getForm('/merchant?action=new')" class="btn-xs btn btn-success btn-fill">New</button>
+								&nbsp;
+								<button type="button" onclick="javascript:getForm('/reviewcategory')" class="btn-xs btn btn-success btn-fill">Review Categories</button>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+
+					<div class="content">
+						<div class="content table-responsive table-full-width">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<td colspan="6">
+										<form class="form searchTrigger" method="post" action="/merchant">
+											<input type="hidden" name="action" value="search">
+											<input type="hidden" name="offset" id="offset" value="0">
+											<input type="hidden" id="limit" name="limit" value="10">
+										
+											<div style="padding-top:10px" class="col-lg-7">
+												<input class="resetForm" type="text" name="title" placeholder=" Company" size="9">
+												
+												<input class="resetForm" type="text" name="industry" placeholder=" Category" size="9">
+												<input class="resetForm" type="text" name="email" placeholder=" Email" size="9">
+											</div>
+
+											<div style="padding-top:10px" class="col-lg-3">
+												<input class="custom-datepicker resetForm" type="text" placeholder=" dd/mm/yyyy" size="10" name="expirydate"/>
+												<select class="resetForm" name="status"> <option value="">--status--</option> <option>active</option> <option>inactive</option> </select>
+											</div>			
+											
+											<div style="padding-top:10px" class="col-lg-2">
+												<button type="submit"  class="btn btn-xs btn-raise btn-success btn-fill">Filter</button>
+												&nbsp;
+												<button type="button" class="btn-reset btn-xs btn-raise btn btn-info btn-fill">Clear</button>
+											</div>
+										</form>
+										</td>
+									</tr>
+								</thead>
+							</table>
+
+							<form id="formSelected" class="selectTrigger" method="post" action="/merchant">
+							<input type="hidden" id="selectTriggerAction" name="action" value="">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th>Company</th>
+										<th>Category</th>
+										<th>Merchant</th>
+										<th>Phone</th>
+										<th>Email</th>
+									</tr>
+								</thead>
+								<tbody id="searchresult">
+									[@merchant-search-result@]
+								</tbody>
+							</table>
+							</form>
+						</div>
+
+						<button type="button" onclick="$('#selectTriggerAction').val('deactivateAll');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-danger btn-fill">Deactivate Selected</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" onclick="$('#selectTriggerAction').val('activateAll');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn 	btn-success btn-fill">Activate Selected</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" onclick="$('#selectTriggerAction').val('sendWelcomeMail');$('.selectTrigger').trigger('submit');" class="btn-xs btn-raise btn btn-success btn-fill">Send Welcome EMail</button>
+
+						<div class="pull-right">
+							<small>Rows Per Page</small>
+							<select id="searchRecords">
+								<option>10</option>
+								<option>20</option>
+								<option>50</option>
+								<option>100</option>
+							</select>
+
+							<small>Go to Page:</small>
+							<select id="searchPage">
+								[@select-page@]
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	setupDatePicker();
+	$('#searchRecords').change(function() {
+		$('#limit').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+
+	$('#searchPage').change(function() {
+		$('#offset').val($(this).val());
+		$('.searchTrigger').trigger("submit");
+	});
+</script>

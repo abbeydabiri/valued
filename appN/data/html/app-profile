@@ -1,0 +1,131 @@
+<!doctype html>
+
+
+<div class="wrapper">
+	<div class="appHeader">
+		<div class="appHeaderInner">
+			<img src="../files/img/arrowBack.png" onclick="getForm('/app-home')" class="arrowBack"/>
+			<span>PROFILE</span>
+		</div>
+	</div>
+		
+	<div class="appContent">
+		<div class="appInner">
+			
+		<form class="form" method="post" action="/app-profile">
+		<input type="hidden" name="action" value="savePic">
+		<input type="hidden" id="imageName" name="imageName">
+		<input type="hidden" id="image" name="image" default="[@image@]">
+		
+			<div class="profileBannerDiv">
+				<br><img src="" id="imageSrc" class="profileBannerDivImg"/>
+			</div>
+						
+			<div class="hide" id="changePicForm">
+				<center>
+					<label>Change Profile Pic</label> 
+						
+						<div class="profilePic">
+							<input type="file" id="imageFile" onchange="editFormCompressImage('image')">
+						</div>
+							
+					<button type="button" class="btn btn-xs btn-fill" onclick="clearProfilePic();">Clear</button>
+					&nbsp;						
+					<button type="submit" class="btn btn-xs btn-fill">Save</button>
+				</center>
+			</div>
+		</form>
+
+			<div class="center" id="changePicBtn">
+				<button class="profileChangePicBtn" onclick="$('#changePicBtn').toggleClass('hide');$('#changePicForm').toggleClass('hide');">CHANGE PROFILE PIC</button>
+				<br>
+				<button onclick="getForm('/app-profile?action=edit');" class="profileEditBtn">EDIT PROFILE</button>
+				
+			</div>
+
+			<div class="profileDiv">
+			<div class="profileDetails">
+				<span class="blackText">Name</span> <br>
+				[@title@] [@firstname@] [@lastname@] 
+				
+				<hr>	
+
+				[@app-profile-subscription@]
+				
+				<span class="blackText">Username</span> <br>
+				[@username@] &nbsp; 
+				<hr>
+
+				<span class="blackText">Email Address</span> <br>
+				[@email@] &nbsp; 
+				<hr>
+
+				<span class="blackText">Mobile Number</span> <br>
+				[@phonecode@] [@phone@] &nbsp;
+
+				<hr>
+				<span class="blackText">Date of Birth</span> <br>
+				[@dob@] &nbsp;
+
+				<hr>
+				<span class="blackText">Nationality</span> <br>
+				[@nationality@] &nbsp;
+
+				<hr>
+				<span class="blackText">Friends Referred</span> <br>
+				[@friendsreferred@] referred &nbsp;
+
+				<hr>
+				<span class="blackText">Friends Subscribed</span> <br>
+				[@friendssubscribed@] subscribed &nbsp;
+
+				<hr>
+				</div>
+				<div class="redeemBtnDiv">
+					[@app-profile-btn-savings@]
+					<button class="redeemBtn" onclick="getForm('/app-profile?action=changePassword')" class="profileChangePwdBtn">CHANGE PASSWORD</button> 
+					</br>
+					[@app-profile-btn-changepin@]
+				</div>
+				
+			
+
+				<!-- 
+				<div class="profileSelectDiv" onclick = "getForm('/app-profile?action=mySavings');">
+					<label>MY SAVINGS</label>
+					<span>
+						<i class="pe-7s-angle-down selectChevron"></i>
+					</span>
+				</div> -->
+
+				<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
+			</div>
+
+		</div>
+	</div>
+	[@app-footer@]
+</div>
+
+<script>
+	
+	function clearProfilePic() {
+		$('#image').val('');
+		$('#imageFile').val('');
+		
+		$('#imageSrc').attr('src',$('#image').attr('default'));
+		if ($('#imageSrc').attr('src') == "") {
+			$('#imageSrc').attr('src',$('#image').attr('default'));
+			$('#imageSrc').css('height',"100% !important");
+		}		
+
+		$('#changePicBtn').toggleClass('hide');
+		$('#changePicForm').toggleClass('hide');
+	}
+
+	$('#imageSrc').attr('src',$('#image').attr('default'));
+	if ($('#imageSrc').attr('src') == "") {
+		$('#imageSrc').attr('src','../files/img/default-avatar.png');
+	}
+
+		
+</script>

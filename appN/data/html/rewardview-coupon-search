@@ -1,0 +1,30 @@
+<!doctype html>
+
+<div class="row" style="margin-top:20px;">
+	<div class="col-sm-12">
+	<div class="pull-right">
+		
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewRedeemed\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Redeemed Rewards</button>
+		&nbsp;
+		<button style="" type="button" onclick="javascript:getForm('/reward?action=viewCoupon\&reward=[@reward@]')" class="btn-xs btn btn-success btn-fill">Manage Coupons</button>
+	&nbsp;
+	<button style="" type="button" onclick="javascript:getForm('/reward?action=viewStore\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Stores</button>
+	&nbsp;
+	<button style="" type="button" onclick="javascript:getForm('/reward?action=viewScheme\&reward=[@reward@]\&merchant=[@merchant@]')" class="btn-xs btn btn-fill">Manage Schemes</button>
+	</div>
+	</div>
+</div>
+
+
+[@rewardview-coupon-search-valued@]
+[@rewardview-coupon-search-single@]
+[@rewardview-coupon-search-bulk@]
+
+
+
+<div id="subForm" class="subForm content"></div>
+
+
+<script>
+	// getForm('/reward?action=searchCoupon&reward=[@reward@]');
+</script>

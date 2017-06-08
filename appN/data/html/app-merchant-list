@@ -1,0 +1,28 @@
+<!doctype html>
+<div class="rewardDiv">
+<div class="rewardInner">
+    
+    <div class="couponDiv" onclick="getForm('/app-store?merchant=[@control@]');">
+	  <div class="Logo"><img src="[@image@]"></div>
+	  <div class="Desc">
+		<label class="header">[@title@]</label> <br>
+		
+		[@categorytitle@] <br> 
+		[@subcategorytitle@] 
+		
+	  </div>
+    </div>	
+	<div class="Action">
+	  <div class="heartDiv">
+		<img class="Heart" title="[@title@]" control="[@control@]"  src="../files/img/[@heart@]"  onclick="addToFavorites(this,'merchant','[@signedIn@]');[@favorite@]">
+	  </div>	
+	  <div class="discountDiv">
+	  <div class="rewardbuttonDiv">
+		<div class="rewardButton" onclick="getForm('/app-store?merchant=[@control@]');">
+			<button class="merchantRewardsBtn">VIEW REWARDS</button>
+		</div>
+	  </div>	
+	  </div>	
+	</div>
+</div>
+</div>

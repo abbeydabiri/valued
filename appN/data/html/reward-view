@@ -1,0 +1,247 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Reward <b>[@title@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button type="button" onclick="javascript:getForm('/reward?action=new')" class="btn-xs btn btn-info btn-fill">Add New</button>
+							&nbsp;
+							<button type="button" onclick="javascript:getForm('/reward?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit Reward</button>
+							&nbsp;
+							<button type="button" onclick="javascript:getForm('/reward?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn btn-[@actionColor@] btn-fill">[@actionLabel@] Reward</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						
+						<div class="row">
+							<!-- <div class="col-sm-2">
+								<div class="form-group">
+									<label><small>business logic</small> #code</label> 
+									<br> [@code@]
+								</div>
+							</div> -->
+
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label>Reward Order</label>
+									<br> [@orderby@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Merchant</label>
+									<br><a href="javascript:void()" onclick="getForm('/merchant?action=view&control=[@merchantcontrol@]')"> [@merchanttitle@] </a>
+								</div>
+							</div>
+
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label>Reward Title</label>
+									<br>[@title@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Is it a Perk or Privilege?</label> <br>
+									Perk <input type="radio" class="" [@Perk@] disabled>
+									Privilege <input type="radio" class="" [@Privilege@] disabled>
+								</div>
+							</div>
+
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label>Redemption Method</label> <br>
+									Pin <input type="radio" name="method" [@Pin@] disabled>
+									Valued Code <input type="radio" name="method" [@ValuedCode@] disabled>
+									Client Code Bulk<input type="radio" name="method" [@ClientCodeBulk@] disabled>
+									Client Code Single <input type="radio" name="method" [@ClientCodeSingle@] disabled>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Total Uses</label>
+									<br>[@maxuse@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Transactions Per Member</label>
+									<br>[@maxperuser@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Transactions per Month</label>
+									<br> [@maxpermonth@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Visbile To</label> <br>
+									Public <input type="radio" [@Public@] disabled> &nbsp;
+									Private <input type="radio" [@Private@] disabled>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Start Date</label>
+									<br>[@startdate@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>End Date</label> 
+									<br> [@enddate@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Discount</label> 
+									<br> [@discount@] 
+								</div>
+							</div>
+							
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Discount Value</label>
+									<br> [@discountvalue@] [@discounttype@]
+								</div>
+							</div>
+						</div>
+
+						
+
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Category</label> 
+									<br> [@categorytitle@]
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label>Sub-Category</label> 
+									<br> [@subcategorytitle@]
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Beneficiary</label>
+									<br>[@beneficiary@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Extra Category Filter <small>(maximum of four)</small></label><br>
+								</div>
+								<div class="clearfix"></div>
+								<div id="categorylink">
+									[@categorylink-checkbox@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Reward Groups</label>
+								</div>
+								<div class="clearfix"></div>
+								[@reward-view-group@]
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Keywords Filter</label> <br>
+                    				<input type="text"  class="form-control border-input" disabled value="[@keywords@]" data-role="tagsinput"/>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Description</label>
+									<br>[@description@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Reward Restrictions</label>
+									<br>[@restriction@]
+								</div>
+							</div>
+						</div>
+
+						<div id="subview"></div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/reward?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	$("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+	quickForm('/category?action=fetchKeywords&readonly=true&reward=[@control@]&category=[@subcategorycontrol@]');
+	quickForm('/reward?action=viewCoupon&reward=[@control@]&merchant=[@merchantcontrol@]');
+</script>
+

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<body>
+		Dear VALUED ADMIN,
+		<br><br>
+
+		User: <b>[@username@]</b> requested [@action@] the below Store Changes:
+
+		<table>
+			<tr>
+				<td>Field</td>	<td>Old Value</td>	<td>New Value</td>
+			</tr>
+
+			<tr>
+				<td>STATUS</td>	<td>[@workflowOLD@]</td>	<td>[@workflowNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>STORE NAME</td>	<td>[@titleOLD@]</td>	<td>[@titleNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>IS FLAGSHIP</td>	<td>[@flagshipOLD@]</td>	<td>[@flagshipNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>CONTACT PERSON</td>	<td>[@contactOLD@]</td>	<td>[@contactNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>COUNTRY CODE</td>	<td>[@phonecodeOLD@]</td>	<td>[@phonecodeNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>CONTACT NUMBER</td>	<td>[@phoneOLD@]</td>	<td>[@phoneNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>CUSTOMER SERVICE EMAIL</td>	<td>[@emailOLD@]</td>	<td>[@emailNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>ADDRESS</td>	<td>[@addressOLD@]</td>	<td>[@addressNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>CITY</td>	<td>[@cityOLD@]</td>	<td>[@cityNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>COUNTRY</td>	<td>[@countryOLD@]</td>	<td>[@countryNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>GPS LATITUDE</td>	<td>[@gpslatOLD@]</td>	<td>[@gpslatNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>GPS LONGITUDE</td>	<td>[@gpslongOLD@]</td>	<td>[@gpslongNEW@]</td>
+			</tr>
+
+			<tr>
+				<td>OPENING HOURS</td>	<td>[@openingOLD@]</td>	<td>[@openingNEW@]</td>
+			</tr>
+
+		</table>
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

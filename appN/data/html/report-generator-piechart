@@ -1,0 +1,31 @@
+<!doctype html>
+
+
+<div class="col-sm-4">
+	<h4>[@title@]</h4>
+	<div id="[@id@]" class="ct-chart"></div>
+
+	<div class="footer">
+		<div class="stats">
+			[@title@] Legend
+		</div>
+		<hr>
+	</div>
+
+	<div class="row pie-heads">
+		<div class="col-sm-4">Label</div><div class="col-sm-4">Value</div><div class="col-sm-4">(%)</div>
+	</div>
+	[@report-generator-piechart-row@]
+</div>
+
+
+<script type="text/javascript">
+	
+		
+	var [@id@]Data = {
+		labels: [[@label@]],
+		series: [[@series@]]
+	};
+
+	Chartist.Pie('#[@id@]', [@id@]Data);
+</script>

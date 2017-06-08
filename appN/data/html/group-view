@@ -1,0 +1,68 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View <b>[@title@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button style="" type="button" onclick="javascript:getForm('/group?action=new')" class="btn-xs btn btn-warning btn-fill">New</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/group?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/group?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+				
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Group Name</label> 
+									<br> [@title@]
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Parent Group</label> 
+									<br> [@grouptitle@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Description</label> 
+									<br> [@title@]
+								</div>
+							</div>
+						</div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/group?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,102 @@
+<!doctype html>
+
+<div class="redeemBtnDiv" id="feedbackMsg">
+	<center>
+		<span class="redeemBtnDivHeader">REDEMPTION SUCCESSFUL</span> <br><br>
+		<span class="redeemBtnDivHeaderSub">
+			You have successfully validated coupon no: [@code@] for [@discount@] off with [@merchanttitle@]  [@storetitle@]. 
+			<br>That means [@employertitle@] Valued has given you a saving of AED 1,000  [@savingvalue@].
+			<br><br> TO COMPLETE THE TRANSACTION
+		</span> 
+		<br><br>
+		<button class="redeemBtn" onclick="$('#feedbackMsg').toggleClass('hide');$('#feedbackForm').toggleClass('hide');">GIVE US FEEDBACK</button>
+	</center>
+	<br>
+	<img src="../files/img/valued.png" class="valuedLogo">
+</div>
+
+<form class="form memberpinForm" method="post" action="/app-redeem">
+<input type="hidden" name="action" value="save">
+<input type="hidden" name="step" value="feedback">
+<input type="hidden" name="reward" value="[@reward@]">
+
+
+<div class="redeemBtnDiv hide" id="feedbackForm">
+	<center>
+		<span style="text-transform: uppercase">
+		<b>HOW LIKELY ARE YOU TO RECOMMEND <br>
+		[@merchanttitle@] TO YOUR FRIENDS?</b> <br><br>
+		<b>1 = UNLIKELY, 10 = VERY LIKELY</b> <br>
+		</span>
+
+		
+       <input type=hidden id="feedbackRate" name="feedbackRate">
+
+		<div class="feedbackSliderDiv">
+			<div id="feedbackSlider" class="ui-slider ui-slider-horizontal">
+				<a class="ui-slider-handle ui-state-default" href="#"></a>
+				<br>
+				<div class="feedbackSlider">
+					<span class="firstStep">1</span>
+					<span class="centerStep">2</span>
+					<span class="centerStep">3</span>
+					<span class="centerStep">4</span>
+					<span class="centerStep">5</span>
+					<span class="centerStep">6</span>
+					<span class="centerStep">7</span>
+					<span class="centerStep">8</span>
+					<span class="centerStep">9</span>
+					<span class="lastStep">10</span>
+				</div>
+			</div>
+
+			<script>
+				$( "#feedbackSlider" ).slider({ value:10, min: 1, max: 10, step: 1,
+					slide: function( event, ui ) {
+						$( "#feedbackRate" ).val( "$" + ui.value );
+					}
+				});
+				$( "#feedbackRate" ).val( "$" + $( "#feedbackSlider" ).slider( "value" ) );
+			</script>
+		</div>
+
+
+		<b>
+			WHERE WOULD YOU LIKE TO SEE THE<br>
+			MOST IMPROVEMENT WHEN YOU NEXT<br>
+			PURCHASE WITH [@merchanttitle@]?
+		</b> <br><br>
+
+	</center>
+		
+	<div class="feedback">
+		
+			<div rvc="[@rvcOne@]" class="feedbackReviewCat">[@rvOne@]&nbsp;</div>
+			<div rvc="[@rvcTwo@]" class="feedbackReviewCat">[@rvTwo@]&nbsp;</div>
+		
+		    <div rvc="[@rvcThree@]" class="feedbackReviewCat">[@rvThree@]&nbsp;</div>
+			<div rvc="[@rvcFour@]" class="feedbackReviewCat">[@rvFour@]&nbsp;</div>
+		
+	</div>
+
+	<input type="hidden" id="reviewcategory" name="reviewcategory" value=""/>
+	
+	<script>
+		$('.feedbackReviewCat').click(function(){
+			if($(this).attr("rvc")=="") {
+				return
+			}
+			$('.feedbackReviewCat').each(function (index, object) { 
+				$(this).removeClass("active");
+			});	
+			$(this).addClass("active");
+			$('#reviewcategory').val($(this).attr("rvc"));
+		});
+	</script>
+
+	<br><br><br>
+	<button class="redeemBtn" type="submit">SUBMIT</button> 
+	<br><br>
+	<img src="../files/img/valued.png" class="valuedLogo">
+</div>
+</form>

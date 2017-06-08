@@ -1,0 +1,18 @@
+<!doctype html>
+<div class="slidebardiv">
+	<img class="angleslide left" src="../files/img/left.png" onclick="slideBarLeft()">
+		<span class="slidebarmenus">
+			<button class="slidebarToggle active">ALL</button>
+			[@app-sliderbar-button@]
+		</span>
+	<img class="angleslide right" src="../files/img/right.png" onclick="slideBarRight()">
+</div>
+
+<script>
+	$( '.slidebarToggle' ).on( 'click', function() {
+		slideBarClicked(this);
+
+		var type = $(this).html();
+		quickForm('/app-search?action=slider&type='+type);
+	});
+</script>

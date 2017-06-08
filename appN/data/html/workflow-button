@@ -1,0 +1,1 @@
+<button type="button" onclick="getForm('/user?action=[@action@]\&control=[@logincontrol@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>&nbsp;|&nbsp;

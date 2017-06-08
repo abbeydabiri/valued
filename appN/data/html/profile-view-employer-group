@@ -1,0 +1,8 @@
+<!doctype html>
+
+<div class="col-sm-6 col-md-4 col-lg-4">
+	<div class="form-group">
+		<input class="" type="checkbox" [@state@] disabled/> [@title@]  <small><i>[@isprimary@]</i></small>
+	</div>
+</div>
+

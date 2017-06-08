@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<body>
+		Hello [@merchant@],
+		<br><br>
+		
+		Valued Admin: <b>[@username@]</b> has activated Reward <b>[@reward@]</b>:
+		<br><br> 
+
+		<a href='https://app.valued.com/?a=app-reward&searchtext=[@reward@]'>Click Here to view reward</a>
+		<br><br> 
+
+		Reward Details <br>
+		- - - - - - - - 
+		<br><br> 
+		Title: [@reward@]
+		Redemption Method: [@method@]
+		Starts: [@startdate@]
+		Expires: [@enddate@]
+
+
+		<i><small>This e-mail has been generated automatically. Please, do not reply to this message.</small></i>
+	</body>
+</html>

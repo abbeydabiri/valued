@@ -1,0 +1,18 @@
+<!doctype html>
+<tr>
+	<td><input name="control" value="[@control@]" type="checkbox"> [@title@] </td>
+	<td>[@industry@]</td>
+	<td>[@firstname@]</td>
+	<td>[@lastname@]</td>
+	<td>[@workflow@]</td>
+	<td class="pull-right">
+		<button type="button" onclick="getForm('/pendingapproval?action=view\&control=[@control@]')" class="btn-xs btn-raise btn btn-info btn-fill">View</button>
+		&nbsp;
+		<button type="button" onclick="getForm('/pendingapproval?action=edit\&control=[@control@]')" class="btn-xs btn-raise btn btn-warning btn-fill">Edit</button>
+		&nbsp;
+		<button type="button" onclick="getForm('/pendingapproval?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn-raise btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+	</td>
+</tr>
+<tr>
+	<td colspan="6"> <small> Email: <b>[@email@]</b> - Phone: <b>[@phone@]</b> - Commercialized: <b>[@commercialized@]</b> - Expiry: <b>[@expirydate@]</b> </small></td>
+</tr>

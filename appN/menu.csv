@@ -1,0 +1,24 @@
+placement,code,parent,role,title,icon,action
+1,merchant,,admin,Merchants,pe-7s-cart,merchant
+2,employer,,admin,Employers,pe-7s-id,employer
+3,subscription,,admin,Subscription,fa fa-check-square-o,subscription
+4,referral,,admin,Referral,fa fa-share-square-o,referral
+5,reward,,admin,Rewards,pe-7s-gift,reward
+6,scheme,,admin,Schemes,pe-7s-science,scheme
+7,group,,admin,Groups,pe-7s-users,group
+8,store,,admin,Stores,pe-7s-map-marker,store
+9,report,,admin,Report,fa fa-bar-chart,report
+10,member,,admin,User Administration,pe-7s-user,member
+
+1,profile,,merchant,Merchant Profile,pe-7s-user,profile
+2,validatecoupon,,merchant,Validate Reward,pe-7s-science,validatecoupon
+3,changepin,,merchant,Change Pin,pe-7s-lock,changepin
+4,merchantstore,,merchant,Stores,pe-7s-cart,merchantstore
+5,merchantreward,,merchant,Rewards,pe-7s-gift,merchantreward
+6,merchantreport,,merchant,Report,fa fa-bar-chart,merchantreport
+7,member,,merchant,User Administration,pe-7s-user,member
+
+1,profile,,employer,Employer Profile,pe-7s-user,profile
+2,employee,,employer,Manage Employees,pe-7s-users,employee
+3,employerreport,,employer,Report,fa fa-bar-chart,employerreport
+4,member,,employer,User Administration,pe-7s-user,member

@@ -1,0 +1,7 @@
+<script>
+function checkValuedCode() {
+	quickForm('/app-redeem?action=checkValuedCode')
+}
+clearInterval(checkValuedCodeTimer);
+var checkValuedCodeTimer = window.setInterval('checkValuedCode()', 5000);
+</script>

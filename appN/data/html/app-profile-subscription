@@ -1,0 +1,4 @@
+<span class="blackText">Membership Type:</span> [@schemetitle@] <br>
+<span class="blackText">Membership Number:</span> [@code@] <br>
+<span class="blackText">Expires On:</span> [@expirydate@]
+<hr>

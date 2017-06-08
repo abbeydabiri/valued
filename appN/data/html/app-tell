@@ -1,0 +1,46 @@
+<!doctype html>
+
+<div class="wrapper">	
+	
+
+	<div class="appContent appSchemeBG">
+
+		<br><br>		<br>
+		<div class="appSchemeBox">
+					
+
+					<div class="giftChoose">
+					<div class="titleBck">
+						<h3>TELL A FRIEND</h3>
+						Thank you for recommending VALUED.  Please fill in your friend’s details and send them a personalised message.
+					</div>
+
+					<br>
+
+					<form class="form" method="post" action="/app-tell">
+						<input type="hidden" name="action" value="tell">
+						<div class="friendForm">
+							<input type="text" class="form-control border-input" placeholder="Friends Name *" required name="friendfirstname"> <br>
+							<input type="text" class="form-control border-input" placeholder="Friends Surname" required name="friendlastname"> <br>
+							<input type="email" class="form-control border-input" placeholder="Friends Email *" required name="friendemail" > <br>
+							<textarea class="form-control broder-input" name="friendmessage" placeholder="Message"></textarea>
+						</div>	
+						<br>
+						<div class="text-center">
+							<button type="submit" class="schemeBtn text-center" id="tellButton">SEND</button> 
+						</div>
+					</form>
+					
+				<br><br>
+			</div>
+		</div>
+	</div>
+	[@app-footer@]
+</div>
+
+<script>
+	$('#friendName').keyup(function() {
+		$('#tellButton').html('Tell '+$('#friendName').val());
+	});
+	
+</script>

@@ -1,0 +1,126 @@
+<!doctype html>
+
+<div class="sidebar" data-color="gray" data-image="files/img/sidebar.jpg">
+
+	<div class="sidebar-wrapper">
+		<ul class="nav">
+			<li class="">
+				<a href="javascript:getForm('/merchant')">
+					<i class="pe-7s-cart"></i>
+					<p>Merchants</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:getForm('/employer')">
+					<i class="pe-7s-id"></i>
+					<p>Employers</p>
+				</a>
+			</li>
+			
+			<li>
+				<a href="javascript:getForm('/subscription')">
+					<i class="pe-7s-gift"></i>
+					<p>Subscription</p>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:getForm('/referral')">
+					<i class="pe-7s-gift"></i>
+					<p>Referral</p>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:getForm('/reward')">
+					<i class="pe-7s-gift"></i>
+					<p>Rewards</p>
+				</a>
+			</li>
+		
+			<li>
+				<a href="javascript:getForm('/scheme')">
+					<i class="pe-7s-science"></i>
+					<p>Schemes</p>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:getForm('/group')">
+					<i class="pe-7s-users"></i>
+					<p>Groups</p>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:getForm('/store')">
+					<i class="pe-7s-map-marker"></i>
+					<p>Stores</p>
+				</a>
+			</li>
+			
+			<li>
+				<a href="javascript:getForm('/report')">
+					<i class="pe-7s-map-marker"></i>
+					<p>Report</p>
+				</a>
+			</li>
+
+			<li>
+				<a href="javascript:getForm('/member')">
+					<i class="pe-7s-user"></i>
+					<p>User Administration</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<div class="main-panel">
+	<nav class="navbar navbar-default navbar-fixed">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" id="">
+					<img src="../files/img/logo_black.png"  class="" width="150"/>
+				</a>
+
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+					   <a href="http://www.valued.com/support" target="_blank">
+						   Support
+						</a>
+					</li>
+					<li>
+					   <a href="javascript:void(0)" onclick="getForm('/password')">
+						   Change Password
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" onclick="getForm('/logout')">
+							Log out
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="mainpanelContent" style="padding-top:30px"></div>
+</div>
+<script>
+	if(window_width <= 991){
+		navbar_initialized = false;
+	    lbd.initRightMenu();   
+	}
+
+	$('#appcontainer').removeClass('appcontainer');
+</script>

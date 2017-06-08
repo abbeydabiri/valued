@@ -1,0 +1,208 @@
+<!doctype html>
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<div class="col-md-6">
+							<h4 style="" class="title"><small>View Member <br><b>[@title@] [@firstname@] [@lastname@]</b></small></h4>
+						</div>
+
+						<div class="col-md-6">
+						<div class="pull-right">
+							<button style="" type="button" onclick="javascript:getForm('/member?action=new')" class="btn-xs btn btn-info btn-fill">New</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/member?action=edit\&control=[@control@]')" class="btn-xs btn btn-warning btn-fill">Edit</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/member?action=[@actionView@]\&control=[@control@]')" class="btn-xs btn btn-[@actionColor@] btn-fill">[@actionLabel@]</button>
+
+							<button type="button" onclick="javascript:getForm('/member?action=sendWelcomeMail\&control=[@control@]')" class="btn-xs btn-raise btn btn-success btn-fill">Send Welcome EMail</button>							
+							
+						</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="content">
+						
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="imagebox">
+									<div class="imgthumb">
+										<img src="[@image@]">
+									</div>
+									<div class="caption">
+										[@title@] [@firstname@] [@lastname@] <br>
+									</div>
+								</div>
+								<br>
+							</div>
+							<div class="col-sm-1">
+								<button type="button" onclick="javascript:alert('Development in Progress')" class="btn-xs btn btn-info btn-fill">Add Media</button>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Member Since</label>
+									<br>[@createdate@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Membership Status</label>
+									<br> [@workflow@]
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Profile Role</label>
+								</div>
+								<div class="clearfix"></div>
+								[@role-view-checkbox@]
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>PIN</label>
+									<br>[@pincode@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Username</label>
+									<br>[@username@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Password</label>
+									<br>********
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Account Status</label>
+									<br> [@status@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Employer/Merchant</label> 
+									<br> [@employertitle@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Employee ID</label> 
+									<br> [@code@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Title</label>
+									<br>[@title@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>First Name</label>
+									<br>[@firstname@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Surname</label>
+									<br>[@lastname@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Date of Birth</label>
+									<br>[@dob@] - [@age@] Yrs
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Nationality</label> 
+									<br> [@nationality@]
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>Phone</label>
+									<br>([@phonecode@]) [@phone@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Email</label>
+									<br>[@email@]
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Member Groups</label>
+								</div>
+								<div class="clearfix"></div>
+								[@member-view-group@]
+							</div>
+						</div>
+						
+
+						<div id="subedit"></div>
+						<div id="subview"></div>
+
+						<center>
+							<button style="" type="button" onclick="closeView()" class="btn-xs btn btn-warning btn-fill">Close</button>
+							&nbsp;
+							<button style="" type="button" onclick="javascript:getForm('/member?action=view\&control=[@control@]')" class="btn-xs btn btn-info btn-fill">Refresh</button>
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	defaultImage('.imagebox');
+	getForm('/member?action=viewSubscription&member=[@control@]');
+</script>
+

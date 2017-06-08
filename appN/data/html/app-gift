@@ -1,0 +1,119 @@
+<!doctype html>
+
+<div class="wrapper">		
+	<div class="appContent appSchemeBG">
+		<br><br>		<br>
+			<div class="appSchemeBox">
+				
+				<div class="giftChoose">
+					<div class="titleBck">
+						<h3>GIFT A MEMBERSHIP</h3>
+						Please choose a scheme and provide us with the information below. After you completed the payment process we will e-mail this person your personal message and a unique access code.
+					</div>
+				</div>
+
+				<div>
+				<form class="form" method="post" action="/app-gift">
+					<input type="hidden" name="action" value="gift">
+												
+					
+					<div class="schemeChoice">
+						[@app-subscribe-option@]
+					</div>
+					
+					<div class="friendForm">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" class="form-control" name="sendersname" required="" placeholder="Enter Senders Name" value="[@sendersname@]">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="email" class="form-control" name="sendersemail"  required="" placeholder="Enter Senders Email" value="[@sendersemail@]">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									  <input type="text" class="form-control" name="friendfirstname" required="" placeholder="Enter Friend's Name">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" class="form-control" name="friendlastname"  required="" placeholder="Enter Friend's Surname">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="email" class="form-control" name="friendemail"  required="" placeholder="Enter Friend's Email">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<textarea class="form-control broder-input" name="message" rows="4" placeholder="You're VALUED - enjoy the rewards this brings!"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row appgift">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input class="pull-left" id="above18" type="checkbox" value="Yes" checked="checked" name="above18"> 
+									<span id="above18Label" class="pull-left">I am Over 18 Years of Age</span>
+								</div>
+							</div>
+						</div>
+						<div class="row appgift">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input class="pull-left" id="terms" type="checkbox" value="Yes" checked="checked" name="terms"> 
+									<span id="termsLabel" class="pull-left">I accept the <label class="labelInfo" onclick="getForm('/app-terms')">Valued Terms and Conditions</label></span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="text-center spaceTop">
+						<button class="schemeBtn" type="submit">GIFT MEMBERSHIP</button> <br>
+					</div>
+				</form>
+				</div>
+<br>
+				<img src="files/img/mastercard.png" alt="mastercard" width="50" height="32">
+				<img src="files/img/visa.png" alt="visa" width="50" height="32">
+				<br><br>
+			</div>
+			<br>&nbsp;
+		
+	</div>
+	[@app-footer@]
+</div>
+
+<script>
+	$("#above18Label").click(function() {
+		var checkBoxes = $("#above18");
+		checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+	});
+
+	$("#termsLabel").click(function() {
+		var checkBoxes = $("#terms");
+		checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+	});
+</script>

@@ -1,0 +1,3 @@
+<!doctype html>
+<button class="redeemBtn" onclick="getForm('/app-profile?action=redemption');" class="profileChangePwdBtn">MY SAVINGS</button>
+</br>
