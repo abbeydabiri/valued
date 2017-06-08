@@ -1,0 +1,6 @@
+app/Valued.tmp
+app/Valued.elf
+app/log/
+terminal.glue
+valuedDB
+.DS_Store
