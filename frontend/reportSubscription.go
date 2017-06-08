@@ -67,15 +67,18 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 	sqlUsersPaidTotal := `select count(control) as userspaidtotal from profile where company != 'Yes' and workflow in ('paid','subscribed','subscribed-pending' )`
 	mapUsersPaidTotal, _ := curdb.Query(sqlUsersPaidTotal)
 	mapReport["userspaidtotal"] = float64(0)
+	fUSERSPAIDTOTAL := float64(0)
 	if mapUsersPaidTotal["1"] != nil {
 		mapUsersPaidTotalxDoc := mapUsersPaidTotal["1"].(map[string]interface{})
 		switch mapUsersPaidTotalxDoc["userspaidtotal"].(type) {
 		case string:
 			mapReport["userspaidtotal"] = float64(0)
 		case int64:
-			mapReport["userspaidtotal"] = functions.ThousandSeperator(functions.Round(float64(mapUsersPaidTotalxDoc["userspaidtotal"].(int64))))
+			fUSERSPAIDTOTAL = functions.Round(float64(mapUsersPaidTotalxDoc["userspaidtotal"].(int64)))
+			mapReport["userspaidtotal"] = functions.ThousandSeperator(fUSERSPAIDTOTAL)
 		case float64:
-			mapReport["userspaidtotal"] = functions.ThousandSeperator(functions.Round(mapUsersPaidTotalxDoc["userspaidtotal"].(float64)))
+			fUSERSPAIDTOTAL = functions.Round(mapUsersPaidTotalxDoc["userspaidtotal"].(float64))
+			mapReport["userspaidtotal"] = functions.ThousandSeperator(fUSERSPAIDTOTAL)
 		}
 	}
 
@@ -328,7 +331,7 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 
 	//
 	//Number of Redeemed Rewards
-	sqlNumRedeemedLiteTotal := `select count(distinct rewardcontrol) as numredeemedlitetotal from redemption where schemecontrol = (select control from scheme where code = 'lite')`
+	sqlNumRedeemedLiteTotal := `select count(rewardcontrol) as numredeemedlitetotal from redemption where schemecontrol = (select control from scheme where code = 'lite')`
 
 	mapNumRedeemedLiteTotal, _ := curdb.Query(sqlNumRedeemedLiteTotal)
 	mapReport["numredeemedlitetotal"] = float64(0)
@@ -344,7 +347,7 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlNumRedeemedLifestyleTotal := `select count(distinct rewardcontrol) as numredeemedlifestyletotal from redemption where schemecontrol = (select control from scheme where code = 'lifestyle')`
+	sqlNumRedeemedLifestyleTotal := `select count(rewardcontrol) as numredeemedlifestyletotal from redemption where schemecontrol = (select control from scheme where code = 'lifestyle')`
 
 	mapNumRedeemedLifestyleTotal, _ := curdb.Query(sqlNumRedeemedLifestyleTotal)
 	mapReport["numredeemedlifestyletotal"] = float64(0)
@@ -360,7 +363,7 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlNumRedeemedBritishMumsTotal := `select count(distinct rewardcontrol) as numredeemedbritishmumstotal from redemption where schemecontrol = (select control from scheme where code = 'britishmums')`
+	sqlNumRedeemedBritishMumsTotal := `select count(rewardcontrol) as numredeemedbritishmumstotal from redemption where schemecontrol = (select control from scheme where code = 'britishmums')`
 
 	mapNumRedeemedBritishMumsTotal, _ := curdb.Query(sqlNumRedeemedBritishMumsTotal)
 	mapReport["numredeemedbritishmumstotal"] = float64(0)
@@ -383,8 +386,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 
 	//
 	//AVERAGE SAVINGs per Redeemed Rewards
-	sqlAvgSavingsPerRewardLiteTotal := `select sum(savingsvalue) / count(distinct rewardcontrol) as avgsavingperrewardlitetotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))`
+	sqlAvgSavingsPerRewardLiteTotal := `select sum(savingsvalue) / count(rewardcontrol) as avgsavingperrewardlitetotal from redemption where 
+	schemecontrol = (select control from scheme where code = 'lite')`
 
 	mapAvgSavingsPerRewardLiteTotal, _ := curdb.Query(sqlAvgSavingsPerRewardLiteTotal)
 	mapReport["avgsavingperrewardlitetotal"] = float64(0)
@@ -400,8 +403,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlAvgSavingsPerRewardLifestyleTotal := `select sum(savingsvalue) / count(distinct rewardcontrol) as avgsavingperrewardlifestyletotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))`
+	sqlAvgSavingsPerRewardLifestyleTotal := `select sum(savingsvalue) / count(rewardcontrol) as avgsavingperrewardlifestyletotal from redemption where 
+	schemecontrol = (select control from scheme where code = 'lifestyle')`
 
 	mapAvgSavingsPerRewardLifestyleTotal, _ := curdb.Query(sqlAvgSavingsPerRewardLifestyleTotal)
 	mapReport["avgsavingperrewardlifestyletotal"] = float64(0)
@@ -417,8 +420,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlAvgSavingsPerRewardBritishMumsTotal := `select sum(savingsvalue) / count(distinct rewardcontrol) as avgsavingperrewardbritishmumstotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))`
+	sqlAvgSavingsPerRewardBritishMumsTotal := `select sum(savingsvalue) / count(rewardcontrol) as avgsavingperrewardbritishmumstotal from redemption where 
+	schemecontrol = (select control from scheme where code = 'britishmums')`
 
 	mapAvgSavingsPerRewardBritishMumsTotal, _ := curdb.Query(sqlAvgSavingsPerRewardBritishMumsTotal)
 	mapReport["avgsavingperrewardbritishmumstotal"] = float64(0)
@@ -441,8 +444,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 
 	//
 	//AVERAGE SAVINGs per Employee
-	sqlAvgSavingsPerEmployeeLiteTotal := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelitetotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))`
+	sqlAvgSavingsPerEmployeeLiteTotal := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelitetotal from redemption where 
+	schemecontrol = (select control from scheme where code = 'lite')`
 
 	mapAvgSavingsPerEmployeeLiteTotal, _ := curdb.Query(sqlAvgSavingsPerEmployeeLiteTotal)
 	mapReport["avgsavingperemployeelitetotal"] = float64(0)
@@ -458,8 +461,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlAvgSavingsPerEmployeeLifestyleTotal := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelifestyletotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))`
+	sqlAvgSavingsPerEmployeeLifestyleTotal := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelifestyletotal from redemption where 
+	schemecontrol = (select control from scheme where code = 'lifestyle')`
 
 	mapAvgSavingsPerEmployeeLifestyleTotal, _ := curdb.Query(sqlAvgSavingsPerEmployeeLifestyleTotal)
 	mapReport["avgsavingperemployeelifestyletotal"] = float64(0)
@@ -475,8 +478,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlAvgSavingsPerEmployeeBritishMumsTotal := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelbritishmumstotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))`
+	sqlAvgSavingsPerEmployeeBritishMumsTotal := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelbritishmumstotal from redemption where
+	schemecontrol = (select control from scheme where code = 'britishmums')`
 
 	mapAvgSavingsPerEmployeeBritishMumsTotal, _ := curdb.Query(sqlAvgSavingsPerEmployeeBritishMumsTotal)
 	mapReport["avgsavingperemployeelbritishmumstotal"] = float64(0)
@@ -499,8 +502,7 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 
 	//
 	//Total Saving
-	sqlSavingLiteTotal := `select sum(savingsvalue) as savinglitetotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))`
+	sqlSavingLiteTotal := `select sum(savingsvalue) as savinglitetotal from redemption where schemecontrol = (select control from scheme where code = 'lite')`
 
 	mapSavingLiteTotal, _ := curdb.Query(sqlSavingLiteTotal)
 	mapReport["savinglitetotal"] = float64(0)
@@ -516,8 +518,7 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlSavingLifestyleTotal := `select sum(savingsvalue) as savinglifestyletotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))`
+	sqlSavingLifestyleTotal := `select sum(savingsvalue) as savinglifestyletotal from redemption where schemecontrol = (select control from scheme where code = 'lifestyle')`
 
 	mapSavingLifestyleTotal, _ := curdb.Query(sqlSavingLifestyleTotal)
 	mapReport["savinglifestyletotal"] = float64(0)
@@ -533,8 +534,7 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlSavingBritishMumsTotal := `select sum(savingsvalue) as savingbritishmumstotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))`
+	sqlSavingBritishMumsTotal := `select sum(savingsvalue) as savingbritishmumstotal from redemption where schemecontrol = (select control from scheme where code = 'britishmums')`
 
 	mapSavingBritishMumsTotal, _ := curdb.Query(sqlSavingBritishMumsTotal)
 	mapReport["savingbritishmumstotal"] = float64(0)
@@ -559,9 +559,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 	sStartdate := time.Now().Add(-(time.Hour * 24 * 365)).Format(cFormat)
 
 	//Last Year Saving
-	sqlYearSavingLiteTotal := fmt.Sprintf(`select sum(savingsvalue) as yearsavinglitetotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))
-	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
+	sqlYearSavingLiteTotal := fmt.Sprintf(`select sum(savingsvalue) as yearsavinglitetotal from redemption where schemecontrol = 
+		(select control from scheme where code = 'lite') and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
 
 	mapYearSavingLiteTotal, _ := curdb.Query(sqlYearSavingLiteTotal)
 	mapReport["yearsavinglitetotal"] = float64(0)
@@ -577,9 +576,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlYearSavingLifestyleTotal := fmt.Sprintf(`select sum(savingsvalue) as yearsavinglifestyletotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))
-	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
+	sqlYearSavingLifestyleTotal := fmt.Sprintf(`select sum(savingsvalue) as yearsavinglifestyletotal from redemption where schemecontrol = 
+		(select control from scheme where code = 'lifestyle') and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
 
 	mapYearSavingLifestyleTotal, _ := curdb.Query(sqlYearSavingLifestyleTotal)
 	mapReport["yearsavinglifestyletotal"] = float64(0)
@@ -595,9 +593,8 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	sqlYearSavingBritishMumsTotal := fmt.Sprintf(`select sum(savingsvalue) as yearsavingbritishmumstotal from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))
-	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
+	sqlYearSavingBritishMumsTotal := fmt.Sprintf(`select sum(savingsvalue) as yearsavingbritishmumstotal from redemption where schemecontrol = 
+		(select control from scheme where code = 'britishmums')	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
 
 	mapYearSavingBritishMumsTotal, _ := curdb.Query(sqlYearSavingBritishMumsTotal)
 	mapReport["yearsavingbritishmumstotal"] = float64(0)
@@ -652,543 +649,352 @@ func (this *Report) subscription(httpRes http.ResponseWriter, httpReq *http.Requ
 		}
 	}
 
-	mapReport["percentofsubscriberssavingsvscostsemployer"] = functions.RoundUp(float64(len(mapSavingsEmployerGreater)*100)/float64(len(aPercentSubscribersSavingsEmployerSorted)), 0)
+	mapReport["percentofsubscriberssavingsvscostsemployer"] = float64(0)
+
+	if len(mapSavingsEmployerGreater) > 0 {
+		mapReport["percentofsubscriberssavingsvscostsemployer"] = functions.RoundUp(float64(len(mapSavingsEmployerGreater)*100)/float64(len(aPercentSubscribersSavingsEmployerSorted)), 0)
+	}
 
 	// % OF SUBSCRIBERS WITH A GREATER SAVINGS AMOUNT THAN THE COST OF MEMBERSHIP
 	//
 
 	//
+	//
 	// Number of Users - Pending / Paid / Expired
 
-	sqlUsersPendingLiteEmployer := `select count(control) as userspendingliteemployer from profile where company != 'Yes' and workflow = 'pending' 
-									and employercontrol not in (select control from profile where code in ('main','britishmums'))
-									and control in (
-										select distinct membercontrol from subscription
-										where workflow = 'inactive' and expirydate::timestamp > '%s'::timestamp
-										and schemecontrol = (select control from scheme where code = 'lite')
-									)`
-	mapUsersPendingLiteEmployer, _ := curdb.Query(fmt.Sprintf(sqlUsersPendingLiteEmployer, time.Now().Format(cFormat)))
-	mapReport["userspendingliteemployer"] = float64(0)
-	if mapUsersPendingLiteEmployer["1"] != nil {
-		mapUsersPendingLiteEmployerxDoc := mapUsersPendingLiteEmployer["1"].(map[string]interface{})
-		switch mapUsersPendingLiteEmployerxDoc["userspendingliteemployer"].(type) {
+	sqlSubscriptionsPendingLiteEmployer := `select count(control) as subscriptionspendingliteemployer from subscription
+									where workflow = 'inactive' and expirydate::timestamp > '%s'::timestamp
+									and schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapSubscriptionsPendingLiteEmployer, _ := curdb.Query(fmt.Sprintf(sqlSubscriptionsPendingLiteEmployer, time.Now().Format(cFormat)))
+	mapReport["subscriptionspendingliteemployer"] = float64(0)
+	if mapSubscriptionsPendingLiteEmployer["1"] != nil {
+		mapSubscriptionsPendingLiteEmployerxDoc := mapSubscriptionsPendingLiteEmployer["1"].(map[string]interface{})
+		switch mapSubscriptionsPendingLiteEmployerxDoc["subscriptionspendingliteemployer"].(type) {
 		case string:
-			mapReport["userspendingliteemployer"] = float64(0)
+			mapReport["subscriptionspendingliteemployer"] = float64(0)
 		case int64:
-			mapReport["userspendingliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersPendingLiteEmployerxDoc["userspendingliteemployer"].(int64))))
+			mapReport["subscriptionspendingliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSubscriptionsPendingLiteEmployerxDoc["subscriptionspendingliteemployer"].(int64))))
 		case float64:
-			mapReport["userspendingliteemployer"] = functions.ThousandSeperator(functions.Round(mapUsersPendingLiteEmployerxDoc["userspendingliteemployer"].(float64)))
+			mapReport["subscriptionspendingliteemployer"] = functions.ThousandSeperator(functions.Round(mapSubscriptionsPendingLiteEmployerxDoc["subscriptionspendingliteemployer"].(float64)))
 		}
 	}
 
-	sqlUsersPendingLifestyleEmployer := `select count(control) as userspendinglifestyleemployer from profile where company != 'Yes' and workflow = 'pending' 
-									and employercontrol not in (select control from profile where code in ('main','britishmums'))
-									and control in (
-										select distinct membercontrol from subscription
-										where workflow = 'inactive' and expirydate::timestamp > '%s'::timestamp
-										and schemecontrol = (select control from scheme where code = 'lifestyle')
-									)`
-	mapUsersPendingLifestyleEmployer, _ := curdb.Query(fmt.Sprintf(sqlUsersPendingLifestyleEmployer, time.Now().Format(cFormat)))
-	mapReport["userspendinglifestyleemployer"] = float64(0)
-	if mapUsersPendingLifestyleEmployer["1"] != nil {
-		mapUsersPendingLifestyleEmployerxDoc := mapUsersPendingLifestyleEmployer["1"].(map[string]interface{})
-		switch mapUsersPendingLifestyleEmployerxDoc["userspendinglifestyleemployer"].(type) {
+	sqlSubscriptionsPendingLifestyleEmployer := `select count(control) as subscriptionspendinglifestyleemployer from subscription
+									where workflow = 'inactive' and expirydate::timestamp > '%s'::timestamp
+									and schemecontrol = (select control from scheme where code = 'lifestyle')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapSubscriptionsPendingLifestyleEmployer, _ := curdb.Query(fmt.Sprintf(sqlSubscriptionsPendingLifestyleEmployer, time.Now().Format(cFormat)))
+	mapReport["subscriptionspendinglifestyleemployer"] = float64(0)
+	if mapSubscriptionsPendingLifestyleEmployer["1"] != nil {
+		mapSubscriptionsPendingLifestyleEmployerxDoc := mapSubscriptionsPendingLifestyleEmployer["1"].(map[string]interface{})
+		switch mapSubscriptionsPendingLifestyleEmployerxDoc["subscriptionspendinglifestyleemployer"].(type) {
 		case string:
-			mapReport["userspendinglifestyleemployer"] = float64(0)
+			mapReport["subscriptionspendinglifestyleemployer"] = float64(0)
 		case int64:
-			mapReport["userspendinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersPendingLifestyleEmployerxDoc["userspendinglifestyleemployer"].(int64))))
+			mapReport["subscriptionspendinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSubscriptionsPendingLifestyleEmployerxDoc["subscriptionspendinglifestyleemployer"].(int64))))
 		case float64:
-			mapReport["userspendinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapUsersPendingLifestyleEmployerxDoc["userspendinglifestyleemployer"].(float64)))
+			mapReport["subscriptionspendinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapSubscriptionsPendingLifestyleEmployerxDoc["subscriptionspendinglifestyleemployer"].(float64)))
 		}
 	}
 
-	sqlUsersPaidLiteEmployer := `select count(control) as userspaidliteemployer from profile where company != 'Yes' and workflow in ('paid','subscribed','subscribed-paid' ) 
-									and employercontrol not in (select control from profile where code in ('main','britishmums'))
-									and control in (
-										select distinct membercontrol from subscription
-										where workflow = 'active' and expirydate::timestamp > '%s'::timestamp
-										and schemecontrol = (select control from scheme where code = 'lite')
-									)`
-	mapUsersPaidLiteEmployer, _ := curdb.Query(fmt.Sprintf(sqlUsersPaidLiteEmployer, time.Now().Format(cFormat)))
-	mapReport["userspaidliteemployer"] = float64(0)
-	if mapUsersPaidLiteEmployer["1"] != nil {
-		mapUsersPaidLiteEmployerxDoc := mapUsersPaidLiteEmployer["1"].(map[string]interface{})
-		switch mapUsersPaidLiteEmployerxDoc["userspaidliteemployer"].(type) {
+	sqlSubscriptionsPaidLiteEmployer := `select count(control) as subscriptionspaidliteemployer from subscription
+									where workflow in ('paid','active' ) and expirydate::timestamp > '%s'::timestamp
+									and schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapSubscriptionsPaidLiteEmployer, _ := curdb.Query(fmt.Sprintf(sqlSubscriptionsPaidLiteEmployer, time.Now().Format(cFormat)))
+	mapReport["subscriptionspaidliteemployer"] = float64(0)
+	if mapSubscriptionsPaidLiteEmployer["1"] != nil {
+		mapSubscriptionsPaidLiteEmployerxDoc := mapSubscriptionsPaidLiteEmployer["1"].(map[string]interface{})
+		switch mapSubscriptionsPaidLiteEmployerxDoc["subscriptionspaidliteemployer"].(type) {
 		case string:
-			mapReport["userspaidliteemployer"] = float64(0)
+			mapReport["subscriptionspaidliteemployer"] = float64(0)
 		case int64:
-			mapReport["userspaidliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersPaidLiteEmployerxDoc["userspaidliteemployer"].(int64))))
+			mapReport["subscriptionspaidliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSubscriptionsPaidLiteEmployerxDoc["subscriptionspaidliteemployer"].(int64))))
 		case float64:
-			mapReport["userspaidliteemployer"] = functions.ThousandSeperator(functions.Round(mapUsersPaidLiteEmployerxDoc["userspaidliteemployer"].(float64)))
+			mapReport["subscriptionspaidliteemployer"] = functions.ThousandSeperator(functions.Round(mapSubscriptionsPaidLiteEmployerxDoc["subscriptionspaidliteemployer"].(float64)))
 		}
 	}
 
-	sqlUsersPaidLifestyleEmployer := `select count(control) as userspaidlifestyleemployer from profile where company != 'Yes' and workflow in ('paid','subscribed','subscribed-paid' ) 
-									and employercontrol not in (select control from profile where code in ('main','britishmums'))
-									and control in (
-										select distinct membercontrol from subscription
-										where workflow = 'active' and expirydate::timestamp > '%s'::timestamp
-										and schemecontrol = (select control from scheme where code = 'lifestyle')
-									)`
-	mapUsersPaidLifestyleEmployer, _ := curdb.Query(fmt.Sprintf(sqlUsersPaidLifestyleEmployer, time.Now().Format(cFormat)))
-	mapReport["userspaidlifestyleemployer"] = float64(0)
-	if mapUsersPaidLifestyleEmployer["1"] != nil {
-		mapUsersPaidLifestyleEmployerxDoc := mapUsersPaidLifestyleEmployer["1"].(map[string]interface{})
-		switch mapUsersPaidLifestyleEmployerxDoc["userspaidlifestyleemployer"].(type) {
+	sqlSubscriptionsPaidLifestyleEmployer := `select count(control) as subscriptionspaidliteemployer from subscription
+									where workflow in ('paid','active' ) and expirydate::timestamp > '%s'::timestamp
+									and schemecontrol = (select control from scheme where code = 'lifestyle')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapSubscriptionsPaidLifestyleEmployer, _ := curdb.Query(fmt.Sprintf(sqlSubscriptionsPaidLifestyleEmployer, time.Now().Format(cFormat)))
+	mapReport["subscriptionspaidlifestyleemployer"] = float64(0)
+	if mapSubscriptionsPaidLifestyleEmployer["1"] != nil {
+		mapSubscriptionsPaidLifestyleEmployerxDoc := mapSubscriptionsPaidLifestyleEmployer["1"].(map[string]interface{})
+		switch mapSubscriptionsPaidLifestyleEmployerxDoc["subscriptionspaidlifestyleemployer"].(type) {
 		case string:
-			mapReport["userspaidlifestyleemployer"] = float64(0)
+			mapReport["subscriptionspaidlifestyleemployer"] = float64(0)
 		case int64:
-			mapReport["userspaidlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersPaidLifestyleEmployerxDoc["userspaidlifestyleemployer"].(int64))))
+			mapReport["subscriptionspaidlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSubscriptionsPaidLifestyleEmployerxDoc["subscriptionspaidlifestyleemployer"].(int64))))
 		case float64:
-			mapReport["userspaidlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapUsersPaidLifestyleEmployerxDoc["userspaidlifestyleemployer"].(float64)))
+			mapReport["subscriptionspaidlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapSubscriptionsPaidLifestyleEmployerxDoc["subscriptionspaidlifestyleemployer"].(float64)))
 		}
 	}
 
-	sqlUsersExpiredLiteEmployer := `select count(control) as usersexpiredliteemployer from profile where company != 'Yes' and workflow in ('expired') 
-									and employercontrol not in (select control from profile where code in ('main','britishmums'))
-									and control in (
-										select distinct membercontrol from subscription
-										where workflow = 'expired' and expirydate::timestamp < '%s'::timestamp
-										and schemecontrol = (select control from scheme where code = 'lite')
-									)`
-	mapUsersExpiredLiteEmployer, _ := curdb.Query(fmt.Sprintf(sqlUsersExpiredLiteEmployer, time.Now().Format(cFormat)))
-	mapReport["usersexpiredliteemployer"] = float64(0)
-	if mapUsersExpiredLiteEmployer["1"] != nil {
-		mapUsersExpiredLiteEmployerxDoc := mapUsersExpiredLiteEmployer["1"].(map[string]interface{})
-		switch mapUsersExpiredLiteEmployerxDoc["usersexpiredliteemployer"].(type) {
+	sqlSubscriptionsExpiredLiteEmployer := `select count(control) as subscriptionsexpiredliteemployer from subscription
+									where workflow = 'inactive' and expirydate::timestamp > '%s'::timestamp
+									and schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapSubscriptionsExpiredLiteEmployer, _ := curdb.Query(fmt.Sprintf(sqlSubscriptionsExpiredLiteEmployer, time.Now().Format(cFormat)))
+	mapReport["subscriptionsexpiredliteemployer"] = float64(0)
+	if mapSubscriptionsExpiredLiteEmployer["1"] != nil {
+		mapSubscriptionsExpiredLiteEmployerxDoc := mapSubscriptionsExpiredLiteEmployer["1"].(map[string]interface{})
+		switch mapSubscriptionsExpiredLiteEmployerxDoc["subscriptionsexpiredliteemployer"].(type) {
 		case string:
-			mapReport["usersexpiredliteemployer"] = float64(0)
+			mapReport["subscriptionsexpiredliteemployer"] = float64(0)
 		case int64:
-			mapReport["usersexpiredliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersExpiredLiteEmployerxDoc["usersexpiredliteemployer"].(int64))))
+			mapReport["subscriptionsexpiredliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSubscriptionsExpiredLiteEmployerxDoc["subscriptionsexpiredliteemployer"].(int64))))
 		case float64:
-			mapReport["usersexpiredliteemployer"] = functions.ThousandSeperator(functions.Round(mapUsersExpiredLiteEmployerxDoc["usersexpiredliteemployer"].(float64)))
+			mapReport["subscriptionsexpiredliteemployer"] = functions.ThousandSeperator(functions.Round(mapSubscriptionsExpiredLiteEmployerxDoc["subscriptionsexpiredliteemployer"].(float64)))
 		}
 	}
 
-	sqlUsersExpiredLifestyleEmployer := `select count(control) as usersexpiredlifestyleemployer from profile where company != 'Yes' and workflow in ('expired') 
-									and employercontrol not in (select control from profile where code in ('main','britishmums'))
-									and control in (
-										select distinct membercontrol from subscription
-										where workflow = 'expired' and expirydate::timestamp < '%s'::timestamp
-										and schemecontrol = (select control from scheme where code = 'lifestyle')
-									)`
-	mapUsersExpiredLifestyleEmployer, _ := curdb.Query(fmt.Sprintf(sqlUsersExpiredLifestyleEmployer, time.Now().Format(cFormat)))
-	mapReport["usersexpiredlifestyleemployer"] = float64(0)
-	if mapUsersExpiredLifestyleEmployer["1"] != nil {
-		mapUsersExpiredLifestyleEmployerxDoc := mapUsersExpiredLifestyleEmployer["1"].(map[string]interface{})
-		switch mapUsersExpiredLifestyleEmployerxDoc["usersexpiredlifestyleemployer"].(type) {
+	sqlSubscriptionsExpiredLifestyleEmployer := `select count(control) as subscriptionsexpiredlifestyleemployer from subscription
+									where workflow = 'inactive' and expirydate::timestamp > '%s'::timestamp
+									and schemecontrol = (select control from scheme where code = 'lifestyle')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapSubscriptionsExpiredLifestyleEmployer, _ := curdb.Query(fmt.Sprintf(sqlSubscriptionsExpiredLifestyleEmployer, time.Now().Format(cFormat)))
+	mapReport["subscriptionsexpiredlifestyleemployer"] = float64(0)
+	if mapSubscriptionsExpiredLifestyleEmployer["1"] != nil {
+		mapSubscriptionsExpiredLifestyleEmployerxDoc := mapSubscriptionsExpiredLifestyleEmployer["1"].(map[string]interface{})
+		switch mapSubscriptionsExpiredLifestyleEmployerxDoc["subscriptionsexpiredlifestyleemployer"].(type) {
 		case string:
-			mapReport["usersexpiredlifestyleemployer"] = float64(0)
+			mapReport["subscriptionsexpiredlifestyleemployer"] = float64(0)
 		case int64:
-			mapReport["usersexpiredlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersExpiredLifestyleEmployerxDoc["usersexpiredlifestyleemployer"].(int64))))
+			mapReport["subscriptionsexpiredlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSubscriptionsExpiredLifestyleEmployerxDoc["subscriptionsexpiredlifestyleemployer"].(int64))))
 		case float64:
-			mapReport["usersexpiredlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapUsersExpiredLifestyleEmployerxDoc["usersexpiredlifestyleemployer"].(float64)))
+			mapReport["subscriptionsexpiredlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapSubscriptionsExpiredLifestyleEmployerxDoc["subscriptionsexpiredlifestyleemployer"].(float64)))
 		}
 	}
 
+	// Number of Users - Pending / Paid / Expired
 	//
-	// Number of Registrations
-	sqlRegistrationLiteEmployer := `select count(control) as registrationsvaluedemployer from profile where company != 'Yes' and workflow = 'registered' 
-										and employercontrol in (select control from profile where code in ('main'))`
-	mapRegistrationLiteEmployer, _ := curdb.Query(sqlRegistrationLiteEmployer)
-	mapReport["registrationsvaluedemployer"] = float64(0)
-	if mapRegistrationLiteEmployer["1"] != nil {
-		mapRegistrationLiteEmployerxDoc := mapRegistrationLiteEmployer["1"].(map[string]interface{})
-		switch mapRegistrationLiteEmployerxDoc["registrationsvaluedemployer"].(type) {
-		case string:
-			mapReport["registrationsvaluedemployer"] = float64(0)
-		case int64:
-			mapReport["registrationsvaluedemployer"] = functions.ThousandSeperator(functions.Round(float64(mapRegistrationLiteEmployerxDoc["registrationsvaluedemployer"].(int64))))
-		case float64:
-			mapReport["registrationsvaluedemployer"] = functions.ThousandSeperator(functions.Round(mapRegistrationLiteEmployerxDoc["registrationsvaluedemployer"].(float64)))
-		}
-	}
-
-	sqlRegistrationLifestyleEmployer := `select count(control) as registrationsemployersemployer from profile where company != 'Yes' and workflow = 'registered' 
-										and employercontrol not in (select control from profile where code in ('main','britishmums'))`
-	mapRegistrationLifestyleEmployer, _ := curdb.Query(sqlRegistrationLifestyleEmployer)
-	mapReport["registrationsemployersemployer"] = float64(0)
-	if mapRegistrationLifestyleEmployer["1"] != nil {
-		mapRegistrationLifestyleEmployerxDoc := mapRegistrationLifestyleEmployer["1"].(map[string]interface{})
-		switch mapRegistrationLifestyleEmployerxDoc["registrationsemployersemployer"].(type) {
-		case string:
-			mapReport["registrationsemployersemployer"] = float64(0)
-		case int64:
-			mapReport["registrationsemployersemployer"] = functions.ThousandSeperator(functions.Round(float64(mapRegistrationLifestyleEmployerxDoc["registrationsemployersemployer"].(int64))))
-		case float64:
-			mapReport["registrationsemployersemployer"] = functions.ThousandSeperator(functions.Round(mapRegistrationLifestyleEmployerxDoc["registrationsemployersemployer"].(float64)))
-		}
-	}
-
-	sqlRegistrationBritishMumsEmployer := `select count(control) as registrationsbritishmumsemployer from profile where company != 'Yes' and workflow = 'registered' 
-										and employercontrol in (select control from profile where code in ('britishmums'))`
-	mapRegistrationBritishMumsEmployer, _ := curdb.Query(sqlRegistrationBritishMumsEmployer)
-	mapReport["registrationsbritishmumsemployer"] = float64(0)
-	if mapRegistrationBritishMumsEmployer["1"] != nil {
-		mapRegistrationBritishMumsEmployerxDoc := mapRegistrationBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapRegistrationBritishMumsEmployerxDoc["registrationsbritishmumsemployer"].(type) {
-		case string:
-			mapReport["registrationsbritishmumsemployer"] = float64(0)
-		case int64:
-			mapReport["registrationsbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(float64(mapRegistrationBritishMumsEmployerxDoc["registrationsbritishmumsemployer"].(int64))))
-		case float64:
-			mapReport["registrationsbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(mapRegistrationBritishMumsEmployerxDoc["registrationsbritishmumsemployer"].(float64)))
-		}
-	}
-
-	// Number of Registrations
 	//
 
 	//
-	// Number of Subscriptions
-	fSubscriptionsLiteEmployer := float64(0)
-	sqlSubscriptionsLiteEmployer := `select count(control) as subscriptionsliteemployer from subscription  where schemecontrol in (select control from scheme where code in ('lite'))`
-	mapSubscriptionsLiteEmployer, _ := curdb.Query(sqlSubscriptionsLiteEmployer)
-	mapReport["subscriptionsliteemployer"] = float64(0)
-	if mapSubscriptionsLiteEmployer["1"] != nil {
-		mapSubscriptionsLiteEmployerxDoc := mapSubscriptionsLiteEmployer["1"].(map[string]interface{})
-		switch mapSubscriptionsLiteEmployerxDoc["subscriptionsliteemployer"].(type) {
+	//
+	// Active Employees & Percentage of Employees
+	//
+	//
+
+	sqlUsersActiveLiteEmployer := `select count(distinct membercontrol) as usersactiveliteemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapUsersActiveLiteEmployer, _ := curdb.Query(sqlUsersActiveLiteEmployer)
+	mapReport["usersactiveliteemployer"] = float64(0)
+	fUSERSACTIVELITEEMPLOYER := float64(0)
+	if mapUsersActiveLiteEmployer["1"] != nil {
+		mapUsersActiveLiteEmployerxDoc := mapUsersActiveLiteEmployer["1"].(map[string]interface{})
+		switch mapUsersActiveLiteEmployerxDoc["usersactiveliteemployer"].(type) {
 		case string:
-			mapReport["subscriptionsliteemployer"] = float64(0)
+			mapReport["usersactiveliteemployer"] = float64(0)
 		case int64:
-			fSubscriptionsLiteEmployer = functions.Round(float64(mapSubscriptionsLiteEmployerxDoc["subscriptionsliteemployer"].(int64)))
-			mapReport["subscriptionsliteemployer"] = functions.ThousandSeperator(fSubscriptionsLiteEmployer)
+			fUSERSACTIVELITEEMPLOYER = functions.Round(float64(mapUsersActiveLiteEmployerxDoc["usersactiveliteemployer"].(int64)))
+			mapReport["usersactiveliteemployer"] = functions.ThousandSeperator(fUSERSACTIVELITEEMPLOYER)
 		case float64:
-			fSubscriptionsLiteEmployer = functions.Round(float64(mapSubscriptionsLiteEmployerxDoc["subscriptionsliteemployer"].(float64)))
-			mapReport["subscriptionsliteemployer"] = functions.ThousandSeperator(fSubscriptionsLiteEmployer)
+			fUSERSACTIVELITEEMPLOYER = functions.Round(mapUsersActiveLiteEmployerxDoc["usersactiveliteemployer"].(float64))
+			mapReport["usersactiveliteemployer"] = functions.ThousandSeperator(fUSERSACTIVELITEEMPLOYER)
 		}
 	}
 
-	fSubscriptionsLifestyleEmployer := float64(0)
-	sqlSubscriptionsLifestyleEmployer := `select count(control) as subscriptionslifestyleemployer from subscription  where schemecontrol in (select control from scheme where code in ('lifestyle'))`
-	mapSubscriptionsLifestyleEmployer, _ := curdb.Query(sqlSubscriptionsLifestyleEmployer)
-	mapReport["subscriptionslifestyleemployer"] = float64(0)
-	if mapSubscriptionsLifestyleEmployer["1"] != nil {
-		mapSubscriptionsLifestyleEmployerxDoc := mapSubscriptionsLifestyleEmployer["1"].(map[string]interface{})
-		switch mapSubscriptionsLifestyleEmployerxDoc["subscriptionslifestyleemployer"].(type) {
+	sqlUsersActiveLifestyleEmployer := `select count(distinct membercontrol) as usersactivelifestyleemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
+
+	mapUsersActiveLifestyleEmployer, _ := curdb.Query(sqlUsersActiveLifestyleEmployer)
+	mapReport["usersactivelifestyleemployer"] = float64(0)
+	fUSERSACTIVELIFESTYLEEMPLOYER := float64(0)
+	if mapUsersActiveLifestyleEmployer["1"] != nil {
+		mapUsersActiveLifestyleEmployerxDoc := mapUsersActiveLifestyleEmployer["1"].(map[string]interface{})
+		switch mapUsersActiveLifestyleEmployerxDoc["usersactivelifestyleemployer"].(type) {
 		case string:
-			mapReport["subscriptionslifestyleemployer"] = float64(0)
+			mapReport["usersactivelifestyleemployer"] = float64(0)
 		case int64:
-			fSubscriptionsLifestyleEmployer = functions.Round(float64(mapSubscriptionsLifestyleEmployerxDoc["subscriptionslifestyleemployer"].(int64)))
-			mapReport["subscriptionslifestyleemployer"] = functions.ThousandSeperator(fSubscriptionsLifestyleEmployer)
+			fUSERSACTIVELIFESTYLEEMPLOYER = functions.Round(float64(mapUsersActiveLifestyleEmployerxDoc["usersactivelifestyleemployer"].(int64)))
+			mapReport["usersactivelifestyleemployer"] = functions.ThousandSeperator(fUSERSACTIVELIFESTYLEEMPLOYER)
 		case float64:
-			fSubscriptionsLifestyleEmployer = functions.Round(float64(mapSubscriptionsLifestyleEmployerxDoc["subscriptionslifestyleemployer"].(float64)))
-			mapReport["subscriptionslifestyleemployer"] = functions.ThousandSeperator(fSubscriptionsLifestyleEmployer)
+			fUSERSACTIVELIFESTYLEEMPLOYER = functions.Round(mapUsersActiveLifestyleEmployerxDoc["usersactivelifestyleemployer"].(float64))
+			mapReport["usersactivelifestyleemployer"] = functions.ThousandSeperator(fUSERSACTIVELIFESTYLEEMPLOYER)
 		}
 	}
 
-	fSubscriptionsBritishMumsEmployer := float64(0)
-	sqlSubscriptionsBritishMumsEmployer := `select count(control) as subscriptionsbritishmumsemployer from subscription  where schemecontrol in (select control from scheme where code in ('britishmums'))`
-	mapSubscriptionsBritishMumsEmployer, _ := curdb.Query(sqlSubscriptionsBritishMumsEmployer)
-	mapReport["subscriptionsbritishmumsemployer"] = float64(0)
-	if mapSubscriptionsBritishMumsEmployer["1"] != nil {
-		mapSubscriptionsBritishMumsEmployerxDoc := mapSubscriptionsBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapSubscriptionsBritishMumsEmployerxDoc["subscriptionsbritishmumsemployer"].(type) {
-		case string:
-			mapReport["subscriptionsbritishmumsemployer"] = float64(0)
-		case int64:
-			fSubscriptionsBritishMumsEmployer = functions.Round(float64(mapSubscriptionsBritishMumsEmployerxDoc["subscriptionsbritishmumsemployer"].(int64)))
-			mapReport["subscriptionsbritishmumsemployer"] = functions.ThousandSeperator(fSubscriptionsBritishMumsEmployer)
-		case float64:
-			fSubscriptionsBritishMumsEmployer = functions.Round(float64(mapSubscriptionsBritishMumsEmployerxDoc["subscriptionsbritishmumsemployer"].(float64)))
-			mapReport["subscriptionsbritishmumsemployer"] = functions.ThousandSeperator(fSubscriptionsBritishMumsEmployer)
+	mapReport["usersactivepercentliteemployer"] = float64(0)
+	mapReport["usersactivepercentlifestyleemployer"] = float64(0)
+	if fUSERSPAIDTOTAL > float64(0) {
+		if fUSERSACTIVELITEEMPLOYER > float64(0) {
+			mapReport["usersactivepercentliteemployer"] = functions.RoundUp((fUSERSACTIVELITEEMPLOYER*float64(100))/fUSERSPAIDTOTAL, 0)
+		}
+
+		if fUSERSACTIVELIFESTYLEEMPLOYER > float64(0) {
+			mapReport["usersactivepercentlifestyleemployer"] = functions.RoundUp((fUSERSACTIVELIFESTYLEEMPLOYER*float64(100))/fUSERSPAIDTOTAL, 0)
 		}
 	}
-	// Number of Subscriptions
+
+	// Active Employees & Percentage of Employees
 	//
 
 	//---
 
 	//
-	//Number of Redeemed Rewards
-	sqlNumRedeemedLiteEmployer := `select count(distinct rewardcontrol) as numredeemedliteemployer from redemption where schemecontrol = (select control from scheme where code = 'lite')`
+	//Number of REWARDS REDEEMED BY EMPLOYEES
+	sqlUsersRedeemedLiteEmployer := `select count(rewardcontrol) as usersredeemedliteemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
 
-	mapNumRedeemedLiteEmployer, _ := curdb.Query(sqlNumRedeemedLiteEmployer)
-	mapReport["numredeemedliteemployer"] = float64(0)
-	if mapNumRedeemedLiteEmployer["1"] != nil {
-		mapNumRedeemedLiteEmployerxDoc := mapNumRedeemedLiteEmployer["1"].(map[string]interface{})
-		switch mapNumRedeemedLiteEmployerxDoc["numredeemedliteemployer"].(type) {
+	mapUsersRedeemedLiteEmployer, _ := curdb.Query(sqlUsersRedeemedLiteEmployer)
+	mapReport["usersredeemedliteemployer"] = float64(0)
+	if mapUsersRedeemedLiteEmployer["1"] != nil {
+		mapUsersRedeemedLiteEmployerxDoc := mapUsersRedeemedLiteEmployer["1"].(map[string]interface{})
+		switch mapUsersRedeemedLiteEmployerxDoc["usersredeemedliteemployer"].(type) {
 		case string:
-			mapReport["numredeemedliteemployer"] = float64(0)
+			mapReport["usersredeemedliteemployer"] = float64(0)
 		case int64:
-			mapReport["numredeemedliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapNumRedeemedLiteEmployerxDoc["numredeemedliteemployer"].(int64))))
+			mapReport["usersredeemedliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersRedeemedLiteEmployerxDoc["usersredeemedliteemployer"].(int64))))
 		case float64:
-			mapReport["numredeemedliteemployer"] = functions.ThousandSeperator(functions.Round(mapNumRedeemedLiteEmployerxDoc["numredeemedliteemployer"].(float64)))
+			mapReport["usersredeemedliteemployer"] = functions.ThousandSeperator(functions.Round(mapUsersRedeemedLiteEmployerxDoc["usersredeemedliteemployer"].(float64)))
 		}
 	}
 
-	sqlNumRedeemedLifestyleEmployer := `select count(distinct rewardcontrol) as numredeemedlifestyleemployer from redemption where schemecontrol = (select control from scheme where code = 'lifestyle')`
+	sqlUsersRedeemedLifestyleEmployer := `select count(rewardcontrol) as usersredeemedlifestyleemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lifestyle')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
 
-	mapNumRedeemedLifestyleEmployer, _ := curdb.Query(sqlNumRedeemedLifestyleEmployer)
-	mapReport["numredeemedlifestyleemployer"] = float64(0)
-	if mapNumRedeemedLifestyleEmployer["1"] != nil {
-		mapNumRedeemedLifestyleEmployerxDoc := mapNumRedeemedLifestyleEmployer["1"].(map[string]interface{})
-		switch mapNumRedeemedLifestyleEmployerxDoc["numredeemedlifestyleemployer"].(type) {
+	mapUsersRedeemedLifestyleEmployer, _ := curdb.Query(sqlUsersRedeemedLifestyleEmployer)
+	mapReport["usersredeemedlifestyleemployer"] = float64(0)
+	if mapUsersRedeemedLifestyleEmployer["1"] != nil {
+		mapUsersRedeemedLifestyleEmployerxDoc := mapUsersRedeemedLifestyleEmployer["1"].(map[string]interface{})
+		switch mapUsersRedeemedLifestyleEmployerxDoc["usersredeemedlifestyleemployer"].(type) {
 		case string:
-			mapReport["numredeemedlifestyleemployer"] = float64(0)
+			mapReport["usersredeemedlifestyleemployer"] = float64(0)
 		case int64:
-			mapReport["numredeemedlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapNumRedeemedLifestyleEmployerxDoc["numredeemedlifestyleemployer"].(int64))))
+			mapReport["usersredeemedlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersRedeemedLifestyleEmployerxDoc["usersredeemedlifestyleemployer"].(int64))))
 		case float64:
-			mapReport["numredeemedlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapNumRedeemedLifestyleEmployerxDoc["numredeemedlifestyleemployer"].(float64)))
+			mapReport["usersredeemedlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapUsersRedeemedLifestyleEmployerxDoc["usersredeemedlifestyleemployer"].(float64)))
 		}
 	}
 
-	sqlNumRedeemedBritishMumsEmployer := `select count(distinct rewardcontrol) as numredeemedbritishmumsemployer from redemption where schemecontrol = (select control from scheme where code = 'britishmums')`
-
-	mapNumRedeemedBritishMumsEmployer, _ := curdb.Query(sqlNumRedeemedBritishMumsEmployer)
-	mapReport["numredeemedbritishmumsemployer"] = float64(0)
-	if mapNumRedeemedBritishMumsEmployer["1"] != nil {
-		mapNumRedeemedBritishMumsEmployerxDoc := mapNumRedeemedBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapNumRedeemedBritishMumsEmployerxDoc["numredeemedbritishmumsemployer"].(type) {
-		case string:
-			mapReport["numredeemedbritishmumsemployer"] = float64(0)
-		case int64:
-			mapReport["numredeemedbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(float64(mapNumRedeemedBritishMumsEmployerxDoc["numredeemedbritishmumsemployer"].(int64))))
-		case float64:
-			mapReport["numredeemedbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(mapNumRedeemedBritishMumsEmployerxDoc["numredeemedbritishmumsemployer"].(float64)))
-		}
-	}
-
-	//Number of Redeemed Rewards
+	//Number of REWARDS REDEEMED BY EMPLOYEES
 	//
 
 	//---
 
 	//
-	//AVERAGE SAVINGs per Redeemed Rewards
-	sqlAvgSavingsPerRewardLiteEmployer := `select sum(savingsvalue) / count(distinct rewardcontrol) as avgsavingperrewardliteemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))`
+	//AVERAGE SAVINGS per EMPLOYEE
+	sqlUsersAvgSavingsLiteEmployer := `select sum(savingsvalue) / count(distinct membercontrol) as usersavgsavingsliteemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
 
-	mapAvgSavingsPerRewardLiteEmployer, _ := curdb.Query(sqlAvgSavingsPerRewardLiteEmployer)
-	mapReport["avgsavingperrewardliteemployer"] = float64(0)
-	if mapAvgSavingsPerRewardLiteEmployer["1"] != nil {
-		mapAvgSavingsPerRewardLiteEmployerxDoc := mapAvgSavingsPerRewardLiteEmployer["1"].(map[string]interface{})
-		switch mapAvgSavingsPerRewardLiteEmployerxDoc["avgsavingperrewardliteemployer"].(type) {
+	mapUsersAvgSavingsLiteEmployer, _ := curdb.Query(sqlUsersAvgSavingsLiteEmployer)
+	mapReport["usersavgsavingsliteemployer"] = float64(0)
+	if mapUsersAvgSavingsLiteEmployer["1"] != nil {
+		mapUsersAvgSavingsLiteEmployerxDoc := mapUsersAvgSavingsLiteEmployer["1"].(map[string]interface{})
+		switch mapUsersAvgSavingsLiteEmployerxDoc["usersavgsavingsliteemployer"].(type) {
 		case string:
-			mapReport["avgsavingperrewardliteemployer"] = float64(0)
+			mapReport["usersavgsavingsliteemployer"] = float64(0)
 		case int64:
-			mapReport["avgsavingperrewardliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapAvgSavingsPerRewardLiteEmployerxDoc["avgsavingperrewardliteemployer"].(int64))))
+			mapReport["usersavgsavingsliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersAvgSavingsLiteEmployerxDoc["usersavgsavingsliteemployer"].(int64))))
 		case float64:
-			mapReport["avgsavingperrewardliteemployer"] = functions.ThousandSeperator(functions.Round(mapAvgSavingsPerRewardLiteEmployerxDoc["avgsavingperrewardliteemployer"].(float64)))
+			mapReport["usersavgsavingsliteemployer"] = functions.ThousandSeperator(functions.Round(mapUsersAvgSavingsLiteEmployerxDoc["usersavgsavingsliteemployer"].(float64)))
 		}
 	}
 
-	sqlAvgSavingsPerRewardLifestyleEmployer := `select sum(savingsvalue) / count(distinct rewardcontrol) as avgsavingperrewardlifestyleemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))`
+	sqlUsersAvgSavingsLifestyleEmployer := `select sum(savingsvalue) / count(distinct membercontrol) as usersavgsavingslifestyleemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lifestyle')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
 
-	mapAvgSavingsPerRewardLifestyleEmployer, _ := curdb.Query(sqlAvgSavingsPerRewardLifestyleEmployer)
-	mapReport["avgsavingperrewardlifestyleemployer"] = float64(0)
-	if mapAvgSavingsPerRewardLifestyleEmployer["1"] != nil {
-		mapAvgSavingsPerRewardLifestyleEmployerxDoc := mapAvgSavingsPerRewardLifestyleEmployer["1"].(map[string]interface{})
-		switch mapAvgSavingsPerRewardLifestyleEmployerxDoc["avgsavingperrewardlifestyleemployer"].(type) {
+	mapUsersAvgSavingsLifestyleEmployer, _ := curdb.Query(sqlUsersAvgSavingsLifestyleEmployer)
+	mapReport["usersavgsavingslifestyleemployer"] = float64(0)
+	if mapUsersAvgSavingsLifestyleEmployer["1"] != nil {
+		mapUsersAvgSavingsLifestyleEmployerxDoc := mapUsersAvgSavingsLifestyleEmployer["1"].(map[string]interface{})
+		switch mapUsersAvgSavingsLifestyleEmployerxDoc["usersavgsavingslifestyleemployer"].(type) {
 		case string:
-			mapReport["avgsavingperrewardlifestyleemployer"] = float64(0)
+			mapReport["usersavgsavingslifestyleemployer"] = float64(0)
 		case int64:
-			mapReport["avgsavingperrewardlifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapAvgSavingsPerRewardLifestyleEmployerxDoc["avgsavingperrewardlifestyleemployer"].(int64))))
+			mapReport["usersavgsavingslifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersAvgSavingsLifestyleEmployerxDoc["usersavgsavingslifestyleemployer"].(int64))))
 		case float64:
-			mapReport["avgsavingperrewardlifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapAvgSavingsPerRewardLifestyleEmployerxDoc["avgsavingperrewardlifestyleemployer"].(float64)))
+			mapReport["usersavgsavingslifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapUsersAvgSavingsLifestyleEmployerxDoc["usersavgsavingslifestyleemployer"].(float64)))
 		}
 	}
 
-	sqlAvgSavingsPerRewardBritishMumsEmployer := `select sum(savingsvalue) / count(distinct rewardcontrol) as avgsavingperrewardbritishmumsemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))`
-
-	mapAvgSavingsPerRewardBritishMumsEmployer, _ := curdb.Query(sqlAvgSavingsPerRewardBritishMumsEmployer)
-	mapReport["avgsavingperrewardbritishmumsemployer"] = float64(0)
-	if mapAvgSavingsPerRewardBritishMumsEmployer["1"] != nil {
-		mapAvgSavingsPerRewardBritishMumsEmployerxDoc := mapAvgSavingsPerRewardBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapAvgSavingsPerRewardBritishMumsEmployerxDoc["avgsavingperrewardbritishmumsemployer"].(type) {
-		case string:
-			mapReport["avgsavingperrewardbritishmumsemployer"] = float64(0)
-		case int64:
-			mapReport["avgsavingperrewardbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(float64(mapAvgSavingsPerRewardBritishMumsEmployerxDoc["avgsavingperrewardbritishmumsemployer"].(int64))))
-		case float64:
-			mapReport["avgsavingperrewardbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(mapAvgSavingsPerRewardBritishMumsEmployerxDoc["avgsavingperrewardbritishmumsemployer"].(float64)))
-		}
-	}
-
-	//AVERAGE SAVINGs per Redeemed Rewards
+	//AVERAGE SAVINGS per EMPLOYEE
 	//
 
 	//---
 
 	//
-	//AVERAGE SAVINGs per Employee
-	sqlAvgSavingsPerEmployeeLiteEmployer := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeeliteemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))`
+	//TOTAL EMPLOYEE SAVINGS
+	sqlUsersSavingsLiteEmployer := `select sum(savingsvalue) as userssavingsliteemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lite')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
 
-	mapAvgSavingsPerEmployeeLiteEmployer, _ := curdb.Query(sqlAvgSavingsPerEmployeeLiteEmployer)
-	mapReport["avgsavingperemployeeliteemployer"] = float64(0)
-	if mapAvgSavingsPerEmployeeLiteEmployer["1"] != nil {
-		mapAvgSavingsPerEmployeeLiteEmployerxDoc := mapAvgSavingsPerEmployeeLiteEmployer["1"].(map[string]interface{})
-		switch mapAvgSavingsPerEmployeeLiteEmployerxDoc["avgsavingperemployeeliteemployer"].(type) {
+	mapUsersSavingsLiteEmployer, _ := curdb.Query(sqlUsersSavingsLiteEmployer)
+	mapReport["userssavingsliteemployer"] = float64(0)
+	if mapUsersSavingsLiteEmployer["1"] != nil {
+		mapUsersSavingsLiteEmployerxDoc := mapUsersSavingsLiteEmployer["1"].(map[string]interface{})
+		switch mapUsersSavingsLiteEmployerxDoc["userssavingsliteemployer"].(type) {
 		case string:
-			mapReport["avgsavingperemployeeliteemployer"] = float64(0)
+			mapReport["userssavingsliteemployer"] = float64(0)
 		case int64:
-			mapReport["avgsavingperemployeeliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapAvgSavingsPerEmployeeLiteEmployerxDoc["avgsavingperemployeeliteemployer"].(int64))))
+			mapReport["userssavingsliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersSavingsLiteEmployerxDoc["userssavingsliteemployer"].(int64))))
 		case float64:
-			mapReport["avgsavingperemployeeliteemployer"] = functions.ThousandSeperator(functions.Round(mapAvgSavingsPerEmployeeLiteEmployerxDoc["avgsavingperemployeeliteemployer"].(float64)))
+			mapReport["userssavingsliteemployer"] = functions.ThousandSeperator(functions.Round(mapUsersSavingsLiteEmployerxDoc["userssavingsliteemployer"].(float64)))
 		}
 	}
 
-	sqlAvgSavingsPerEmployeeLifestyleEmployer := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelifestyleemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))`
+	sqlUsersSavingsLifestyleEmployer := `select sum(savingsvalue) as userssavingslifestyleemployer from redemption 
+									where schemecontrol = (select control from scheme where code = 'lifestyle')
+									and employercontrol not in (select control from profile where code in ('main','britishmums'))`
 
-	mapAvgSavingsPerEmployeeLifestyleEmployer, _ := curdb.Query(sqlAvgSavingsPerEmployeeLifestyleEmployer)
-	mapReport["avgsavingperemployeelifestyleemployer"] = float64(0)
-	if mapAvgSavingsPerEmployeeLifestyleEmployer["1"] != nil {
-		mapAvgSavingsPerEmployeeLifestyleEmployerxDoc := mapAvgSavingsPerEmployeeLifestyleEmployer["1"].(map[string]interface{})
-		switch mapAvgSavingsPerEmployeeLifestyleEmployerxDoc["avgsavingperemployeelifestyleemployer"].(type) {
+	mapUsersSavingsLifestyleEmployer, _ := curdb.Query(sqlUsersSavingsLifestyleEmployer)
+	mapReport["userssavingslifestyleemployer"] = float64(0)
+	if mapUsersSavingsLifestyleEmployer["1"] != nil {
+		mapUsersSavingsLifestyleEmployerxDoc := mapUsersSavingsLifestyleEmployer["1"].(map[string]interface{})
+		switch mapUsersSavingsLifestyleEmployerxDoc["userssavingslifestyleemployer"].(type) {
 		case string:
-			mapReport["avgsavingperemployeelifestyleemployer"] = float64(0)
+			mapReport["userssavingslifestyleemployer"] = float64(0)
 		case int64:
-			mapReport["avgsavingperemployeelifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapAvgSavingsPerEmployeeLifestyleEmployerxDoc["avgsavingperemployeelifestyleemployer"].(int64))))
+			mapReport["userssavingslifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapUsersSavingsLifestyleEmployerxDoc["userssavingslifestyleemployer"].(int64))))
 		case float64:
-			mapReport["avgsavingperemployeelifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapAvgSavingsPerEmployeeLifestyleEmployerxDoc["avgsavingperemployeelifestyleemployer"].(float64)))
+			mapReport["userssavingslifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapUsersSavingsLifestyleEmployerxDoc["userssavingslifestyleemployer"].(float64)))
 		}
 	}
 
-	sqlAvgSavingsPerEmployeeBritishMumsEmployer := `select sum(savingsvalue) / count(distinct membercontrol) as avgsavingperemployeelbritishmumsemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))`
-
-	mapAvgSavingsPerEmployeeBritishMumsEmployer, _ := curdb.Query(sqlAvgSavingsPerEmployeeBritishMumsEmployer)
-	mapReport["avgsavingperemployeelbritishmumsemployer"] = float64(0)
-	if mapAvgSavingsPerEmployeeBritishMumsEmployer["1"] != nil {
-		mapAvgSavingsPerEmployeeBritishMumsEmployerxDoc := mapAvgSavingsPerEmployeeBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapAvgSavingsPerEmployeeBritishMumsEmployerxDoc["avgsavingperemployeelbritishmumsemployer"].(type) {
-		case string:
-			mapReport["avgsavingperemployeelbritishmumsemployer"] = float64(0)
-		case int64:
-			mapReport["avgsavingperemployeelbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(float64(mapAvgSavingsPerEmployeeBritishMumsEmployerxDoc["avgsavingperemployeelbritishmumsemployer"].(int64))))
-		case float64:
-			mapReport["avgsavingperemployeelbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(mapAvgSavingsPerEmployeeBritishMumsEmployerxDoc["avgsavingperemployeelbritishmumsemployer"].(float64)))
-		}
-	}
-
-	//AVERAGE SAVINGs per Employee
+	//TOTAL EMPLOYEE SAVINGS
 	//
 
 	//---
 
 	//
-	//Employer Saving
-	sqlSavingLiteEmployer := `select sum(savingsvalue) as savingliteemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))`
-
-	mapSavingLiteEmployer, _ := curdb.Query(sqlSavingLiteEmployer)
-	mapReport["savingliteemployer"] = float64(0)
-	if mapSavingLiteEmployer["1"] != nil {
-		mapSavingLiteEmployerxDoc := mapSavingLiteEmployer["1"].(map[string]interface{})
-		switch mapSavingLiteEmployerxDoc["savingliteemployer"].(type) {
-		case string:
-			mapReport["savingliteemployer"] = float64(0)
-		case int64:
-			mapReport["savingliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSavingLiteEmployerxDoc["savingliteemployer"].(int64))))
-		case float64:
-			mapReport["savingliteemployer"] = functions.ThousandSeperator(functions.Round(mapSavingLiteEmployerxDoc["savingliteemployer"].(float64)))
-		}
-	}
-
-	sqlSavingLifestyleEmployer := `select sum(savingsvalue) as savinglifestyleemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))`
-
-	mapSavingLifestyleEmployer, _ := curdb.Query(sqlSavingLifestyleEmployer)
-	mapReport["savinglifestyleemployer"] = float64(0)
-	if mapSavingLifestyleEmployer["1"] != nil {
-		mapSavingLifestyleEmployerxDoc := mapSavingLifestyleEmployer["1"].(map[string]interface{})
-		switch mapSavingLifestyleEmployerxDoc["savinglifestyleemployer"].(type) {
-		case string:
-			mapReport["savinglifestyleemployer"] = float64(0)
-		case int64:
-			mapReport["savinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSavingLifestyleEmployerxDoc["savinglifestyleemployer"].(int64))))
-		case float64:
-			mapReport["savinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapSavingLifestyleEmployerxDoc["savinglifestyleemployer"].(float64)))
-		}
-	}
-
-	sqlSavingBritishMumsEmployer := `select sum(savingsvalue) as savingbritishmumsemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))`
-
-	mapSavingBritishMumsEmployer, _ := curdb.Query(sqlSavingBritishMumsEmployer)
-	mapReport["savingbritishmumsemployer"] = float64(0)
-	if mapSavingBritishMumsEmployer["1"] != nil {
-		mapSavingBritishMumsEmployerxDoc := mapSavingBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapSavingBritishMumsEmployerxDoc["savingbritishmumsemployer"].(type) {
-		case string:
-			mapReport["savingbritishmumsemployer"] = float64(0)
-		case int64:
-			mapReport["savingbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(float64(mapSavingBritishMumsEmployerxDoc["savingbritishmumsemployer"].(int64))))
-		case float64:
-			mapReport["savingbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(mapSavingBritishMumsEmployerxDoc["savingbritishmumsemployer"].(float64)))
-		}
-	}
-
-	//Employer Saving
 	//
+	//TOP 5 EMPLOYERS WITH THE MOST SUBSCRIPTIONS
 
-	//---
+	sqlTop5EmployerSubscriptions := `select  (select title from profile where control = subscription.employercontrol) as employer, count(control) as subscription
+										from subscription where schemecontrol = (select control from scheme where code = 'lifestyle')
+										and employercontrol not in (select control from profile where code in ('main','britishmums'))
+										group by employercontrol order by 2 desc limit 5`
 
-	//Last Year Saving
-	sqlYearSavingLiteEmployer := fmt.Sprintf(`select sum(savingsvalue) as yearsavingliteemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lite'))
-	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
+	mapTop5EmployerSubscriptions, _ := curdb.Query(sqlTop5EmployerSubscriptions)
+	aTop5EmployerSubscriptionsSorted := functions.SortMap(mapTop5EmployerSubscriptions)
 
-	mapYearSavingLiteEmployer, _ := curdb.Query(sqlYearSavingLiteEmployer)
-	mapReport["yearsavingliteemployer"] = float64(0)
-	if mapYearSavingLiteEmployer["1"] != nil {
-		mapYearSavingLiteEmployerxDoc := mapYearSavingLiteEmployer["1"].(map[string]interface{})
-		switch mapYearSavingLiteEmployerxDoc["yearsavingliteemployer"].(type) {
-		case string:
-			mapReport["yearsavingliteemployer"] = float64(0)
-		case int64:
-			mapReport["yearsavingliteemployer"] = functions.ThousandSeperator(functions.Round(float64(mapYearSavingLiteEmployerxDoc["yearsavingliteemployer"].(int64))))
-		case float64:
-			mapReport["yearsavingliteemployer"] = functions.ThousandSeperator(functions.Round(mapYearSavingLiteEmployerxDoc["yearsavingliteemployer"].(float64)))
-		}
+	for _, sNumber := range aTop5EmployerSubscriptionsSorted {
+		xDocReward := mapTop5EmployerSubscriptions[sNumber].(map[string]interface{})
+		xDocReward["row"] = sNumber
+		sTag := fmt.Sprintf(`%v#report-subscription-topfiveredeemed-row`, sNumber)
+		mapReport[sTag] = xDocReward
 	}
 
-	sqlYearSavingLifestyleEmployer := fmt.Sprintf(`select sum(savingsvalue) as yearsavinglifestyleemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'lifestyle'))
-	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
-
-	mapYearSavingLifestyleEmployer, _ := curdb.Query(sqlYearSavingLifestyleEmployer)
-	mapReport["yearsavinglifestyleemployer"] = float64(0)
-	if mapYearSavingLifestyleEmployer["1"] != nil {
-		mapYearSavingLifestyleEmployerxDoc := mapYearSavingLifestyleEmployer["1"].(map[string]interface{})
-		switch mapYearSavingLifestyleEmployerxDoc["yearsavinglifestyleemployer"].(type) {
-		case string:
-			mapReport["yearsavinglifestyleemployer"] = float64(0)
-		case int64:
-			mapReport["yearsavinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(float64(mapYearSavingLifestyleEmployerxDoc["yearsavinglifestyleemployer"].(int64))))
-		case float64:
-			mapReport["yearsavinglifestyleemployer"] = functions.ThousandSeperator(functions.Round(mapYearSavingLifestyleEmployerxDoc["yearsavinglifestyleemployer"].(float64)))
-		}
-	}
-
-	sqlYearSavingBritishMumsEmployer := fmt.Sprintf(`select sum(savingsvalue) as yearsavingbritishmumsemployer from redemption where rewardcontrol in 
-	(select distinct rewardcontrol from rewardscheme where schemecontrol = (select control from scheme where code = 'britishmums'))
-	and substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp`, sStartdate, sStopdate)
-
-	mapYearSavingBritishMumsEmployer, _ := curdb.Query(sqlYearSavingBritishMumsEmployer)
-	mapReport["yearsavingbritishmumsemployer"] = float64(0)
-	if mapYearSavingBritishMumsEmployer["1"] != nil {
-		mapYearSavingBritishMumsEmployerxDoc := mapYearSavingBritishMumsEmployer["1"].(map[string]interface{})
-		switch mapYearSavingBritishMumsEmployerxDoc["yearsavingbritishmumsemployer"].(type) {
-		case string:
-			mapReport["yearsavingbritishmumsemployer"] = float64(0)
-		case int64:
-			mapReport["yearsavingbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(float64(mapYearSavingBritishMumsEmployerxDoc["yearsavingbritishmumsemployer"].(int64))))
-		case float64:
-			mapReport["yearsavingbritishmumsemployer"] = functions.ThousandSeperator(functions.Round(mapYearSavingBritishMumsEmployerxDoc["yearsavingbritishmumsemployer"].(float64)))
-		}
-	}
-
-	//Last Year Saving
+	//TOP 5 EMPLOYERS WITH THE MOST SUBSCRIPTIONS
 	//
-
-	//---
-
-	// Employers Subscriptions
 	//
 
 	this.pageMap = make(map[string]interface{})
