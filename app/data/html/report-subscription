@@ -422,11 +422,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@averagesavingsperrewardbritishmums@]</h3>
 								<p>AVERAGE SAVINGS PER REWARD</p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@averagesavingsperuserbritishmums@]</h3>
 								<p>AVERAGE SAVINGS PER USER</p>
 							</div>
 						</div>
@@ -438,11 +438,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@totalsavingsbritishmums@]</h3>
 								<p>TOTAL SAVINGS ALL TIME</p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@totalsavings12monthsbritishmums@]</h3>
 								<p>TOTAL SAVINGS LAST 12 MONTHS</p>
 							</div>
 						</div>
@@ -453,17 +453,17 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-4">
-								<h3>[@@]</h3>
+								<h3>[@subscriptionsbritishmums@]</h3>
 								<p>NUMBER OF SUBSCRIPTIONS</p>
 							</div>
 
 							<div class="col-sm-4">
-								<h3>[@@]</h3>
+								<h3>[@registrationsbritishmums@]</h3>
 								<p>NUMBER OF REGISTRATIONS</p>
 							</div>
 
 							<div class="col-sm-4">
-								<h3>[@@]</h3>
+								<h3>[@redeemedrewardsbritishmums@]</h3>
 								<p>NUMBER OF REDEEMED REWARDS</p>
 							</div>
 							
@@ -495,11 +495,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@averagesavingsperrewardvalued@]</h3>
 								<p>AVERAGE SAVINGS PER REWARD</p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@averagesavingsperuservalued@]</h3>
 								<p>AVERAGE SAVINGS PER USER</p>
 							</div>
 						</div>
@@ -511,11 +511,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@totalsavingsvalued@]</h3>
 								<p>TOTAL SAVINGS ALL TIME</p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@@]</h3>
+								<h3>[@totalsavings12monthsvalued@]</h3>
 								<p>TOTAL SAVINGS LAST 12 MONTHS</p>
 							</div>
 						</div>
@@ -526,17 +526,17 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-4">
-								<h3>[@@]</h3>
+								<h3>[@subscriptionsvalued@]</h3>
 								<p>NUMBER OF SUBSCRIPTIONS</p>
 							</div>
 
 							<div class="col-sm-4">
-								<h3>[@@]</h3>
+								<h3>[@registrationsvalued@]</h3>
 								<p>NUMBER OF REGISTRATIONS</p>
 							</div>
 
 							<div class="col-sm-4">
-								<h3>[@@]</h3>
+								<h3>[@redeemedrewardsvalued@]</h3>
 								<p>NUMBER OF REDEEMED REWARDS</p>
 							</div>
 							

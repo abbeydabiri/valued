@@ -1,5 +1,7 @@
 app/Valued.tmp
 app/Valued.elf
+app/Valued.app
+app/Valued.exe
 app/log/
 terminal.glue
 valuedDB
