@@ -32,17 +32,175 @@
 		<div class="card">
 			<div class="content">
 			<center>
-				<h2>MERCHANT REPORT SECTION</h2>
-
 				
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@userspendingtotal@]</h3>
+								<p>TOTAL GENERATED REVENUE <br> <label>SINCE INCEPTION</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@userspaidtotal@]</h3>
+								<p>TOTAL GENERATED REVENUE <br> <label>(12 months)</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>				
+				
+				
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@userspendingtotal@]</h3>
+								<p>TOTAL REDEMPTIONS <br> <label>SINCE INCEPTION</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@userspaidtotal@]</h3>
+								<p>TOTAL REDEMPTIONS <br> <label>LAST 12 MONTHS</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>	
+
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>[@userspendingtotal@]</h3>
+								<p>ACTIVE MERCHANTS <br> <label>NUMBER</label> </p>
+							</div>
+							<div class="col-sm-6">
+								<h3>[@userspaidtotal@]</h3>
+								<p>ACTIVE MERCHANTS % <br> <label>PERCENTAGE</label> </p>
+							</div>
+						</div>
+					</div>
+				</div>				
 
 			</center>
 			</div>
 		</div>
 	</div>
+				
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+				<div class="row">
+					<div class="col-sm-12">	
+						<h4>TOP 5 MERCHANTS WITH HIGHEST REVENUE</h4>
+					</div>
+				</div>
+				<div class="row">
+					<b><div class="col-sm-6">Merchant</div><div class="col-sm-6">Revenue</div></b>
+				</div>
+				[@report-subscription-topfiveredeemed-row@]
+				
+				<br><br>
+				<br><br>
+
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+			<center>
+
+				<h2>[@@] %</h2>
+				<p>
+					AVERAGE NPS SCORE
+				</p>
+
+				<br><br>
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<h4>TOP 5 MERCHANTS NPS (BEST NPS SCORE)</h4>
+					</div>
+				</div>
+				<div class="row">
+					<b><div class="col-sm-6">Merchant</div><div class="col-sm-6">NPS Score</div></b>
+				</div>
+				[@report-subscription-topfiveredeemed-row@]
+				
+				<br><br>
+				<br><br>
+
+
+				<div class="row">
+					<div class="col-sm-12">	
+						<h4>TOP 5 MERCHANTS NPS (WORST NPS SCORE)</h4>
+					</div>
+				</div>
+				<div class="row">
+					<b><div class="col-sm-6">Merchant</div><div class="col-sm-6">NPS Score</div></b>
+				</div>
+				[@report-subscription-topfiveredeemed-row@]
+				
+				<br><br>
+				<br><br>
+
+			</center>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+					
+						<h4>MONTHLY REVENUE (for the last 12 months)</h4>
+						<div id="[@id@]" class="ct-chart"></div>
+					
+				</center>
+			</div>
+		</div>
+	</div>
 	
 
+
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="content">
+				<center>
+					
+						<h4>MONTHLY ACTIVE MERCHANTS (percentage)</h4>
+						<div id="[@id@]" class="ct-chart"></div>
+					
+				</center>
+			</div>
+		</div>
+	</div>
 	
+	
+	<div class="col-sm-12">
+			<div class="card">
+				<div class="content">
+					<center>
+						
+							<h4>AVERAGE NPS SCORE (for the last 12 months)</h4>
+							<div id="[@id@]" class="ct-chart"></div>
+						
+					</center>
+				</div>
+			</div>
+		</div>
+
+
 	
 </div>
 </div>
