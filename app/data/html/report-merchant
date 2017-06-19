@@ -37,11 +37,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@userspendingtotal@]</h3>
+								<h3>[@totalrevenueinception@] AED</h3>
 								<p>TOTAL GENERATED REVENUE <br> <label>SINCE INCEPTION</label> </p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@userspaidtotal@]</h3>
+								<h3>[@totalrevenue12months@] AED</h3>
 								<p>TOTAL GENERATED REVENUE <br> <label>(12 months)</label> </p>
 							</div>
 						</div>
@@ -53,11 +53,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@userspendingtotal@]</h3>
+								<h3>[@totalredemptioninception@]</h3>
 								<p>TOTAL REDEMPTIONS <br> <label>SINCE INCEPTION</label> </p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@userspaidtotal@]</h3>
+								<h3>[@totalredemption12months@]</h3>
 								<p>TOTAL REDEMPTIONS <br> <label>LAST 12 MONTHS</label> </p>
 							</div>
 						</div>
@@ -70,11 +70,11 @@
 					<div class="col-sm-12">	
 						<div class="row">
 							<div class="col-sm-6">
-								<h3>[@userspendingtotal@]</h3>
+								<h3>[@activemerchantsnumber@]</h3>
 								<p>ACTIVE MERCHANTS <br> <label>NUMBER</label> </p>
 							</div>
 							<div class="col-sm-6">
-								<h3>[@userspaidtotal@]</h3>
+								<h3>[@activemerchantspercentage@]</h3>
 								<p>ACTIVE MERCHANTS % <br> <label>PERCENTAGE</label> </p>
 							</div>
 						</div>
@@ -100,7 +100,7 @@
 				<div class="row">
 					<b><div class="col-sm-6">Merchant</div><div class="col-sm-6">Revenue</div></b>
 				</div>
-				[@report-subscription-topfiveredeemed-row@]
+				[@report-merchant-topfiverevenue-row@]
 				
 				<br><br>
 				<br><br>
