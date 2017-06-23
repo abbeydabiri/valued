@@ -123,11 +123,11 @@ func (this Server) startHTTP() {
 func (this Server) startWebserver() {
 	println("Server Starting...")
 
-	mime.AddExtensionType(".js", "application/x-javascript; charset=utf-8")
 	mime.AddExtensionType(".css", "text/css; charset=utf-8")
 	mime.AddExtensionType(".svg", "image/svg+xml; charset=utf-8")
-	mime.AddExtensionType(".doc", "application/msword; charset=utf-8")
 	mime.AddExtensionType(".json", "application/json; charset=utf-8")
+	mime.AddExtensionType(".doc", "application/msword; charset=utf-8")
+	mime.AddExtensionType(".js", "application/x-javascript; charset=utf-8")
 
 	http.HandleFunc("/", this.router.Route)
 

@@ -173,6 +173,288 @@ func (this *Report) merchant(httpRes http.ResponseWriter, httpReq *http.Request,
 
 	//---
 
+	//
+	//
+	//AVERAGE NPS SCORE Based on Feedback Rating
+
+	sqlAverageNPSscore := `select redemption.merchantcontrol, 
+	(select title from profile where control = redemption.merchantcontrol) as merchant, 
+	feedback.title as question, feedback.answer as answer, feedback.redemptioncontrol as redemptioncontrol
+	from redemption left join feedback on feedback.redemptioncontrol = redemption.control order by merchantcontrol`
+
+	resAverageNPSscore, _ := curdb.Query(sqlAverageNPSscore)
+	mapAverageNPSscore := this.calculateNPS(resAverageNPSscore)
+
+	totalNPSscore, averageNPSscore := float64(0), float64(0)
+	for _, NPSscore := range mapAverageNPSscore {
+		totalNPSscore += NPSscore
+	}
+
+	if len(mapAverageNPSscore) > 0 {
+		averageNPSscore = functions.RoundUp(totalNPSscore/float64(len(mapAverageNPSscore)), 0)
+	}
+	mapReport["averagenpsscore"] = averageNPSscore
+
+	//AVERAGE NPS SCORE Based on Feedback Rating
+	//
+	//
+
+	//---
+
+	//
+	//
+	//TOP 5 MERCHANTS NPS (Best & Worst) on Feedback Rating
+
+	mapNPSscoreList := make(map[string]interface{})
+	for sMerchant, NPSscore := range mapAverageNPSscore {
+		sNPSscore := fmt.Sprintf("%v", NPSscore)
+
+		mapNPSscore := make(map[string]interface{})
+		mapNPSscore["merchant"] = sMerchant
+		mapNPSscore["npsscore"] = sNPSscore
+		mapNPSscoreList[sNPSscore] = mapNPSscore
+	}
+
+	mapSortedNPS := functions.SortMap(mapNPSscoreList)
+	functions.SortDesc(mapSortedNPS)
+
+	iBestFive := 1
+	for iNumber, npsscore := range mapSortedNPS {
+		if iBestFive <= 5 {
+			sTag := fmt.Sprintf(`%v#report-merchant-npsscore-bestfive-row`, iNumber)
+			mapReport[sTag] = mapNPSscoreList[npsscore].(map[string]interface{})
+		}
+		iBestFive++
+	}
+
+	iWorstFive := 1
+	functions.SortAsc(mapSortedNPS)
+	for iNumber, npsscore := range mapSortedNPS {
+		if iWorstFive <= 5 {
+			sTag := fmt.Sprintf(`%v#report-merchant-npsscore-worstfive-row`, iNumber)
+			mapReport[sTag] = mapNPSscoreList[npsscore].(map[string]interface{})
+		}
+		iWorstFive++
+	}
+
+	//TOP 5 MERCHANTS NPS (Best & Worst) on Feedback Rating
+	//
+	//
+
+	//
+	//
+	//GRAPHS: - MONTHLY REVENUE FOR LAST 12 MONTHS
+	sLabel := "yyyy-Mon"
+	sOrderBy := "yyyymm"
+
+	curMonth := time.Now().Add(-(time.Hour * 24 * 365))
+	sStartdateChart := curMonth.Format(cFormat)
+
+	oneYearChart := time.Now()
+	sStopdateChart := oneYearChart.Format(cFormat)
+
+	revenueMonthlyReportGenerator := make(map[string]interface{})
+
+	counter := 1
+	monthLabelSeries := make(map[string]interface{})
+	for oneYearChart.After(curMonth) {
+		monthLabelSeries[curMonth.Format("200601")] = curMonth.Format("2006-Jan")
+		curMonth = curMonth.Add(time.Hour * 24 * 30)
+		counter++
+	}
+
+	for sOrderby, sLabel := range monthLabelSeries {
+		sLabelIndex := fmt.Sprintf("%s#label", sOrderby)
+		sSeriesIndex := fmt.Sprintf("%s#series", sOrderby)
+
+		revenueMonthlyReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
+		revenueMonthlyReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
+	}
+
+	sqlRevenueMonthlyChart := `select to_char(substring(createdate from 1 for 20)::timestamp,'%s') as orderby, 
+	to_char(substring(createdate from 1 for 20)::timestamp,'%s') as label, sum(transactionvalue) as revenuemonthly from redemption 
+	where substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp group by 1,2 order by 1`
+
+	sqlRevenueMonthlyChart = fmt.Sprintf(sqlRevenueMonthlyChart, sOrderBy, sLabel, sStartdateChart, sStopdateChart)
+	mapRevenueMonthlyChart, _ := curdb.Query(sqlRevenueMonthlyChart)
+
+	revenueMonthlyReportGenerator["id"] = "revenuemonthly"
+	revenueMonthlyHigh := float64(100)
+	for _, xDoc := range mapRevenueMonthlyChart {
+		xDoc := xDoc.(map[string]interface{})
+
+		sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
+		sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
+
+		revenueMonthlyReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
+
+		revenueMonthlyReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["revenuemonthly"])
+		if xDoc["revenuemonthly"].(float64) > revenueMonthlyHigh {
+			revenueMonthlyHigh = xDoc["revenuemonthly"].(float64)
+			revenueMonthlyHigh += float64(2)
+		}
+
+	}
+	revenueMonthlyReportGenerator["high"] = revenueMonthlyHigh
+	mapReport["report-merchant-barchart-monthly-revenue"] = revenueMonthlyReportGenerator
+	//GRAPHS: -MONTHLY REVENUE FOR LAST 12 MONTHS
+	//
+	//
+
+	//
+	//
+	//GRAPHS: - MONTHLY ACTIVE MERCHANT FOR LAST 12 MONTHS
+
+	activemerchantMonthlyReportGenerator := make(map[string]interface{})
+
+	for sOrderby, sLabel := range monthLabelSeries {
+		sLabelIndex := fmt.Sprintf("%s#label", sOrderby)
+		sSeriesIndex := fmt.Sprintf("%s#series", sOrderby)
+
+		activemerchantMonthlyReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
+		activemerchantMonthlyReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
+	}
+
+	sqlActiveMerchantMonthlyChart := `select to_char(substring(createdate from 1 for 20)::timestamp,'%s') as orderby, 
+	to_char(substring(createdate from 1 for 20)::timestamp,'%s') as label, count(distinct merchantcontrol) as activemerchant,
+	(select count(distinct control) from profile where control in (select distinct merchantcontrol from reward)) as totalmerchants
+	from redemption where substring(createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp group by 1,2 order by 1
+	`
+
+	sqlActiveMerchantMonthlyChart = fmt.Sprintf(sqlActiveMerchantMonthlyChart, sOrderBy, sLabel, sStartdateChart, sStopdateChart)
+	mapActiveMerchantMonthlyChart, _ := curdb.Query(sqlActiveMerchantMonthlyChart)
+
+	activemerchantMonthlyHigh := float64(1)
+	activemerchantMonthlyReportGenerator["id"] = "activemerchantmonthly"
+	for _, xDoc := range mapActiveMerchantMonthlyChart {
+		xDoc := xDoc.(map[string]interface{})
+
+		sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
+		sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
+		activemerchantMonthlyReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
+
+		xDoc["activemerchantmonthly"] =
+			functions.RoundUp(float64(xDoc["activemerchant"].(int64)*100)/float64(xDoc["totalmerchants"].(int64)), 0)
+
+		activemerchantMonthlyReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["activemerchantmonthly"])
+		if xDoc["activemerchantmonthly"].(float64) > activemerchantMonthlyHigh {
+			activemerchantMonthlyHigh = xDoc["activemerchantmonthly"].(float64)
+			activemerchantMonthlyHigh += float64(2)
+		}
+
+	}
+	activemerchantMonthlyReportGenerator["high"] = activemerchantMonthlyHigh
+	mapReport["report-merchant-barchart-monthly-activemerchant"] = activemerchantMonthlyReportGenerator
+	//GRAPHS: - MONTHLY ACTIVE MERCHANT FOR LAST 12 MONTHS
+	//
+	//
+
+	//
+	//
+	//GRAPHS: - MONTHLY AVERAGE NPS SCORE (for the last 12 months)
+
+	sqlMonthlyAverageNPSscore := `select to_char(substring(feedback.createdate from 1 for 20)::timestamp,'%s') as orderby, 	
+	to_char(substring(feedback.createdate from 1 for 20)::timestamp,'%s') as label, redemption.merchantcontrol as merchantcontrol, 
+	feedback.title as question, feedback.answer as answer, (select title from profile where control = redemption.merchantcontrol) as merchant
+	from redemption  left join feedback on feedback.redemptioncontrol = redemption.control where feedback.title like '%%RECOMMEND%%'
+	and substring(feedback.createdate from 1 for 20)::timestamp between '%s 00:00:00'::timestamp and '%s 23:59:59'::timestamp
+	order by 1`
+	sqlMonthlyAverageNPSscore = fmt.Sprintf(sqlMonthlyAverageNPSscore, sOrderBy, sLabel, sStartdateChart, sStopdateChart)
+	resMonthlyAverageNPSscore, _ := curdb.Query(sqlMonthlyAverageNPSscore)
+
+	aSortedMonthlyAverageNPSscore := functions.SortMap(resMonthlyAverageNPSscore)
+	mapMonthlyNPSFeedbackChart := make(map[string]interface{})
+
+	sCurOrderby, sCurLabel := "", ""
+	mapMontlyAverageNPSscore := make(map[string]interface{})
+	for _, sNumber := range aSortedMonthlyAverageNPSscore {
+		xDocFeedback := resMonthlyAverageNPSscore[sNumber].(map[string]interface{})
+
+		if sCurOrderby == "" {
+			sCurOrderby = xDocFeedback["orderby"].(string)
+			sCurLabel = xDocFeedback["label"].(string)
+			mapMontlyAverageNPSscore = make(map[string]interface{})
+		}
+
+		if sCurOrderby != xDocFeedback["orderby"].(string) {
+
+			mapMonthlyNPSFeedbackValues := make(map[string]interface{})
+			mapMonthlyNPSFeedbackValues["orderby"] = sCurOrderby
+			mapMonthlyNPSFeedbackValues["label"] = sCurLabel
+
+			//Calculate NPS score
+			mapAverageNPSscore := this.calculateNPS(mapMontlyAverageNPSscore)
+			totalNPSscore, averageNPSscore := float64(0), float64(0)
+			for _, NPSscore := range mapAverageNPSscore {
+				totalNPSscore += NPSscore
+			}
+			if len(mapAverageNPSscore) > 0 {
+				averageNPSscore = functions.RoundUp(totalNPSscore/float64(len(mapAverageNPSscore)), 0)
+			}
+			mapMonthlyNPSFeedbackValues["averagenpsscoremonthly"] = averageNPSscore
+			mapMonthlyNPSFeedbackChart[sCurOrderby] = mapMonthlyNPSFeedbackValues
+			//Calculate NPS score
+		}
+
+		mapMontlyAverageNPSscore[sNumber] = xDocFeedback
+
+		sCurOrderby = xDocFeedback["orderby"].(string)
+		sCurLabel = xDocFeedback["label"].(string)
+	}
+
+	if sCurOrderby != "" {
+		mapMonthlyNPSFeedbackValues := make(map[string]interface{})
+		mapMonthlyNPSFeedbackValues["orderby"] = sCurOrderby
+		mapMonthlyNPSFeedbackValues["label"] = sCurLabel
+
+		//Calculate NPS score
+		mapAverageNPSscore := this.calculateNPS(mapMontlyAverageNPSscore)
+		totalNPSscore, averageNPSscore := float64(0), float64(0)
+		for _, NPSscore := range mapAverageNPSscore {
+			totalNPSscore += NPSscore
+		}
+		if len(mapAverageNPSscore) > 0 {
+			averageNPSscore = functions.RoundUp(totalNPSscore/float64(len(mapAverageNPSscore)), 0)
+		}
+		mapMonthlyNPSFeedbackValues["averagenpsscoremonthly"] = averageNPSscore
+		mapMonthlyNPSFeedbackChart[sCurOrderby] = mapMonthlyNPSFeedbackValues
+		//Calculate NPS score
+	}
+
+	averagenpsscoreMonthlyReportGenerator := make(map[string]interface{})
+
+	for sOrderby, sLabel := range monthLabelSeries {
+		sLabelIndex := fmt.Sprintf("%s#label", sOrderby)
+		sSeriesIndex := fmt.Sprintf("%s#series", sOrderby)
+
+		averagenpsscoreMonthlyReportGenerator[sLabelIndex] = fmt.Sprintf(`"%s",`, sLabel)
+		averagenpsscoreMonthlyReportGenerator[sSeriesIndex] = functions.ThousandSeperator(functions.Round(float64(0))) + ","
+	}
+
+	averagenpsscoreMonthlyReportGenerator["id"] = "averagenpsscoremonthly"
+	averagenpsscoreMonthlyHigh := float64(10)
+	for _, xDoc := range mapMonthlyNPSFeedbackChart {
+		xDoc := xDoc.(map[string]interface{})
+
+		sLabel := fmt.Sprintf("%s#label", xDoc["orderby"])
+		sSeries := fmt.Sprintf("%s#series", xDoc["orderby"])
+
+		averagenpsscoreMonthlyReportGenerator[sLabel] = fmt.Sprintf(`"%s",`, xDoc["label"])
+
+		averagenpsscoreMonthlyReportGenerator[sSeries] = fmt.Sprintf("%v,", xDoc["averagenpsscoremonthly"])
+		if xDoc["averagenpsscoremonthly"].(float64) > averagenpsscoreMonthlyHigh {
+			averagenpsscoreMonthlyHigh = xDoc["averagenpsscoremonthly"].(float64)
+			averagenpsscoreMonthlyHigh += float64(2)
+		}
+
+	}
+	averagenpsscoreMonthlyReportGenerator["high"] = averagenpsscoreMonthlyHigh
+	mapReport["report-merchant-barchart-monthly-averagenpsscore"] = averagenpsscoreMonthlyReportGenerator
+
+	//GRAPHS: - MONTHLY AVERAGE NPS SCORE (for the last 12 months)
+	//
+	//
+
 	this.pageMap = make(map[string]interface{})
 	this.pageMap["report-merchant"] = mapReport
 	contentHTML := strconv.Quote(string(this.Generate(this.pageMap, nil)))

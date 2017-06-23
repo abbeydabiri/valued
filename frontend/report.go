@@ -1,6 +1,8 @@
 package frontend
 
 import (
+	"strconv"
+	"strings"
 	"valued/database"
 	"valued/functions"
 
@@ -49,4 +51,62 @@ func (this *Report) Process(httpRes http.ResponseWriter, httpReq *http.Request, 
 		return
 
 	}
+}
+
+func (this *Report) calculateNPS(mapNPSFeedback map[string]interface{}) (merchantNPS map[string]float64) {
+
+	sCurMechant := ""
+	merchantNPS = make(map[string]float64)
+	iNPSTotal, iNPSPositive, iNPSNegative := float64(0), float64(0), float64(0)
+
+	aSorted := functions.SortMap(mapNPSFeedback)
+	for _, sNumber := range aSorted {
+		xDocFeedback := mapNPSFeedback[sNumber].(map[string]interface{})
+
+		if sCurMechant == "" {
+			sCurMechant = xDocFeedback["merchant"].(string)
+		}
+
+		if sCurMechant != xDocFeedback["merchant"].(string) {
+
+			iNPSNegativePercentage := float64(0)
+			iNPSPositivePercentage := float64(0)
+			if iNPSTotal > 0 {
+				iNPSPositivePercentage = (iNPSPositive / iNPSTotal) * 100
+				iNPSNegativePercentage = (iNPSNegative / iNPSTotal) * 100
+			}
+			merchantNPS[sCurMechant] = functions.RoundUp(iNPSPositivePercentage-iNPSNegativePercentage, 0)
+
+			iNPSTotal, iNPSPositive, iNPSNegative = float64(0), float64(0), float64(0)
+		}
+
+		switch {
+		case strings.Contains(xDocFeedback["question"].(string), "RECOMMEND"):
+			score, _ := strconv.Atoi(xDocFeedback["answer"].(string))
+			switch {
+			case score <= 6:
+				iNPSNegative++
+				break
+			case score >= 9:
+				iNPSPositive++
+				break
+			}
+			iNPSTotal++
+		}
+
+		sCurMechant = xDocFeedback["merchant"].(string)
+	}
+
+	iNPSNegativePercentage := float64(0)
+	iNPSPositivePercentage := float64(0)
+	if iNPSTotal > 0 {
+		iNPSPositivePercentage = (iNPSPositive / iNPSTotal) * 100
+		iNPSNegativePercentage = (iNPSNegative / iNPSTotal) * 100
+	}
+
+	if sCurMechant != "" {
+		merchantNPS[sCurMechant] = functions.RoundUp(iNPSPositivePercentage-iNPSNegativePercentage, 0)
+	}
+
+	return
 }

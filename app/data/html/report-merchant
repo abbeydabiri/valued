@@ -116,7 +116,7 @@
 			<div class="content">
 			<center>
 
-				<h2>[@@] %</h2>
+				<h2>[@averagenpsscore@] %</h2>
 				<p>
 					AVERAGE NPS SCORE
 				</p>
@@ -132,7 +132,7 @@
 				<div class="row">
 					<b><div class="col-sm-6">Merchant</div><div class="col-sm-6">NPS Score</div></b>
 				</div>
-				[@report-subscription-topfiveredeemed-row@]
+				[@report-merchant-npsscore-bestfive-row@]
 				
 				<br><br>
 				<br><br>
@@ -146,7 +146,7 @@
 				<div class="row">
 					<b><div class="col-sm-6">Merchant</div><div class="col-sm-6">NPS Score</div></b>
 				</div>
-				[@report-subscription-topfiveredeemed-row@]
+				[@report-merchant-npsscore-worstfive-row@]
 				
 				<br><br>
 				<br><br>
@@ -164,7 +164,7 @@
 				<center>
 					
 						<h4>MONTHLY REVENUE (for the last 12 months)</h4>
-						<div id="[@id@]" class="ct-chart"></div>
+						[@report-merchant-barchart-monthly-revenue@]
 					
 				</center>
 			</div>
@@ -179,7 +179,7 @@
 				<center>
 					
 						<h4>MONTHLY ACTIVE MERCHANTS (percentage)</h4>
-						<div id="[@id@]" class="ct-chart"></div>
+						[@report-merchant-barchart-monthly-activemerchant@]
 					
 				</center>
 			</div>
@@ -193,7 +193,7 @@
 					<center>
 						
 							<h4>AVERAGE NPS SCORE (for the last 12 months)</h4>
-							<div id="[@id@]" class="ct-chart"></div>
+							[@report-merchant-barchart-monthly-averagenpsscore@]
 						
 					</center>
 				</div>

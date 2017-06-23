@@ -1,0 +1,38 @@
+
+<div id="[@id@]" class="ct-chart"></div>
+
+<script type="text/javascript">
+	var [@id@]Data = {
+		labels: [[@label@]],
+		series: [[[@series@]]]
+	};
+
+	var [@id@]Options = {
+		lineSmooth: false,
+		low: 0,
+		high: [@high@],
+		showArea: true,
+		seriesBarDistance: 5,
+		axisX: {
+		    showGrid: true,
+		    onlyInteger: true
+		},
+		axisY: {
+		    showGrid: true,
+		    onlyInteger: true
+		},
+		height: "245px"
+	};
+
+	var [@id@]Responsive = [
+		['screen and (max-width: 640px)', {
+			seriesBarDistance: 5,
+			axisX: {
+				labelInterpolationFnc: function (value) {
+				return value[0];
+			  }
+			}
+		}]
+	];
+	Chartist.Bar('#[@id@]', [@id@]Data, [@id@]Options, [@id@]Responsive);
+</script>

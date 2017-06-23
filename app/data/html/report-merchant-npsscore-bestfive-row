@@ -1,0 +1,5 @@
+<!doctype html>
+
+<div class="row">
+	<div class="col-sm-6">[@merchant@]</div><div class="col-sm-6">[@npsscore@]%</div>
+</div>
