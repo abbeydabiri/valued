@@ -205,6 +205,7 @@ func (this *Report) merchant(httpRes http.ResponseWriter, httpReq *http.Request,
 	//
 	//TOP 5 MERCHANTS NPS (Best & Worst) on Feedback Rating
 
+	var mapNPSscoreListInteger []int
 	mapNPSscoreList := make(map[string]interface{})
 	for sMerchant, NPSscore := range mapAverageNPSscore {
 		sNPSscore := fmt.Sprintf("%v", NPSscore)
@@ -213,26 +214,26 @@ func (this *Report) merchant(httpRes http.ResponseWriter, httpReq *http.Request,
 		mapNPSscore["merchant"] = sMerchant
 		mapNPSscore["npsscore"] = sNPSscore
 		mapNPSscoreList[sNPSscore] = mapNPSscore
+
+		mapNPSscoreListInteger = append(mapNPSscoreListInteger, int(NPSscore))
 	}
 
-	mapSortedNPS := functions.SortMap(mapNPSscoreList)
-	functions.SortDesc(mapSortedNPS)
-
 	iBestFive := 1
-	for iNumber, npsscore := range mapSortedNPS {
+	functions.SortIntsDesc(mapNPSscoreListInteger)
+	for iNumber, npsscore := range mapNPSscoreListInteger {
 		if iBestFive <= 5 {
 			sTag := fmt.Sprintf(`%v#report-merchant-npsscore-bestfive-row`, iNumber)
-			mapReport[sTag] = mapNPSscoreList[npsscore].(map[string]interface{})
+			mapReport[sTag] = mapNPSscoreList[fmt.Sprintf("%v", npsscore)].(map[string]interface{})
 		}
 		iBestFive++
 	}
 
 	iWorstFive := 1
-	functions.SortAsc(mapSortedNPS)
-	for iNumber, npsscore := range mapSortedNPS {
+	functions.SortIntsAsc(mapNPSscoreListInteger)
+	for iNumber, npsscore := range mapNPSscoreListInteger {
 		if iWorstFive <= 5 {
 			sTag := fmt.Sprintf(`%v#report-merchant-npsscore-worstfive-row`, iNumber)
-			mapReport[sTag] = mapNPSscoreList[npsscore].(map[string]interface{})
+			mapReport[sTag] = mapNPSscoreList[fmt.Sprintf("%v", npsscore)].(map[string]interface{})
 		}
 		iWorstFive++
 	}
